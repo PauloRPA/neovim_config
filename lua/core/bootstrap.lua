@@ -19,9 +19,10 @@ local function setup()
     local lazy = require('lazy')
 
     lazy.setup({
+        { import = 'plugins.core' },
     }, {
         install = {
-            colorscheme = { "kanagawa" },
+            colorscheme = { "tokyonight-night" },
         },
         checker = {
             enabled = true,
