@@ -9,7 +9,7 @@ return {
         local ntApi = require('nvim-tree.api')
 
         -- Keymappings
-        vim.keymap.set('n', '<leader>e', ntApi.tree.toggle, { desc = 'NTree: [<leader>e] Toggle nvim-tree' })
+        vim.keymap.set('n', '<leader>e', ntApi.tree.toggle, { desc = 'Toggle nvim-tree' })
 
         local function on_attach(bufnr)
             local function opts(desc)

@@ -49,23 +49,23 @@ return {
                     lookahead = true,
 
                     keymaps = {
-                        ['aa'] = { query = '@parameter.outer', desc = 'Select outer part of a parameter' },
-                        ['ia'] = { query = '@parameter.inner', desc = 'Select inner part of a parameter' },
-                        ['af'] = { query = '@function.outer', desc = 'Select outer part of a function' },
-                        ['if'] = { query = '@function.inner', desc = 'Select inner part of a function' },
-                        ['ac'] = { query = '@conditional.outer', desc = 'Select outer part of a conditional' },
-                        ['ic'] = { query = '@conditional.inner', desc = 'Select inner part of a conditional' },
+                        ['aa'] = { query = '@parameter.outer', desc = 'outer part of a parameter' },
+                        ['ia'] = { query = '@parameter.inner', desc = 'inner part of a parameter' },
+                        ['af'] = { query = '@function.outer', desc = 'outer part of a function' },
+                        ['if'] = { query = '@function.inner', desc = 'inner part of a function' },
+                        ['ac'] = { query = '@conditional.outer', desc = 'outer part of a conditional' },
+                        ['ic'] = { query = '@conditional.inner', desc = 'inner part of a conditional' },
 
-                        ['aC'] = { query = '@class.outer', desc = 'Select outer part of a class' },
-                        ['iC'] = { query = '@class.inner', desc = 'Select inner part of a class' },
+                        ['aC'] = { query = '@class.outer', desc = 'outer part of a class' },
+                        ['iC'] = { query = '@class.inner', desc = 'inner part of a class' },
 
-                        ['ar'] = { query = '@return.outer', desc = 'Select outer part of a return statement' },
-                        ['ir'] = { query = '@return.inner', desc = 'Select inner part of a return statement' },
+                        ['ar'] = { query = '@return.outer', desc = 'outer part of a return statement' },
+                        ['ir'] = { query = '@return.inner', desc = 'inner part of a return statement' },
 
-                        ['hs'] = { query = '@assignment.lhs', desc = 'Select left hand side of an assignment' },
-                        ['ls'] = { query = '@assignment.rhs', desc = 'Select right hand side of an assignment' },
-                        ['as'] = { query = '@assignment.outer', desc = 'Select outer part of an assignment' },
-                        ['is'] = { query = '@assignment.inner', desc = 'Select inner part of an assignment' },
+                        ['hs'] = { query = '@assignment.lhs', desc = 'left hand side of an assignment' },
+                        ['ls'] = { query = '@assignment.rhs', desc = 'right hand side of an assignment' },
+                        ['as'] = { query = '@assignment.outer', desc = 'outer part of an assignment' },
+                        ['is'] = { query = '@assignment.inner', desc = 'inner part of an assignment' },
                     },
                     selection_modes = {
                         ['@function.outer'] = 'V', -- linewise
@@ -76,12 +76,12 @@ return {
                 swap = {
                     enable = true,
                     swap_next = {
-                        ['<leader>l'] = { query = '@parameter.inner', desc = '' },
-                        ['<leader>fj'] = { query = '@function.inner', desc = '' },
+                        ['<leader>l'] = { query = '@parameter.inner', desc = 'Swap next parameter' },
+                        ['<leader>fj'] = { query = '@function.outer', desc = 'Swap next function' },
                     },
                     swap_previous = {
-                        ['<leader>h'] = { query = '@parameter.inner', desc = '' },
-                        ['<leader>fk'] = { query = '@function.inner', desc = '' },
+                        ['<leader>h'] = { query = '@parameter.inner', desc = 'Swap previous parameter' },
+                        ['<leader>fk'] = { query = '@function.outer', desc = 'Swap previous function' },
                     },
                 },
 
@@ -89,18 +89,18 @@ return {
                     enable = true,
                     set_jumps = true, -- whether to set jumps in the jumplist
                     goto_next_start = {
-                        ['<leader>j'] = { query = '@function.outer', desc = '' },
+                        ['<leader>j'] = { query = '@function.outer', desc = 'Go to next function start' },
                         ['[c'] = { query = '@class.outer', desc = '' },
                     },
                     goto_next_end = {
-                        ['<leader>J'] = { query = '@function.outer', desc = '' },
+                        ['<leader>J'] = { query = '@function.outer', desc = 'Go to next function end' },
                     },
                     goto_previous_start = {
-                        ['<leader>k'] = { query = '@function.outer', desc = '' },
+                        ['<leader>k'] = { query = '@function.outer', desc = 'Go to previous function start' },
                         ['[C'] = { query = '@class.outer', desc = '' },
                     },
                     goto_previous_end = {
-                        ['<leader>K'] = { query = '@function.outer', desc = '' },
+                        ['<leader>K'] = { query = '@function.outer', desc = 'Go to previous function end' },
                     },
                 },
             },
