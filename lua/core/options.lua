@@ -26,7 +26,7 @@ M.load = function()
         vim.o[option] = value
     end
 
-    vim.wo.signcolumn        = 'no'
+    vim.wo.signcolumn        = 'auto'
 
     vim.g.mapleader          = ' ' -- Set <space> as the leader key
     vim.g.maplocalleader     = ' ' -- Set <space> as the leader key

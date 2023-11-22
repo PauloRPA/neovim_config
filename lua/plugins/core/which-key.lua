@@ -17,6 +17,14 @@ return {
 
         wk.register({
             e = 'Toggle nvim-tree',
+            g = {
+                name = 'Git',
+                h = 'Hunk',
+                t = 'Toggle',
+            },
+            d = 'Doc+Util',
+            i = 'TS Select',
+            f = 'Function',
         }, { prefix = '<leader>' })
     end
 }
