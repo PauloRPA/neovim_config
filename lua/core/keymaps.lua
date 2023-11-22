@@ -1,26 +1,38 @@
 local M = {}
 
+local opts = { noremap = true, silent = true }
+local iopts = { noremap = false, silent = true }
+
+M.opts = opts
+M.iopts = iopts
+
+local function map(mode, key, action, description, opt, default_opts)
+    if not opt then
+        opt = default_opts
+    end
+
+    if description then
+        opt.desc = description
+    end
+
+    vim.keymap.set(mode, key, action, opt);
+end
+
+M.nmap = function(key, action, description, opt)
+    map('n', key, action, description, opt, opts)
+end
+
+M.imap = function(key, action, description, opt)
+    map('i', key, action, description, opt, iopts)
+end
+
+M.vmap = function(key, action, description, opt)
+    map('v', key, action, description, opt, opts)
+end
+
 M.load = function()
-    local opts = { noremap = true, silent = true }
-    local cmdopts = { noremap = false, silent = true }
-    local function nmap(key, action, description, opt)
-        if not opt then
-            opt = opts
-        end
-
-        opt.desc = description
-        vim.keymap.set('n', key, action, opt);
-    end
-
-    local function cmdmap(key, action, description, opt)
-        if not opt then
-            opt = cmdopts
-        end
-
-        opt.desc = description
-
-        vim.keymap.set({ 'i', 'c' }, key, action, opt);
-    end
+    local nmap = M.nmap
+    local imap = M.imap
 
     -- Remap for dealing with word wrap
     nmap('k', 'gk', 'Move one line down')
@@ -48,6 +60,7 @@ M.load = function()
     -- Buffer op
     nmap('<Tab>', '<cmd>bn<CR>', 'Next buffer')
     nmap('<S-Tab>', '<cmd>bp<CR>', 'Previous buffer')
+    nmap('<leader>p', '<cmd>b#<CR>', 'Previous buffer')
     nmap('<leader>j', '<cmd>bp<CR>', 'Previous buffer')
     nmap('<leader>k', '<cmd>bn<CR>', 'Next buffer')
     nmap('<C-w>w', '<cmd>bn|bd#<CR>', 'Close current buffer')
@@ -56,15 +69,15 @@ M.load = function()
     nmap('<C-s>', ':wa<CR>', 'Saves all modified buffers')
 
     -- Emacs keybindings for command line mode
-    cmdmap('<A-b>', '<C-Left>', 'Move a word before')
-    cmdmap('<A-f>', '<C-Right>', 'Move a word ahead')
+    imap('<A-b>', '<C-Left>', 'Move a word before')
+    imap('<A-f>', '<C-Right>', 'Move a word ahead')
 
-    cmdmap('<C-b>', '<Left>', 'Move a char before')
-    cmdmap('<C-f>', '<Right>', 'Move a char ahead')
-    cmdmap('<C-e>', '<End>', 'Move to end')
-    cmdmap('<C-a>', '<Home>', 'Move to start')
-    cmdmap('<C-d>', '<Del>', 'Delete char')
-    cmdmap('<C-n>', '<Esc>o', 'New line below')
+    imap('<C-b>', '<Left>', 'Move a char before')
+    imap('<C-f>', '<Right>', 'Move a char ahead')
+    imap('<C-e>', '<End>', 'Move to end')
+    imap('<C-a>', '<Home>', 'Move to start')
+    imap('<C-d>', '<Del>', 'Delete char')
+    imap('<C-n>', '<Esc>o', 'New line below')
 
     -- User functions
     nmap('<Space>', '<Nop>', 'Nop')
@@ -74,11 +87,10 @@ M.load = function()
         vim.cmd('silent! h ' .. vim.fn.getreg('t'))
     end, 'Open documentation for the word under the cursor');
 
-    vim.keymap.set('x', '<leader>dc', function ()
+    vim.keymap.set('x', '<leader>dc', function()
         vim.api.nvim_feedkeys('"ty', 'x', false) -- Save text under selection to register t
         vim.cmd('silent! h ' .. vim.fn.getreg('t'))
     end, { desc = '[>] Indent and maintain selection' })
-
 
     -- Indentation op
     vim.keymap.set('v', '>', '>gv', { desc = '[>] Indent and maintain selection' })

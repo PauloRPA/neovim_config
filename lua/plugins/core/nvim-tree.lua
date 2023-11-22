@@ -7,9 +7,11 @@ return {
     config = function()
         local ntConfig = require('nvim-tree')
         local ntApi = require('nvim-tree.api')
+        local nmap = require('core.keymaps').nmap
+
 
         -- Keymappings
-        vim.keymap.set('n', '<leader>e', ntApi.tree.toggle, { desc = 'Toggle nvim-tree' })
+        nmap('<leader>e', ntApi.tree.toggle, 'Toggle nvim-tree')
 
         local function on_attach(bufnr)
             local function opts(desc)
@@ -20,12 +22,12 @@ return {
             ntApi.config.mappings.default_on_attach(bufnr)
 
             -- Custom mappings
-            vim.keymap.set('n', '<C-w>', function()
+            nmap('<C-w>', function()
                 local node = ntApi.tree.get_node_under_cursor()
                 if node then
                     vim.cmd.bd({ args = { node.name }, mods = { emsg_silent = true, } })
                 end
-            end, opts('Close buffer'))
+            end, nil,opts('Close buffer'))
         end
 
         ntConfig.setup({

@@ -34,7 +34,6 @@ return {
                     init_selection = '<leader>is',
                     node_incremental = 'K',
                     node_decremental = 'J',
-                    scope_incremental = '>',
                 },
             },
 
@@ -62,8 +61,8 @@ return {
                         ['ar'] = { query = '@return.outer', desc = 'outer part of a return statement' },
                         ['ir'] = { query = '@return.inner', desc = 'inner part of a return statement' },
 
-                        ['hs'] = { query = '@assignment.lhs', desc = 'left hand side of an assignment' },
-                        ['ls'] = { query = '@assignment.rhs', desc = 'right hand side of an assignment' },
+                        ['sh'] = { query = '@assignment.lhs', desc = 'left hand side of an assignment' },
+                        ['sl'] = { query = '@assignment.rhs', desc = 'right hand side of an assignment' },
                         ['as'] = { query = '@assignment.outer', desc = 'outer part of an assignment' },
                         ['is'] = { query = '@assignment.inner', desc = 'inner part of an assignment' },
                     },
