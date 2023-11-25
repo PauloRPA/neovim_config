@@ -3,6 +3,7 @@ return {
     build = ':TSUpdate',
     dependencies = {
         'nvim-treesitter/nvim-treesitter-textobjects',
+        'nvim-treesitter/nvim-treesitter-context',
         'windwp/nvim-ts-autotag',
     },
     config = function()
@@ -10,6 +11,9 @@ return {
 
         -- Extensions
         require('nvim-ts-autotag').setup()
+        require('treesitter-context').setup{
+          max_lines = 1, -- Values <= 0 mean no limit.
+        }
 
         -- Setup
         tsConfig.setup({
