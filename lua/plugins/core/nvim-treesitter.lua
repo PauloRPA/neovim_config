@@ -4,6 +4,7 @@ return {
     dependencies = {
         'nvim-treesitter/nvim-treesitter-textobjects',
         'nvim-treesitter/nvim-treesitter-context',
+        'RRethy/nvim-treesitter-endwise',
         'windwp/nvim-ts-autotag',
     },
     config = function()
@@ -45,7 +46,9 @@ return {
             autotag = { -- autotag plugin - nvim-ts-autotag
                 enable = true
             },
-
+            endwise = {
+                enable = true,
+            },
             textobjects = {
                 select = {
                     enable = true,
