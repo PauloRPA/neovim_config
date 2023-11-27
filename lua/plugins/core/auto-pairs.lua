@@ -1,5 +1,6 @@
 return {
     'windwp/nvim-autopairs',
+    enabled = false,
     opts = {
         map_c_h = true,
         map_c_w = true,
