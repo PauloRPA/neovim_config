@@ -2,15 +2,15 @@
 
 CONFIG_HOME="$(pwd)/.." 
 NVIM_HOME="$(pwd)/../nvim" 
-DATA_HOME="$XDG_DATA_HOME"
-STATE_HOME="$XDG_STATE_HOME"
+DATA_HOME=/tmp/local/share # ~/.local/share
+STATE_HOME=/tmp/local/state # ~/.local/state
 
-if [[ "$1" == "-t" ]]; then
-    DATA_HOME=/tmp/local/share # ~/.local/share
-    STATE_HOME=/tmp/local/state # ~/.local/state
+if [[ "$2" == "-t" ]]; then
+    DATA_HOME="$XDG_DATA_HOME"
+    STATE_HOME="$XDG_STATE_HOME"
 fi
 
-if [[ "$2" == "-r" ]]; then
+if [[ "$1" == "-r" ]]; then
     rm -rf "$DATA_HOME"
     rm -rf "$STATE_HOME"
     rm -rf "$NVIM_HOME/lazy-lock.json"
