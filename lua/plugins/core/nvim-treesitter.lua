@@ -3,6 +3,8 @@ return {
     build = ':TSUpdate',
     dependencies = {
         'nvim-treesitter/nvim-treesitter-textobjects',
+        'nvim-treesitter/nvim-treesitter-context',
+        'RRethy/nvim-treesitter-endwise',
         'windwp/nvim-ts-autotag',
     },
     config = function()
@@ -10,6 +12,9 @@ return {
 
         -- Extensions
         require('nvim-ts-autotag').setup()
+        require('treesitter-context').setup{
+          max_lines = 1, -- Values <= 0 mean no limit.
+        }
 
         -- Setup
         tsConfig.setup({
@@ -41,7 +46,9 @@ return {
             autotag = { -- autotag plugin - nvim-ts-autotag
                 enable = true
             },
-
+            endwise = {
+                enable = true,
+            },
             textobjects = {
                 select = {
                     enable = true,

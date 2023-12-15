@@ -15,11 +15,8 @@ local user_au = vim.api.nvim_create_augroup("user_au", { clear = true })
 -- })
 
 M.load = function()
-<<<<<<< Updated upstream
-end
-=======
     vim.api.nvim_create_autocmd({
-        "BufEnter", 
+        "BufEnter",
     }, {
         pattern = { '*.css' },
         callback = function()
@@ -34,13 +31,12 @@ end
 
     -- [[ Highlight on yank ]] :help vim.highlight.on_yank()
     vim.api.nvim_create_autocmd('TextYankPost', {
-      callback = function()
-        vim.highlight.on_yank()
-      end,
-      group = user_au,
-      pattern = '*',
+        callback = function()
+            vim.highlight.on_yank()
+        end,
+        group = user_au,
+        pattern = '*',
     })
-    end
->>>>>>> Stashed changes
+end
 
 return M

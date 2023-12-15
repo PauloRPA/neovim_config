@@ -25,6 +25,7 @@ return {
             d = 'Doc+Util',
             i = 'TS Select',
             f = 'Function',
+            q = 'Persistence',
         }, { prefix = '<leader>' })
     end
 }

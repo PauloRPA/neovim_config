@@ -30,6 +30,14 @@ M.vmap = function(key, action, description, opt)
     map('v', key, action, description, opt, opts)
 end
 
+M.xmap = function(key, action, description, opt)
+    map('x', key, action, description, opt, opts)
+end
+
+M.tmap = function(key, action, description, opt)
+    map('t', key, action, description, opt, opts)
+end
+
 M.load = function()
     local nmap = M.nmap
     local imap = M.imap
