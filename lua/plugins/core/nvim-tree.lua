@@ -9,6 +9,10 @@ return {
         local ntApi = require('nvim-tree.api')
         local nmap = require('core.keymaps').nmap
 
+        -- Integrations
+        local usercmds = require('plugins.integrations.usercmd')
+        local getStatusUpdateEvent = usercmds.event_types.GitStatusUpdate
+        usercmds.addListener(getStatusUpdateEvent, ntApi.tree.reload)
 
         -- Keymappings
         nmap('<leader>e', ntApi.tree.toggle, 'Toggle nvim-tree')
@@ -27,7 +31,7 @@ return {
                 if node then
                     vim.cmd.bd({ args = { node.name }, mods = { emsg_silent = true, } })
                 end
-            end, nil,opts('Close buffer'))
+            end, nil, opts('Close buffer'))
         end
 
         ntConfig.setup({

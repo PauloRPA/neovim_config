@@ -15,16 +15,21 @@ return {
         numhl      = true,  -- :Gitsigns toggle_numhl
         linehl     = false, -- :Gitsigns toggle_linehl
         word_diff  = false, -- :Gitsigns toggle_word_diff
-        diff_opts = {
+        diff_opts  = {
             internal = true
         },
         on_attach  = function(bufnr)
             local gs = require('gitsigns')
-            local opts = { buffer = bufnr}
+            local opts = { buffer = bufnr }
 
             local keymaps = require('core.keymaps')
             local nmap = keymaps.nmap
             local vmap = keymaps.vmap
+
+            -- Integrations
+            local usercmds = require('plugins.integrations.usercmd')
+            local gitStatusUpdateEvent = usercmds.event_types.GitStatusUpdate
+            usercmds.addUserCmd('GitSignsUpdate', gitStatusUpdateEvent, 'Gitsigns made a change to the current git repository')
 
             -- Navigation
             nmap('<leader>ghn', function()
@@ -69,7 +74,6 @@ return {
 
             nmap('<leader>gd', gs.diffthis, 'Diff index', opts)
             nmap('<leader>gD', function() gs.diffthis('~1') end, 'Diff commit ~1', opts)
-
         end
     },
 }

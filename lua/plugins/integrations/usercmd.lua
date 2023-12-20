@@ -10,7 +10,6 @@ end
 
 M.fire = function(eventType)
     for _, callback in pairs(event_callbacks[eventType]) do
-        print(vim.inspect(callback))
         callback()
     end
 end
@@ -22,7 +21,6 @@ M.addUserCmd = function(pattern, eventType, description)
         pattern = pattern,
         callback = function()
             for _, callback in pairs(event_callbacks[eventType]) do
-                print(vim.inspect(callback))
                 callback()
             end
         end,
