@@ -6,6 +6,11 @@ return {
 
         local Terminal  = require('toggleterm.terminal').Terminal
         local nmap = require('core.keymaps').nmap
+        local eventNmap = require('plugins.integrations.eventmap').nmap(nil, function()
+            local windowDispositionPersistenceEvent = require('plugins.integrations.metaev').types.WindowDispositionPersistence
+            require('plugins.integrations.usercmd').fire(windowDispositionPersistenceEvent)
+        end)
+
         local tmap = require('core.keymaps').tmap
         local toggleterm = require('toggleterm')
 
@@ -29,7 +34,7 @@ return {
         bottom:spawn()
         float:spawn()
 
-        nmap('<A-1>', function()
+        eventNmap('<A-1>', function()
             bottom:toggle()
         end, 'Open/close terminal at the bottom of the screen')
 

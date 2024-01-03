@@ -1,7 +1,8 @@
 local M = {}
 
 M.types = {
-    GitStatusUpdate = 'GitStatusUpdate'
+    GitStatusUpdate = 'GitStatusUpdate',
+    WindowDispositionPersistence = 'WindowDispositionPersistence',
 }
 
 return M

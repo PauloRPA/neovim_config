@@ -12,7 +12,16 @@ return {
         -- Integrations
         local usercmds = require('plugins.integrations.usercmd')
         local getStatusUpdateEvent = usercmds.event_types.GitStatusUpdate
+        local windowDispositionPersistenceEvent = usercmds.event_types.WindowDispositionPersistence
         usercmds.addListener(getStatusUpdateEvent, ntApi.tree.reload)
+
+        usercmds.addListener(windowDispositionPersistenceEvent, function()
+            if (ntApi.tree.is_visible()) then
+                ntApi.tree.toggle({ focus = false })
+                ntApi.tree.toggle({ focus = false })
+            end
+        end
+        )
 
         -- Keymappings
         nmap('<leader>e', ntApi.tree.toggle, 'Toggle nvim-tree')
