@@ -3,6 +3,7 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     event = {'BufReadPre'},
     opts = {
+        -- TODO: Create a keybind to open TODOS in a quickfix list or in telescope.
         signs = false,
         sign_priority = 8,
         -- TODO: TODO

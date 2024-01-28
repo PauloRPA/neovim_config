@@ -2,12 +2,13 @@ return {
     'akinsho/toggleterm.nvim',
     version = '*',
     tag = 'v2.7.0',
-    config = function ()
-
-        local Terminal  = require('toggleterm.terminal').Terminal
+    config = function()
+        local Terminal = require('toggleterm.terminal').Terminal
         local nmap = require('core.keymaps').nmap
+
         local eventNmap = require('plugins.integrations.eventmap').nmap(nil, function()
-            local windowDispositionPersistenceEvent = require('plugins.integrations.metaev').types.WindowDispositionPersistence
+            local windowDispositionPersistenceEvent = require('plugins.integrations.metaev').types
+            .WindowDispositionPersistence
             require('plugins.integrations.usercmd').fire(windowDispositionPersistenceEvent)
         end)
 
@@ -17,7 +18,7 @@ return {
         local bottom = Terminal:new {
             direction = 'horizontal', -- the layout for the terminal, same as the main config options
             close_on_exit = true,
-            auto_scroll = true, -- automatically scroll to the bottom on terminal output
+            auto_scroll = true,       -- automatically scroll to the bottom on terminal output
             count = 1,
         }
 
@@ -38,7 +39,7 @@ return {
             bottom:toggle()
         end, 'Open/close terminal at the bottom of the screen')
 
-        nmap('<A-0>', function() 
+        nmap('<A-0>', function()
             float:toggle()
         end, 'Open a floating terminal')
 
@@ -52,7 +53,7 @@ return {
 
         tmap('<C-j>', [[<Cmd>wincmd j<CR>]], 'Select bottom pane')
         tmap('<C-k>', [[<Cmd>wincmd k<CR>]], 'Select top pane')
-        tmap('<C-r>', function ()
+        tmap('<C-r>', function()
             local clipboard = vim.fn.getreg('0')
             vim.api.nvim_feedkeys(clipboard, 'n', false)
         end, 'Paste clipboard content')

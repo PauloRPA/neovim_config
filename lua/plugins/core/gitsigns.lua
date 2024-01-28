@@ -29,7 +29,8 @@ return {
             -- Integrations
             local usercmds = require('plugins.integrations.usercmd')
             local gitStatusUpdateEvent = usercmds.event_types.GitStatusUpdate
-            usercmds.addUserCmd('GitSignsUpdate', gitStatusUpdateEvent, 'Gitsigns made a change to the current git repository')
+            usercmds.addUserCmd('GitSignsUpdate', gitStatusUpdateEvent,
+                'Gitsigns made a change to the current git repository')
 
             -- Navigation
             nmap('<leader>ghn', function()

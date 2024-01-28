@@ -11,7 +11,7 @@ return {
         wk.setup({
             disable = {
                 buftypes = {},
-                filetypes = {''},
+                filetypes = { '' },
             },
         })
 

@@ -3,7 +3,7 @@ return {
     dependencies = {
         'nvim-tree/nvim-web-devicons',
     },
-    config = function ()
+    config = function()
         local lualine = require('lualine')
 
         lualine.setup({
@@ -13,18 +13,18 @@ return {
                 component_separators = ' ',
                 section_separators = { left = '', right = '' },
                 globalstatus = true,
-                ignore_focus = {'NvimTree_1'},
+                ignore_focus = { 'NvimTree_1' },
             },
             sections = {
-                lualine_a = { 'mode'},
+                lualine_a = { 'mode' },
                 lualine_b = { 'branch', 'diff', 'diagnostics', },
                 lualine_c = { {
                     'buffers',
                     hide_filename_extension = true,
                     symbols = {
-                        modified = ' ●',      -- Text to show when the buffer is modified
+                        modified = ' ●', -- Text to show when the buffer is modified
                         alternate_file = '󰁣 ', -- Text to show to identify the alternate file
-                        directory =  '',     -- Text to show when the buffer is a directory
+                        directory = '', -- Text to show when the buffer is a directory
                     },
                     max_length = vim.o.columns / 2,
                 } },

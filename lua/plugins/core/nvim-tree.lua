@@ -9,7 +9,7 @@ return {
         local ntApi = require('nvim-tree.api')
         local nmap = require('core.keymaps').nmap
 
-        -- Integrations
+        -- Integration
         local usercmds = require('plugins.integrations.usercmd')
         local getStatusUpdateEvent = usercmds.event_types.GitStatusUpdate
         local windowDispositionPersistenceEvent = usercmds.event_types.WindowDispositionPersistence

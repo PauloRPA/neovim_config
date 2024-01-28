@@ -13,6 +13,5 @@ return {
 
         nmap('<leader>qd', persistence.load, 'Restore the session for the current directory')
         nmap('<leader>qx', persistence.stop, 'Session wont be saved on exit')
-
     end
 }
