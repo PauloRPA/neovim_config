@@ -26,6 +26,8 @@ return {
             i = 'TS Select',
             f = 'Function',
             q = 'Persistence',
+            t = 'Toggle',
+            a = 'Action',
         }, { prefix = '<leader>' })
     end
 }
