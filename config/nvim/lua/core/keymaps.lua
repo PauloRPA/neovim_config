@@ -6,6 +6,10 @@ local iopts = { noremap = false, silent = true }
 M.opts = opts
 M.iopts = iopts
 
+local function clearLine()
+    vim.api.nvim_input('<esc>v0ws') -- Save word under cursor to register t
+end
+
 local function map(mode, key, action, description, opt, default_opts)
     if not opt then
         opt = default_opts
@@ -37,6 +41,10 @@ end
 M.tmap = function(key, action, description, opt)
     map('t', key, action, description, opt, opts)
 end
+
+M.fn = {
+    clearLine = clearLine,
+}
 
 M.load = function()
     local nmap = M.nmap
