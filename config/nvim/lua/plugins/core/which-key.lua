@@ -15,6 +15,7 @@ return {
             },
         })
 
+        -- FIX: Prefix when staging hunks into Git in visual mode
         wk.register({
             e = 'Toggle nvim-tree',
             s = {
