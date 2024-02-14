@@ -83,11 +83,11 @@ return {
                     enable = true,
                     swap_next = {
                         ['<leader>l'] = { query = '@parameter.inner', desc = 'Swap next parameter' },
-                        ['<leader>fj'] = { query = '@function.outer', desc = 'Swap next function' },
+                        ['<A-J>'] = { query = '@function.outer', desc = 'Swap next function' },
                     },
                     swap_previous = {
                         ['<leader>h'] = { query = '@parameter.inner', desc = 'Swap previous parameter' },
-                        ['<leader>fk'] = { query = '@function.outer', desc = 'Swap previous function' },
+                        ['<A-K>'] = { query = '@function.outer', desc = 'Swap previous function' },
                     },
                 },
 
@@ -95,14 +95,14 @@ return {
                     enable = true,
                     set_jumps = true, -- whether to set jumps in the jumplist
                     goto_next_start = {
-                        ['<leader>j'] = { query = '@function.outer', desc = 'Go to next function start' },
+                        ['<A-j>'] = { query = '@function.outer', desc = 'Go to next function start' },
                         ['[c'] = { query = '@class.outer', desc = '' },
                     },
                     goto_next_end = {
                         ['<leader>J'] = { query = '@function.outer', desc = 'Go to next function end' },
                     },
                     goto_previous_start = {
-                        ['<leader>k'] = { query = '@function.outer', desc = 'Go to previous function start' },
+                        ['<A-k>'] = { query = '@function.outer', desc = 'Go to previous function start' },
                         ['[C'] = { query = '@class.outer', desc = '' },
                     },
                     goto_previous_end = {

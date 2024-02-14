@@ -2,79 +2,81 @@ return {
     'lewis6991/gitsigns.nvim',
     lazy = false,
     priority = 100,
-    opts = {
-        signs      = {
-            add          = { text = '│' },
-            change       = { text = '│' },
-            delete       = { text = '_' },
-            topdelete    = { text = '‾' },
-            changedelete = { text = '~' },
-            untracked    = { text = '┆' },
-        },
-        signcolumn = false, -- :Gitsigns toggle_signs
-        numhl      = true,  -- :Gitsigns toggle_numhl
-        linehl     = false, -- :Gitsigns toggle_linehl
-        word_diff  = false, -- :Gitsigns toggle_word_diff
-        diff_opts  = {
-            internal = true
-        },
-        on_attach  = function(bufnr)
-            local gs = require('gitsigns')
-            local opts = { buffer = bufnr }
+    tag = 'v0.7',
+    config = function()
 
-            local keymaps = require('core.keymaps')
-            local nmap = keymaps.nmap
-            local vmap = keymaps.vmap
+        local gs = require('gitsigns')
 
-            -- Integrations
-            local usercmds = require('plugins.integrations.usercmd')
-            local gitStatusUpdateEvent = usercmds.event_types.GitStatusUpdate
-            usercmds.addUserCmd('GitSignsUpdate', gitStatusUpdateEvent,
-                'Gitsigns made a change to the current git repository')
+        local keymaps = require('core.keymaps')
+        local nmap = keymaps.nmap
+        local vmap = keymaps.vmap
 
-            -- Navigation
-            nmap('<leader>ghn', function()
-                if vim.wo.diff then return '<leader>gh' end
-                vim.schedule(function() gs.next_hunk() end)
-                return '<Ignore>'
-            end, 'Next hunk', { expr = true, buffer = bufnr })
+        -- Integrations
+        local usercmds = require('plugins.integrations.usercmd')
+        local gitStatusUpdateEvent = usercmds.event_types.GitStatusUpdate
+        usercmds.addUserCmd('GitSignsUpdate', gitStatusUpdateEvent,
+            'Gitsigns made a change to the current git repository')
 
-            nmap('<leader>ghp', function()
-                if vim.wo.diff then return '<leader>gH' end
-                vim.schedule(function() gs.prev_hunk() end)
-                return '<Ignore>'
-            end, 'Previous hunk', { expr = true, buffer = bufnr })
+        -- Navigation
+        nmap('<leader>ghn', function()
+            if vim.wo.diff then return '<leader>gh' end
+            vim.schedule(function() gs.next_hunk() end)
+            return '<Ignore>'
+        end, 'Next hunk', { expr = true })
 
-            -- Hunk
-            nmap('<leader>ghs', gs.stage_hunk, 'Stage hunk', opts)
-            nmap('<leader>ghr', gs.reset_hunk, 'Reset hunk', opts)
-            nmap('<leader>ghu', gs.undo_stage_hunk, 'Undo stage hunk', opts)
-            nmap('<leader>ghk', gs.preview_hunk, 'Preview hunk', opts)
+        nmap('<leader>ghp', function()
+            if vim.wo.diff then return '<leader>gH' end
+            vim.schedule(function() gs.prev_hunk() end)
+            return '<Ignore>'
+        end, 'Previous hunk', { expr = true })
 
-            vmap('<leader>ghs', function()
-                gs.stage_hunk { vim.fn.line('.'), vim.fn.line('v') }
-            end, 'Stage hunk', opts)
+        -- Hunk
+        nmap('<leader>ghs', gs.stage_hunk, 'Stage hunk')
+        nmap('<leader>ghr', gs.reset_hunk, 'Reset hunk')
+        nmap('<leader>ghu', gs.undo_stage_hunk, 'Undo stage hunk')
+        nmap('<leader>ghk', gs.preview_hunk, 'Preview hunk')
 
-            vmap('<leader>ghr', function()
-                gs.reset_hunk { vim.fn.line('.'), vim.fn.line('v') }
-            end, 'Reset hunk', opts)
+        vmap('<leader>ghs', function()
+            gs.stage_hunk { vim.fn.line('.'), vim.fn.line('v') }
+        end, 'Stage hunk')
 
-            -- Buffer
-            nmap('<leader>gS', gs.stage_buffer, 'Stage buffer', opts)
-            nmap('<leader>gR', gs.reset_buffer, 'Reset buffer', opts)
+        vmap('<leader>ghr', function()
+            gs.reset_hunk { vim.fn.line('.'), vim.fn.line('v') }
+        end, 'Reset hunk')
 
-            -- Actions
-            nmap('<leader>gb', function() gs.blame_line { full = true } end, 'Blame line', opts)
+        -- Buffer
+        nmap('<leader>gS', gs.stage_buffer, 'Stage buffer')
+        nmap('<leader>gR', gs.reset_buffer, 'Reset buffer')
 
-            nmap('<leader>gtb', gs.toggle_current_line_blame, 'Toggle current line blame', opts)
-            nmap('<leader>gtd', gs.toggle_deleted, 'Toggle deleted', opts)
-            nmap('<leader>gtl', gs.toggle_linehl, 'Toggle line highlight', opts)
-            nmap('<leader>gtn', gs.toggle_numhl, 'Toggle number highlight', opts)
-            nmap('<leader>gts', gs.toggle_signs, 'Toggle Signs Column', opts)
-            nmap('<leader>gtw', gs.toggle_word_diff, 'Toggle word diff', opts)
+        -- Actions
+        nmap('<leader>gb', function() gs.blame_line { full = true } end, 'Blame line')
 
-            nmap('<leader>gd', gs.diffthis, 'Diff index', opts)
-            nmap('<leader>gD', function() gs.diffthis('~1') end, 'Diff commit ~1', opts)
-        end
-    },
+        nmap('<leader>gtb', gs.toggle_current_line_blame, 'Toggle current line blame')
+        nmap('<leader>gtd', gs.toggle_deleted, 'Toggle deleted')
+        nmap('<leader>gtl', gs.toggle_linehl, 'Toggle line highlight')
+        nmap('<leader>gtn', gs.toggle_numhl, 'Toggle number highlight')
+        nmap('<leader>gts', gs.toggle_signs, 'Toggle Signs Column')
+        nmap('<leader>gtw', gs.toggle_word_diff, 'Toggle word diff')
+
+        nmap('<leader>gd', gs.diffthis, 'Diff index')
+        nmap('<leader>gD', function() gs.diffthis('~1') end, 'Diff commit ~1')
+
+        require('gitsigns').setup({
+            signs      = {
+                add          = { text = '│' },
+                change       = { text = '│' },
+                delete       = { text = '_' },
+                topdelete    = { text = '‾' },
+                changedelete = { text = '~' },
+                untracked    = { text = '┆' },
+            },
+            signcolumn = false, -- :Gitsigns toggle_signs
+            numhl      = true,  -- :Gitsigns toggle_numhl
+            linehl     = false, -- :Gitsigns toggle_linehl
+            word_diff  = false, -- :Gitsigns toggle_word_diff
+            diff_opts  = {
+                internal = true
+            },
+        })
+    end,
 }
