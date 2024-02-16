@@ -1,6 +1,6 @@
 local M = {}
 
-local user_au = vim.api.nvim_create_augroup("user_au", { clear = true })
+local user_au = vim.api.nvim_create_augroup('user_au', { clear = true })
 
 -- vim.api.nvim_create_autocmd({
 --     "",
@@ -16,7 +16,7 @@ local user_au = vim.api.nvim_create_augroup("user_au", { clear = true })
 
 M.load = function()
     vim.api.nvim_create_autocmd({
-        "BufEnter",
+        'BufEnter',
     }, {
         pattern = { '*.css' },
         callback = function()
@@ -24,7 +24,7 @@ M.load = function()
             vim.opt.formatoptions:remove('r')
             vim.opt.formatoptions:remove('o')
         end,
-        desc = "",
+        desc = '',
         once = true,
         group = user_au,
     })
@@ -32,7 +32,13 @@ M.load = function()
     -- [[ Highlight on yank ]] :help vim.highlight.on_yank()
     vim.api.nvim_create_autocmd('TextYankPost', {
         callback = function()
-            vim.highlight.on_yank()
+            vim.highlight.on_yank({
+                higroup = 'Search',
+                timeout = 150,
+                on_macro = false,
+                on_visual = true,
+                event = vim.api.nvim_get_vvar('event')
+            })
         end,
         group = user_au,
         pattern = '*',

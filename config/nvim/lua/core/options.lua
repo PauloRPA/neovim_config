@@ -19,6 +19,8 @@ local options = {
     termguicolors = true,  -- Set colorscheme
     number = true,         -- Make line numbers default
     relativenumber = true, -- Make line numbers default
+    scrolloff = 6,
+    autoread = true,
 }
 
 M.load = function()
