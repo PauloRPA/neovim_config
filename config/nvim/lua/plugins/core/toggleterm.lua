@@ -1,7 +1,7 @@
 return {
     'akinsho/toggleterm.nvim',
     version = '*',
-    tag = 'v2.7.0',
+    tag = 'v2.10.0',
     config = function()
         local Terminal = require('toggleterm.terminal').Terminal
         local nmap = require('core.keymaps').nmap
@@ -31,9 +31,6 @@ return {
             auto_scroll = true, -- automatically scroll to the bottom on terminal output
             count = 2,
         }
-
-        bottom:spawn()
-        float:spawn()
 
         eventNmap('<A-1>', function()
             bottom:toggle()
