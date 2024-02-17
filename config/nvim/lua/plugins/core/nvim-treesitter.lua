@@ -68,8 +68,8 @@ return {
                         ['ar'] = { query = '@return.outer', desc = 'outer part of a return statement' },
                         ['ir'] = { query = '@return.inner', desc = 'inner part of a return statement' },
 
-                        ['sh'] = { query = '@assignment.lhs', desc = 'left hand side of an assignment' },
-                        ['sl'] = { query = '@assignment.rhs', desc = 'right hand side of an assignment' },
+                        ['ad'] = { query = '@assignment.lhs', desc = 'left hand side of an assignment' },
+                        ['id'] = { query = '@assignment.rhs', desc = 'right hand side of an assignment' },
                         ['as'] = { query = '@assignment.outer', desc = 'outer part of an assignment' },
                         ['is'] = { query = '@assignment.inner', desc = 'inner part of an assignment' },
                     },
@@ -96,6 +96,7 @@ return {
                     set_jumps = true, -- whether to set jumps in the jumplist
                     goto_next_start = {
                         ['<A-j>'] = { query = '@function.outer', desc = 'Go to next function start' },
+                        ['<A-l>'] = { query = '@parameter.inner', desc = 'Go to next parameter start' },
                         ['[c'] = { query = '@class.outer', desc = '' },
                     },
                     goto_next_end = {
@@ -103,6 +104,7 @@ return {
                     },
                     goto_previous_start = {
                         ['<A-k>'] = { query = '@function.outer', desc = 'Go to previous function start' },
+                        ['<A-h>'] = { query = '@parameter.inner', desc = 'Go to previous parameter start' },
                         ['[C'] = { query = '@class.outer', desc = '' },
                     },
                     goto_previous_end = {

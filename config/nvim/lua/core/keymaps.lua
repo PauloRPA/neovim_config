@@ -22,24 +22,11 @@ local function map(mode, key, action, description, opt, default_opts)
     vim.keymap.set(mode, key, action, opt);
 end
 
-M.nmap = function(key, action, description, opt)
-    map('n', key, action, description, opt, opts)
-end
-
-M.imap = function(key, action, description, opt)
-    map('i', key, action, description, opt, iopts)
-end
-
-M.vmap = function(key, action, description, opt)
-    map('v', key, action, description, opt, opts)
-end
-
-M.xmap = function(key, action, description, opt)
-    map('x', key, action, description, opt, opts)
-end
-
-M.tmap = function(key, action, description, opt)
-    map('t', key, action, description, opt, opts)
+local modes = { 'n', 'i', 'v', 'x', 't', 'o' }
+for _,mode in ipairs(modes) do
+    M[mode .. 'map'] = function(key, action, description, opt)
+        map(mode, key, action, description, opt, opts)
+    end
 end
 
 M.fn = {
@@ -49,6 +36,9 @@ M.fn = {
 M.load = function()
     local nmap = M.nmap
     local imap = M.imap
+    local tmap = M.tmap
+    local vmap = M.vmap
+    local xmap = M.xmap
 
     -- Remap for dealing with word wrap
     nmap('k', 'gk', 'Move one line down')
@@ -103,17 +93,17 @@ M.load = function()
         vim.cmd('silent! h ' .. vim.fn.getreg('t'))
     end, 'Open documentation for the word under the cursor');
 
-    vim.keymap.set('x', '<leader>dc', function()
+    xmap('<leader>dc', function()
         vim.api.nvim_feedkeys('"ty', 'x', false) -- Save text under selection to register t
         vim.cmd('silent! h ' .. vim.fn.getreg('t'))
-    end, { desc = '[>] Indent and maintain selection' })
+    end, '[>] Indent and maintain selection' )
 
     -- Indentation op
-    vim.keymap.set('v', '>', '>gv', { desc = '[>] Indent and maintain selection' })
-    vim.keymap.set('v', '<', '<gv', { desc = '[<] Indent and maintain selection' })
+    vmap('>', '>gv', '[>] Indent and maintain selection' )
+    vmap('<', '<gv', '[<] Indent and maintain selection' )
 
     -- Terminal mappings
-    vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode with escape' })
+    tmap('<Esc>', '<C-\\><C-n>', 'Exit terminal mode with escape' )
 
     -- Diagnostic mappings
     nmap('<leader>]', vim.diagnostic.goto_next, 'Goto next diagnostics')
