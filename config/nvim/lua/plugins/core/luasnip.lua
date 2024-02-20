@@ -1,6 +1,6 @@
 return {
     'L3MON4D3/LuaSnip',
-    tag = 'v2.2.0', 
+    tag = 'v2.2.0',
     dependencies = {
         'saadparwaiz1/cmp_luasnip',
         'rafamadriz/friendly-snippets',
@@ -26,10 +26,10 @@ return {
             end
         end
 
-        imap('<C-j>', function () next_option() end, 'Next snippet option')
-        imap('<C-k>', function () prev_option() end, 'Previous snippet option')
-        smap('<C-j>', function () next_option() end, 'Next snippet option')
-        smap('<C-k>', function () prev_option() end, 'Previous snippet option')
+        imap('<C-j>', function() next_option() end, 'Next snippet option')
+        imap('<C-k>', function() prev_option() end, 'Previous snippet option')
+        smap('<C-j>', function() next_option() end, 'Next snippet option')
+        smap('<C-k>', function() prev_option() end, 'Previous snippet option')
 
         smap('<C-h>', 's<BS>', 'Remove the selected text and enter insert mode')
         smap('<A-h>', 's<BS>', 'Remove the selected text and enter insert mode')
@@ -43,24 +43,24 @@ return {
         smap('<A-k>', function() luasnip.jump(-1) end, 'Jump to the previous portion of the current snippet')
 
         luasnip.config.setup({
-            region_check_events = {  'InsertEnter', 'CursorMoved', 'CursorHold' },
+            region_check_events = { 'InsertEnter', 'CursorMoved', 'CursorHold' },
             delete_check_events = { 'InsertLeave' },
             enable_autosnippets = false,
             ext_opts = {
                 [types.choiceNode] = {
                     active = {
-                        virt_text = {{'', 'WarningMsg'}}
+                        virt_text = { { '', 'WarningMsg' } }
                     }
                 },
                 [types.insertNode] = {
                     passive = {
-                        virt_text = {{'', 'LineNr'}}
+                        virt_text = { { '', 'LineNr' } }
                     },
                     active = {
-                        virt_text = {{'', 'Title'}}
+                        virt_text = { { '', 'Title' } }
                     },
                     visited = {
-                        virt_text = {{'', 'Directory'}}
+                        virt_text = { { '', 'Directory' } }
                     },
                 }
             },
@@ -68,5 +68,6 @@ return {
 
         require('luasnip.loaders.from_vscode').lazy_load()
         require('luasnip.loaders.from_snipmate').lazy_load()
+        require("luasnip.loaders.from_vscode").lazy_load { paths = { 'lua/snippets' } }
     end
 }
