@@ -1,4 +1,5 @@
 return {
+    enabled = false;
     'startup-nvim/startup.nvim',
     tag = 'stable',
     dependencies = {

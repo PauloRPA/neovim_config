@@ -10,7 +10,7 @@ return {
         nmap('<leader>ase', scissors.editSnippet, 'Edit snippet')
         nmap('<leader>asa', scissors.addNewSnippet, 'Add new snippet')
         vmap('<leader>asa', scissors.addNewSnippet, 'Add new snippet')
-        smap('<A-p>', 's<BS><C-o>P', 'Add new snippet')
+        smap('<A-p>', 's<BS><C-o>P', 'Paste content')
 
         scissors.setup({
             editSnippetPopup = {

@@ -1,6 +1,7 @@
 return {
     'folke/persistence.nvim',
-    event = 'BufReadPre',
+    -- event = 'BufReadPre',
+    event = 'VimEnter',
     config = function()
         local persistence = require('persistence')
         local nmap = require('core.keymaps').nmap
