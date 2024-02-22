@@ -15,7 +15,27 @@ return {
             },
         })
 
-        -- FIX: Prefix when staging hunks into Git in visual mode
+        -- VISUAL MODE
+        wk.register({
+            a ={
+                name = 'Action',
+                s = {
+                    name = 'Snippet',
+                    a = 'Add snippet',
+                    e = 'Edit snippet',
+                }
+            },
+            g = {
+                name = 'Git',
+                h = 'Hunk',
+            },
+            d = {
+                name = 'Doc+Util',
+                c = 'Open documentation for selected text',
+            },
+        }, { mode = 'v', prefix = '<leader>', })
+
+        -- NORMAL MODE
         wk.register({
             e = 'Toggle nvim-tree',
             s = {
@@ -32,7 +52,14 @@ return {
             f = 'Function',
             q = 'Persistence',
             t = 'Toggle',
-            a = 'Action',
-        }, { prefix = '<leader>' })
+            a ={
+                name = 'Action',
+                s = {
+                    name = 'Snippet',
+                    a = 'Add snippet',
+                    e = 'Edit snippet',
+                }
+            },
+        }, { mode = 'n', prefix = '<leader>' })
     end
 }

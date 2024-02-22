@@ -22,7 +22,7 @@ local function map(mode, key, action, description, opt, default_opts)
     vim.keymap.set(mode, key, action, opt);
 end
 
-local modes = { 'n', 'i', 'v', 'x', 't', 'o' }
+local modes = { 'n', 'i', 'v', 'x', 't', 'o', 's' }
 for _,mode in ipairs(modes) do
     M[mode .. 'map'] = function(key, action, description, opt)
         map(mode, key, action, description, opt, opts)

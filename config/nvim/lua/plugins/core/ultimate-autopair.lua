@@ -22,13 +22,13 @@ return {
         },
         close = {           -- *ultimate-autopair-map-close-config*
             enable = (true),
-            map = '<A-k>',  --string or table
-            cmap = '<A-k>', --string or table
+            -- map = '<A-k>',  -- NOTE: Keymap disabled due to conflicts
+            -- cmap = '<A-k>', -- NOTE: Keymap disabled due to conflicts
         },
         tabout = {          -- *ultimate-autopair-map-tabout-config*
             enable = true,
-            map = '<A-l>',  --string or table
-            cmap = '<A-l>', --string or table
+            map = '<A-l>',  
+            cmap = '<A-l>', 
             hopout = true,
         },
         config_internal_pairs = { -- *ultimate-autopair-pairs-configure-default-pairs*
