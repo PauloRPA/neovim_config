@@ -1,7 +1,5 @@
 return {
     'lewis6991/gitsigns.nvim',
-    lazy = false,
-    priority = 100,
     tag = 'v0.7',
     config = function()
 
@@ -9,13 +7,16 @@ return {
 
         local keymaps = require('core.keymaps')
         local nmap = keymaps.nmap
-        local vmap = keymaps.vmap
 
-        -- Integrations
         local usercmds = require('plugins.integrations.usercmd')
-        local gitStatusUpdateEvent = usercmds.event_types.GitStatusUpdate
-        usercmds.addUserCmd('GitSignsUpdate', gitStatusUpdateEvent,
-            'Gitsigns made a change to the current git repository')
+        local getStatusUpdateEvent = usercmds.event_types.GitStatusUpdate
+
+        local function fireGitStatusEvent()
+            usercmds.fire(getStatusUpdateEvent)
+        end
+
+        local evnmap = require('plugins.integrations.eventmap').nmap(nil, fireGitStatusEvent)
+        local vmap = require('plugins.integrations.eventmap').vmap(nil, fireGitStatusEvent)
 
         -- Navigation
         nmap('<leader>ghn', function()
@@ -31,10 +32,10 @@ return {
         end, 'Previous hunk', { expr = true })
 
         -- Hunk
-        nmap('<leader>ghs', gs.stage_hunk, 'Stage hunk')
-        nmap('<leader>ghr', gs.reset_hunk, 'Reset hunk')
-        nmap('<leader>ghu', gs.undo_stage_hunk, 'Undo stage hunk')
-        nmap('<leader>ghk', gs.preview_hunk, 'Preview hunk')
+        evnmap('<leader>ghs', gs.stage_hunk, 'Stage hunk')
+        evnmap('<leader>ghr', gs.reset_hunk, 'Reset hunk')
+        evnmap('<leader>ghu', gs.undo_stage_hunk, 'Undo stage hunk')
+        evnmap('<leader>ghk', gs.preview_hunk, 'Preview hunk')
 
         vmap('<leader>ghs', function()
             gs.stage_hunk { vim.fn.line('.'), vim.fn.line('v') }
@@ -45,8 +46,8 @@ return {
         end, 'Reset hunk')
 
         -- Buffer
-        nmap('<leader>gS', gs.stage_buffer, 'Stage buffer')
-        nmap('<leader>gR', gs.reset_buffer, 'Reset buffer')
+        evnmap('<leader>gS', gs.stage_buffer, 'Stage buffer')
+        evnmap('<leader>gR', gs.reset_buffer, 'Reset buffer')
 
         -- Actions
         nmap('<leader>gb', function() gs.blame_line { full = true } end, 'Blame line')
@@ -59,7 +60,7 @@ return {
         nmap('<leader>gtw', gs.toggle_word_diff, 'Toggle word diff')
 
         nmap('<leader>gd', gs.diffthis, 'Diff index')
-        nmap('<leader>gD', function() gs.diffthis('~1') end, 'Diff commit ~1')
+        nmap('<leader>gD', function() gs.diffthis('~0') end, 'Diff commit ~0')
 
         require('gitsigns').setup({
             signs      = {
