@@ -1,5 +1,6 @@
 return {
     'hrsh7th/nvim-cmp',
+    tag = 'v0.0.1',
     dependencies = {
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',
@@ -9,7 +10,7 @@ return {
     config = function()
         local cmp = require('cmp')
         local luasnip = require('luasnip')
-
+        
         cmp.setup({
             snippet = {
                 expand = function(args)
