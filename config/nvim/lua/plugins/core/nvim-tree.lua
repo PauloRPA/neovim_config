@@ -81,7 +81,7 @@ return {
                 },
             },
             filters = {
-                dotfiles = false,
+                dotfiles = true,
                 git_ignored = true,
             },
             view = {

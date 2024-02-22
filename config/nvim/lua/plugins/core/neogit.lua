@@ -1,14 +1,18 @@
 return {
     'NeogitOrg/neogit',
     dependencies = {
-        'nvim-lua/plenary.nvim',         -- required
-        'sindrets/diffview.nvim',        -- optional - Diff integration
+        'nvim-lua/plenary.nvim',
+        'sindrets/diffview.nvim', -- optional - Diff integration
     },
     config = function()
         local neogit = require('neogit')
-        local nmap = require('core.keymaps').nmap
+        local eventNmap = require('plugins.integrations.eventmap').nmap(nil, function()
+            local windowDispositionPersistenceEvent = require('plugins.integrations.metaev').types
+            .WindowDispositionPersistence
+            require('plugins.integrations.usercmd').fire(windowDispositionPersistenceEvent)
+        end)
 
-        nmap('<leader>go', neogit.open, 'Open Neogit')
+        eventNmap('<leader>go', neogit.open, 'Open Neogit')
 
         neogit.setup({
             kind = 'split_above',

@@ -1,5 +1,8 @@
 local M = {}
 
+local nmap = require('core.keymaps').nmap
+nmap('<leader>;', '<cmd>Lazy<CR>', 'Open Lazy')
+
 local function bootstrap()
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
     if not vim.loop.fs_stat(lazypath) then
