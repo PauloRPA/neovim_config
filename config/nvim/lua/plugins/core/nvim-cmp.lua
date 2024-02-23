@@ -38,6 +38,8 @@ return {
         })
 
         local cmdline_maps = {
+            ['<C-p>'] = { c = function(fallback) fallback() end},
+            ['<C-n>'] = { c = function(fallback) fallback() end},
             ['<C-d>'] = { c = function(fallback) if cmp.visible() then cmp.select_next_item({ behavior = cmp.SelectBehavior, count = 4 }) else fallback() end end},
             ['<C-u>'] = { c = function(fallback) if cmp.visible() then cmp.select_prev_item({ behavior = cmp.SelectBehavior, count = 4 }) else fallback() end end},
             ['<C-j>'] = { c = function(fallback) if cmp.visible() then cmp.select_next_item({ behavior = cmp.SelectBehavior, count = 1 }) else fallback() end end},
