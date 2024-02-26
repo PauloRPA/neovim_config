@@ -36,6 +36,14 @@ M.load = function()
     vim.g.loaded_netrw       = 1   -- Disables netrw
     vim.g.loaded_netrwPlugin = 1   -- Disables netrw
 
+    if vim.g.neovide then
+        local nmap = require('core.keymaps').nmap
+        vim.api.nvim_set_var('neovide_scale_factor', 0.9)
+        nmap('<C-+>', ':lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>')
+        nmap('<C-->', ':lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>')
+        nmap('<C-0>', ':lua vim.g.neovide_scale_factor = 0.9<CR>')
+    end
+
     vim.cmd.colorscheme('torte')
 end
 
