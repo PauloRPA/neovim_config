@@ -26,6 +26,26 @@ return {
 
         -- Keymappings
         nmap('<leader>e', ntApi.tree.toggle, 'Toggle nvim-tree')
+        nmap('<leader>acb', function ()
+            local currentPath = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p:h')
+
+            if ntApi.tree.is_visible() then
+                ntApi.tree.toggle()
+            end
+
+            ntApi.tree.open({ path = currentPath })
+        end, 'Cd tree into current buffer location')
+
+        nmap('<leader>acw', function ()
+            local currentPath = vim.fn.getcwd()
+
+            if ntApi.tree.is_visible() then
+                ntApi.tree.toggle()
+            end
+
+            ntApi.tree.open({ path = currentPath })
+        end, 'Cd tree into current working dir')
+
 
         local function on_attach(bufnr)
             local function opts(desc)

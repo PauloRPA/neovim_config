@@ -54,6 +54,7 @@ return {
             t = 'Toggle',
             a ={
                 name = 'Action',
+                c = 'CD',
                 s = {
                     name = 'Snippet',
                     a = 'Add snippet',
