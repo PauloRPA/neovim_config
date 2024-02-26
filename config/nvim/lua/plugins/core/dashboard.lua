@@ -49,6 +49,11 @@ return {
                         action = 'lua require("persistence").load()',
                         key = 'l',
                     },{
+                        desc = '󰉉 Old files',
+                        group = 'NonText',
+                        action = 'Telescope oldfiles',
+                        key = 'o',
+                    },{
                         desc = '󰉉 Quit',
                         group = 'ErrorMsg',
                         action = 'qa',
