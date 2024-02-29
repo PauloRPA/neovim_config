@@ -27,8 +27,8 @@ return {
         },
         tabout = {          -- *ultimate-autopair-map-tabout-config*
             enable = true,
-            map = '<A-l>',  
-            cmap = '<A-l>', 
+            map = '<A-l>',
+            cmap = '<A-l>',
             hopout = true,
         },
         config_internal_pairs = { -- *ultimate-autopair-pairs-configure-default-pairs*

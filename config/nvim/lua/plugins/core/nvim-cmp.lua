@@ -20,13 +20,13 @@ return {
                 end
             },
             mapping = cmp.mapping.preset.insert({
-                ['<C-d>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior, count = 4 }),
+                -- ['<C-d>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior, count = 4 }),
                 -- ['<C-u>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior, count = 4 }),
                 ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior, count = 1 }),
                 ['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior, count = 1 }),
                 ['<C-n>'] = cmp.mapping.scroll_docs(4),
                 ['<C-p>'] = cmp.mapping.scroll_docs(-4),
-                ['<Tab>'] = cmp.mapping.confirm( { behavior = cmp.ConfirmBehavior.Insert, select = true } ),
+                ['<Tab>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
             }),
             window = {
                 completion = cmp.config.window.bordered(),
@@ -66,11 +66,35 @@ return {
         local cmdline_maps = {
             ['<C-p>'] = { c = function(fallback) fallback() end },
             ['<C-n>'] = { c = function(fallback) fallback() end },
-            ['<C-d>'] = { c = function(fallback) if cmp.visible() then cmp.select_next_item({ behavior = cmp.SelectBehavior, count = 4 }) else fallback() end end},
+            -- ['<C-d>'] = { c = function(fallback) if cmp.visible() then cmp.select_next_item({ behavior = cmp.SelectBehavior, count = 4 }) else fallback() end end},
             -- ['<C-u>'] = { c = function(fallback) if cmp.visible() then cmp.select_prev_item({ behavior = cmp.SelectBehavior, count = 4 }) else fallback() end end},
-            ['<C-j>'] = { c = function(fallback) if cmp.visible() then cmp.select_next_item({ behavior = cmp.SelectBehavior, count = 1 }) else fallback() end end},
-            ['<C-k>'] = { c = function(fallback) if cmp.visible() then cmp.select_prev_item({ behavior = cmp.SelectBehavior, count = 1 }) else fallback() end end},
-            ['<Tab>'] = { c = function(fallback) if cmp.visible() then cmp.confirm( { behavior = cmp.ConfirmBehavior.Insert, select = true } ) else fallback() end end},
+            ['<C-j>'] = {
+                c = function(fallback)
+                    if cmp.visible() then
+                        cmp.select_next_item({ behavior = cmp.SelectBehavior, count = 1 })
+                    else
+                        fallback()
+                    end
+                end
+            },
+            ['<C-k>'] = {
+                c = function(fallback)
+                    if cmp.visible() then
+                        cmp.select_prev_item({ behavior = cmp.SelectBehavior, count = 1 })
+                    else
+                        fallback()
+                    end
+                end
+            },
+            ['<Tab>'] = {
+                c = function(fallback)
+                    if cmp.visible() then
+                        cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true })
+                    else
+                        fallback()
+                    end
+                end
+            },
         }
         -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
         cmp.setup.cmdline({ '/', '?' }, {
@@ -87,6 +111,5 @@ return {
                 { { name = 'path' } },
                 { { name = 'cmdline' } })
         })
-
     end,
 }

@@ -30,7 +30,7 @@ for _, evType in pairs(M.event_types) do
                 callback(ev)
             end
         end,
-        desc = description
+        desc = evType .. ' autocmd'
     })
 end
 

@@ -34,7 +34,7 @@ return {
         -- WARN: When adding LSPs to the configuration, adjustments will be needed.
         require('ufo').setup({
             close_fold_kinds = {'imports', 'comment'},
-            provider_selector = function(bufnr, filetype, buftype)
+            provider_selector = function()
                 return {'treesitter', 'indent'}
             end,
             preview = {

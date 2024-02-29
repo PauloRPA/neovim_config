@@ -5,11 +5,11 @@ return {
 
         -- Setup leap linewise motions ------------------------------
 
-        local function get_line_starts(winid, skip_range)
+        local function get_line_starts(winid, skipRange)
             local wininfo =  vim.fn.getwininfo(winid)[1]
             local cur_line = vim.fn.line('.')
             -- Skip lines close to the cursor.
-            local skip_range = skip_range or 2
+            local skip_range = skipRange or 2
 
             -- Get targets.
             local targets = {}
@@ -44,7 +44,7 @@ return {
 
         -- You can pass an argument to specify a range to be skipped
         -- before/after the cursor (default is +/-2).
-        function leap_line_start(skip_range)
+        local function leap_line_start(skip_range)
             local winid = vim.api.nvim_get_current_win()
             require('leap').leap {
                 target_windows = { winid },
@@ -54,7 +54,6 @@ return {
 
         -- END Setup leap linewise motions --------------------------
 
-        local leap = require('leap')
         local nmap = require('core.keymaps').nmap
         local xmap = require('core.keymaps').xmap
 

@@ -14,13 +14,13 @@ return {
         local smap = require('core.keymaps').smap
         local imap = require('core.keymaps').imap
 
-        function next_option()
+        local function next_option()
             if luasnip.choice_active() then
                 luasnip.change_choice(1)
             end
         end
 
-        function prev_option()
+        local function prev_option()
             if luasnip.choice_active() then
                 luasnip.change_choice(-1)
             end

@@ -2,12 +2,10 @@ return {
     'stevearc/oil.nvim',
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function ()
-        
+
         local oil = require('oil')
 
         local nmap = require('core.keymaps').nmap
-        local imap = require('core.keymaps').imap
-        local vmap = require('core.keymaps').vmap
 
         nmap("-", function ()
             oil.open_float(nil) -- nil open the parent of the current buffer.
@@ -65,10 +63,10 @@ return {
             use_default_keymaps = true,
             view_options = {
                 show_hidden = false,
-                is_hidden_file = function(name, bufnr)
+                is_hidden_file = function(name, _)
                     return vim.startswith(name, ".")
                 end,
-                is_always_hidden = function(name, bufnr)
+                is_always_hidden = function(_, _)
                     return false
                 end,
                 sort = {
