@@ -8,8 +8,13 @@ return {
             min_width = { 40, 0.4 },
         },
         select = {
-            backend = { 'builtin', 'telescope'  },
+            backend = { 'builtin', 'telescope' },
             builtin = {
+                mappings = {
+                    ['<Space>'] = 'Confirm',
+                    ['<Esc>'] = 'Close',
+                    ['q'] = 'Close',
+                },
                 show_numbers = true,
             },
             telescope = {

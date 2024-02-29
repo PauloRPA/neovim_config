@@ -22,7 +22,10 @@ local function setup()
     local lazy = require('lazy')
 
     lazy.setup({
-        { import = 'plugins.core' },
+        spec = {
+            { import = 'plugins.core' },
+            { import = 'plugins.lsp' },
+        }
     }, {
         install = {
             colorscheme = { "tokyonight-night" },

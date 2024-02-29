@@ -52,6 +52,7 @@ return {
             f = 'Function',
             q = 'Persistence',
             t = 'Toggle',
+            w = 'Workspace',
             a ={
                 name = 'Action',
                 c = 'CD',
