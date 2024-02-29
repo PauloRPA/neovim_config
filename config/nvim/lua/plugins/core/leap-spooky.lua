@@ -3,7 +3,6 @@ return {
     commit = '5f44a1f63dc1c4ce50244e92da5bc0d8d1f6eb47',
     dependencies = { 'ggandor/leap.nvim' },
     config = function()
-
         local imap = require('core.keymaps').imap
         local nmap = require('core.keymaps').nmap
 
@@ -45,7 +44,7 @@ return {
 
         require('leap-spooky').setup {
             -- Additional text objects, to be merged with the default ones.
-            extra_text_objects = {'ia', 'aa', 'if', 'af', 'ad', 'id'},
+            extra_text_objects = { 'ia', 'aa', 'if', 'af', 'ad', 'id' },
             --  `yrr<leap>` and `ymm<leap>` will yank a line in the current window.
             affixes = {
                 -- The cursor moves to the targeted object, and stays there.

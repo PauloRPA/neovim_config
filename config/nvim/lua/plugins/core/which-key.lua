@@ -17,7 +17,7 @@ return {
 
         -- VISUAL MODE
         wk.register({
-            a ={
+            a = {
                 name = 'Action',
                 s = {
                     name = 'Snippet',
@@ -53,7 +53,7 @@ return {
             q = 'Persistence',
             t = 'Toggle',
             w = 'Workspace',
-            a ={
+            a = {
                 name = 'Action',
                 c = 'CD',
                 s = {

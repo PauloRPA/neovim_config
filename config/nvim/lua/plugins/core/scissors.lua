@@ -25,7 +25,7 @@ return {
                     jumpBetweenBodyAndPrefix = '<C-Tab>', -- insert & normal mode
                 },
             },
-            snippetDir = vim.fn.stdpath("config") .. '/lua/snippets',
+            snippetDir = vim.fn.stdpath('config') .. '/lua/snippets',
         })
     end,
 }

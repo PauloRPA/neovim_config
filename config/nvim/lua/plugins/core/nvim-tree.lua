@@ -4,7 +4,7 @@ return {
     dependencies = {
         'nvim-tree/nvim-web-devicons',
     },
-    keys = "<leader>e",
+    keys = '<leader>e',
     config = function()
         local ntConfig = require('nvim-tree')
         local ntApi = require('nvim-tree.api')
@@ -26,7 +26,7 @@ return {
 
         -- Keymappings
         nmap('<leader>e', ntApi.tree.toggle, 'Toggle nvim-tree')
-        nmap('<leader>acb', function ()
+        nmap('<leader>acb', function()
             local currentPath = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p:h')
 
             if ntApi.tree.is_visible() then
@@ -36,7 +36,7 @@ return {
             ntApi.tree.open({ path = currentPath })
         end, 'Cd tree into current buffer location')
 
-        nmap('<leader>acw', function ()
+        nmap('<leader>acw', function()
             local currentPath = vim.fn.getcwd()
 
             if ntApi.tree.is_visible() then

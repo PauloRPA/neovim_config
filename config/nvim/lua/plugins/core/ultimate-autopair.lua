@@ -20,12 +20,12 @@ return {
         fastwarp = { -- *ultimate-autopair-map-fastwarp-config*
             hopout = true,
         },
-        close = {           -- *ultimate-autopair-map-close-config*
+        close = { -- *ultimate-autopair-map-close-config*
             enable = (true),
             -- map = '<A-k>',  -- NOTE: Keymap disabled due to conflicts
             -- cmap = '<A-k>', -- NOTE: Keymap disabled due to conflicts
         },
-        tabout = {          -- *ultimate-autopair-map-tabout-config*
+        tabout = { -- *ultimate-autopair-map-tabout-config*
             enable = true,
             map = '<A-l>',
             cmap = '<A-l>',

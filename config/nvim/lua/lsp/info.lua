@@ -8,7 +8,7 @@ local configPath, _ = vim.fn.stdpath('config')
 M.get_configured_servers_name = function()
     local servers = {}
     for _, currentFile in pairs(vim.fn.readdir(configPath .. LSP_SETTINGS_PATH)) do
-            table.insert(servers, vim.fn.fnamemodify(currentFile, ':t:r'))
+        table.insert(servers, vim.fn.fnamemodify(currentFile, ':t:r'))
     end
     return servers
 end

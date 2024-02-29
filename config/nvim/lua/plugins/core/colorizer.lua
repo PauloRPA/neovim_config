@@ -5,7 +5,7 @@ return {
         'javascript',
         'lua',
         html = {
-            mode = 'foreground';
+            mode = 'foreground',
         }
     }
 }

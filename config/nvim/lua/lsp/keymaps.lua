@@ -4,7 +4,6 @@ local nmap = require('core.keymaps').nmap
 local opts = { noremap = true, silent = true, buffer = true }
 
 M.attachLspKeymapsToBuf = function()
-
     nmap('<leader>a<leader>', vim.lsp.buf.code_action, 'Code Action', opts)
     nmap('<leader>ao', vim.lsp.buf.code_action, 'Code Action', opts)
     nmap('<A-o>', vim.lsp.buf.code_action, 'Code Action', opts)
@@ -15,6 +14,10 @@ M.attachLspKeymapsToBuf = function()
     nmap('gI', vim.lsp.buf.implementation, 'Goto Implementation', opts)
     nmap('gr', require('telescope.builtin').lsp_references, 'Goto References', opts)
 
+    nmap('<C-s>', function()
+        vim.lsp.buf.format()
+        vim.cmd.wa()
+    end, 'Saves all modified buffers')
     nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, 'Workspace Add Folder', opts)
     nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, 'Workspace Remove Folder', opts)
 

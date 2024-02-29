@@ -3,7 +3,6 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     event = 'VimEnter',
     config = function()
-
         local header = {
             [[(\"   \|"  \|"  \    /"  ||" \   |"  \    /"  |]],
             [[|.\\   \    |\   \  //  / ||  |   \   \  //   |]],
@@ -31,34 +30,34 @@ return {
                         group = 'ModeMsg',
                         action = 'enew',
                         key = 'n',
-                    },{
-                        icon = ' ',
-                        icon_hl = '@Title',
-                        desc = 'Files',
-                        group = 'Label',
-                        action = 'Telescope find_files',
-                        key = 'f',
-                    },{
-                        desc = ' Colorscheme',
-                        group = 'DiagnosticHint',
-                        action = 'Telescope colorscheme',
-                        key = 'c',
-                    },{
-                        desc = '󰉉 Load session',
-                        group = 'Number',
-                        action = 'lua require("persistence").load()',
-                        key = 'l',
-                    },{
-                        desc = '󰉉 Old files',
-                        group = 'NonText',
-                        action = 'Telescope oldfiles',
-                        key = 'o',
-                    },{
-                        desc = '󰉉 Quit',
-                        group = 'ErrorMsg',
-                        action = 'qa',
-                        key = 'q',
-                    },
+                    }, {
+                    icon = ' ',
+                    icon_hl = '@Title',
+                    desc = 'Files',
+                    group = 'Label',
+                    action = 'Telescope find_files',
+                    key = 'f',
+                }, {
+                    desc = ' Colorscheme',
+                    group = 'DiagnosticHint',
+                    action = 'Telescope colorscheme',
+                    key = 'c',
+                }, {
+                    desc = '󰉉 Load session',
+                    group = 'Number',
+                    action = 'lua require("persistence").load()',
+                    key = 'l',
+                }, {
+                    desc = '󰉉 Old files',
+                    group = 'NonText',
+                    action = 'Telescope oldfiles',
+                    key = 'o',
+                }, {
+                    desc = '󰉉 Quit',
+                    group = 'ErrorMsg',
+                    action = 'qa',
+                    key = 'q',
+                },
                 },
             },
         })

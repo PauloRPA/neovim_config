@@ -2,7 +2,6 @@ return {
     'lewis6991/gitsigns.nvim',
     tag = 'v0.7',
     config = function()
-
         local gs = require('gitsigns')
 
         local keymaps = require('core.keymaps')
@@ -63,19 +62,19 @@ return {
         nmap('<leader>gD', function() gs.diffthis('~0') end, 'Diff commit ~0')
 
         require('gitsigns').setup({
-            signs      = {
-                add          = { text = '│' },
-                change       = { text = '│' },
-                delete       = { text = '_' },
-                topdelete    = { text = '‾' },
+            signs = {
+                add = { text = '│' },
+                change = { text = '│' },
+                delete = { text = '_' },
+                topdelete = { text = '‾' },
                 changedelete = { text = '~' },
-                untracked    = { text = '┆' },
+                untracked = { text = '┆' },
             },
             signcolumn = false, -- :Gitsigns toggle_signs
-            numhl      = true,  -- :Gitsigns toggle_numhl
-            linehl     = false, -- :Gitsigns toggle_linehl
-            word_diff  = false, -- :Gitsigns toggle_word_diff
-            diff_opts  = {
+            numhl = true,       -- :Gitsigns toggle_numhl
+            linehl = false,     -- :Gitsigns toggle_linehl
+            word_diff = false,  -- :Gitsigns toggle_word_diff
+            diff_opts = {
                 internal = true
             },
         })

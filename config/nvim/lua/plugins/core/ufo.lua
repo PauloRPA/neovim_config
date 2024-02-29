@@ -2,7 +2,6 @@ return {
     'kevinhwang91/nvim-ufo',
     dependencies = { 'kevinhwang91/promise-async' },
     config = function()
-
         -- Mappings
         local nmap = require('core.keymaps').nmap
 
@@ -33,9 +32,9 @@ return {
 
         -- WARN: When adding LSPs to the configuration, adjustments will be needed.
         require('ufo').setup({
-            close_fold_kinds = {'imports', 'comment'},
+            close_fold_kinds = { 'imports', 'comment' },
             provider_selector = function()
-                return {'treesitter', 'indent'}
+                return { 'treesitter', 'indent' }
             end,
             preview = {
                 mappings = {

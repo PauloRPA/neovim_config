@@ -4,7 +4,7 @@ return {
         'williamboman/mason.nvim',
         'neovim/nvim-lspconfig',
     },
-    config = function ()
+    config = function()
         local masonLsp = require('mason-lspconfig')
         local info = require('lsp.info')
 
