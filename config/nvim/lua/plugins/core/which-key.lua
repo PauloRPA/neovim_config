@@ -23,7 +23,8 @@ return {
                     name = 'Snippet',
                     a = 'Add snippet',
                     e = 'Edit snippet',
-                }
+                },
+                w = 'Wrap',
             },
             g = {
                 name = 'Git',
@@ -54,6 +55,7 @@ return {
             t = 'Toggle',
             a ={
                 name = 'Action',
+                w = 'Wrap',
                 c = 'CD',
                 s = {
                     name = 'Snippet',
