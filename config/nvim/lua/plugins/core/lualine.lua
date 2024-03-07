@@ -6,6 +6,14 @@ return {
     config = function()
         local lualine = require('lualine')
 
+        local function getClientNames()
+            local names = ''
+            for _, client in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
+                names = names .. client.name .. ' '
+            end
+            return names
+        end
+
         lualine.setup({
             options = {
                 icons_enabled = true,
@@ -28,7 +36,7 @@ return {
                     },
                     max_length = vim.o.columns / 2,
                 } },
-                lualine_x = { 'encoding', 'fileformat', 'filetype' },
+                lualine_x = { getClientNames, 'encoding', 'fileformat', 'filetype' },
                 lualine_y = { 'progress' },
                 lualine_z = { 'location' },
             }
