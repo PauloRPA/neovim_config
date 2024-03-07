@@ -51,7 +51,7 @@ return {
                         style_sheets = {
                             -- example of remote styles, only css no js for now
                             'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
-                            'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css',
+                            -- 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css',
                         }
                     }
                 },

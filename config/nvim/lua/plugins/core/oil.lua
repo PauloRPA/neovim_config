@@ -30,10 +30,12 @@ return {
                 conceallevel = 3,
                 concealcursor = 'nvic',
             },
+            lsp_file_methods = {
+                autosave_changes = true
+            },
             delete_to_trash = false,
             skip_confirm_for_simple_edits = false,
             cleanup_delay_ms = 2000,
-            lsp_rename_autosave = false,
             constrain_cursor = 'editable',
             experimental_watch_for_changes = true,
             keymaps = {
