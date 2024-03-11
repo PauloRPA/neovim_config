@@ -9,10 +9,10 @@ return {
         local wk = require('which-key')
 
         wk.setup({
-            disable = {
-                buftypes = {},
-                filetypes = { '' },
-            },
+            -- disable = {
+            --     buftypes = {},
+            --     filetypes = {},
+            -- },
         })
 
         -- VISUAL MODE
@@ -55,6 +55,7 @@ return {
             w = 'Workspace',
             a = {
                 name = 'Action',
+                a = 'Application specific',
                 c = 'CD',
                 s = {
                     name = 'Snippet',
