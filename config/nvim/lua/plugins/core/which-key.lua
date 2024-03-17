@@ -55,6 +55,7 @@ return {
             w = 'Workspace',
             a = {
                 name = 'Action',
+                e = 'Extract',
                 a = 'Application specific',
                 c = 'CD',
                 s = {

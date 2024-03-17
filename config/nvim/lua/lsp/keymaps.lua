@@ -10,7 +10,7 @@ M.attachLspKeymapsToBuf = function()
 
     nmap('<leader>ar', vim.lsp.buf.rename, 'Rename', opts)
     nmap('<leader>af', vim.lsp.buf.format, 'Format current buffer with LSP', opts)
-    nmap('gd', vim.lsp.buf.definition, 'Goto Definition', opts)
+    nmap('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition', opts)
     nmap('gI', vim.lsp.buf.implementation, 'Goto Implementation', opts)
     nmap('gr', require('telescope.builtin').lsp_references, 'Goto References', opts)
 

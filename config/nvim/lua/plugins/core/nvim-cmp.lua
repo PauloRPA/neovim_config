@@ -1,6 +1,6 @@
 return {
     'hrsh7th/nvim-cmp',
-    tag = 'v0.0.1',
+    commit = '93f385c17611039f3cc35e1399f1c0a8cf82f1fb',
     dependencies = {
         'hrsh7th/cmp-nvim-lsp-signature-help',
         'hrsh7th/cmp-nvim-lsp',

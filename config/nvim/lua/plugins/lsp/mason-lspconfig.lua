@@ -9,7 +9,7 @@ return {
         local info = require('lsp.info')
 
         masonLsp.setup({
-            ensure_installed = info.get_configured_servers_name(),
+            ensure_installed = info.ensure_installed_servers_name(),
         })
     end,
 }

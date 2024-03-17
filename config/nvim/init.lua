@@ -5,10 +5,4 @@ require('core.autocmds').load()
 
 -- Bootstrap plugin manager
 require('core.bootstrap').load()
-
-
-
-
-
-
-
+require('lsp.info').fetch()
