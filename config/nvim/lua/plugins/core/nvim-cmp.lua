@@ -13,6 +13,17 @@ return {
         local cmp = require('cmp')
         local luasnip = require('luasnip')
 
+        local function emmet_lsSorting(entry1, entry2)
+            if entry2.source.source.client and entry2.source.source.client.name == 'emmet_ls' then
+                if entry1.source.source.client then
+                    return entry1.source.source.client.name ~= entry2.source.source.client.name
+                else
+                    return true
+                end
+            end
+            return false
+        end
+
         cmp.setup({
             snippet = {
                 expand = function(args)
@@ -37,8 +48,25 @@ return {
                     if entry.source.name == 'html-css' then
                         vim_item.menu = entry.completion_item.menu
                     end
+                    if entry.source.name == 'nvim_lsp' then
+                        local server_name = entry.source.source.client.config.name
+                        if server_name == 'emmet_ls' then
+                            vim_item.menu = '󰈑 '
+                        end
+                        if server_name == 'html' then
+                            vim_item.menu = '󰬏 '
+                        end
+                    end
                     return vim_item
                 end
+            },
+            sorting = {
+                comparators = {
+                    cmp.config.compare.score,
+                    emmet_lsSorting,
+                    cmp.config.compare.exact,
+                    cmp.config.compare.recently_used,
+                }
             },
             sources = cmp.config.sources({
                 {
@@ -53,13 +81,14 @@ return {
                             'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
                             -- 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css',
                         }
-                    }
+                    },
+                    group_index = 1
                 },
-                { name = 'nvim_lsp_signature_help' },
-                { name = 'nvim_lsp' },
-                { name = 'luasnip' },
-                { name = 'buffer', keyword_length = 3 },
-                { name = 'path', keyword_length = 3 },
+                { name = 'nvim_lsp_signature_help', group_index = 1 },
+                { name = 'nvim_lsp', group_index = 1 },
+                { name = 'luasnip', group_index = 1 },
+                { name = 'path', keyword_length = 2, group_index = 2 },
+                { name = 'buffer', keyword_length = 3, group_index = 2 },
             })
         })
 
