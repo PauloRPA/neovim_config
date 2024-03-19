@@ -2,15 +2,26 @@ local M = {}
 
 local info = require('lsp.info')
 local jdtls = require('jdtls')
+local jdtls_dap = require('jdtls.dap')
+local dap = require('dap')
+
 local mason_registry = require('mason-registry')
 local lombok_path = ''
 
 local jdtls_install = ''
+local dap_install = ''
 local platform_config = ''
 local java_installation = {}
+local jdtls_bundles = {}
+
+local features = {
+    dap = false,
+    lsp = false,
+}
 
 local JDTLS_CACHE_DIR = vim.fn.stdpath('cache') .. '/nvim-jdtls'
 local JDTLS_LAUNCHER_PATH = '/plugins/org.eclipse.equinox.launcher_*.jar'
+local DAP_LAUNCHER_PATH = '/extension/server/com.microsoft.java.debug.plugin-*.jar'
 
 local function resolve_java_install_unix()
     -- From OS ENV
@@ -27,6 +38,23 @@ local function resolve_java_install_unix()
     end
 
     return java_installation
+end
+
+local function resolve_dap_install()
+    if mason_registry.has_package('java-debug-adapter') then
+        dap_install = mason_registry
+            .get_package('java-debug-adapter')
+            :get_install_path()
+
+        local java_debug_bundle = vim.split(vim.fn.glob(dap_install .. DAP_LAUNCHER_PATH), '\n')
+
+        if info.is_str_not_blank(java_debug_bundle[1]) then
+            vim.list_extend(jdtls_bundles, java_debug_bundle)
+            features.dap = true
+        else
+            vim.notify('JAVA-DEBUG NOT FOUND!')
+        end
+    end
 end
 
 local function resolve_java_install_win()
@@ -86,15 +114,15 @@ M.config = function()
         return nil
     end
 
+    features.lsp = true;
+
     config_keys.data_dir = JDTLS_CACHE_DIR
-    config_keys.java_agent = lombok_path
+    config_keys.lombok_agent = lombok_path
     config_keys.launcher_jar = vim.fn.glob(jdtls_install .. JDTLS_LAUNCHER_PATH)
 
     config_keys.java_home = java_installation.jdk_path
     config_keys.java_bin = java_installation.bin
     config_keys.platform_config = platform_config
-
-    config_keys.bundles = {}
 
     local jdk_17_path = java_installation.jdk_path
     if jdk_17_path[1] ~= '' then
@@ -111,6 +139,13 @@ M.config = function()
     } }
 
     local current_project_data_dir = config_keys.data_dir .. '/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+    vim.cmd([[hi debug_line guibg=#16161e blend=0 cterm=bold gui=bold]])
+
+    vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'ErrorMsg', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapBreakpointRejected', { text = '󰅙', texthl = 'NonText', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'WarningMsg', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapLogPoint', { text = '󰺮', texthl = 'ModeMsg', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapStopped', { text = '', texthl = 'Title', linehl = 'debug_line', numhl = '' })
 
     local config = {
         cmd = {
@@ -120,7 +155,7 @@ M.config = function()
             '-Declipse.product=org.eclipse.jdt.ls.core.product',
             '-Dlog.protocol=true',
             '-Dlog.level=ALL',
-            '-javaagent:' .. config_keys.java_agent,
+            '-javaagent:' .. config_keys.lombok_agent,
             '-Xms4g',
             '--add-modules=ALL-SYSTEM',
             '--add-opens',
@@ -142,6 +177,20 @@ M.config = function()
                 configuration = {
                     updateBuildConfiguration = 'interactive',
                     runtimes = config_keys.runtimes,
+                },
+                saveActions = {
+                    organizeImports = true,
+                },
+                edit = {
+                    smartSemicolonDetection = {
+                        enabled = true,
+                    },
+                },
+                postfix = {
+                    enabled = false,
+                },
+                telemetry = {
+                    enabled = false,
                 },
                 maven = {
                     downloadSources = true,
@@ -189,19 +238,111 @@ M.config = function()
             },
         },
         root_dir = cwd_root() or jdtls_root() or find_root_fs(),
+        on_attach = function()
+            jdtls_dap.setup_dap_main_class_configs()
+            jdtls.setup_dap({ hotcodereplace = 'auto' })
+        end,
         capabilities = require('cmp_nvim_lsp').default_capabilities(),
         init_options = {
-            bundles = config_keys.bundles,
+            bundles = jdtls_bundles,
             extendedClientCapabilities = jdtls.extendedClientCapabilities,
         }
     }
 
-    return config
+    return config, features
 end
 
 local nmap = require('core.keymaps').nmap
 local imap = require('core.keymaps').imap
+local vmap = require('core.keymaps').vmap
 local opts = { noremap = true, silent = true, buffer = true }
+
+local LAST_ARGS = ''
+local LAST_JVM_ARGS = ''
+
+local function update_args()
+    vim.ui.input({ prompt = 'Application args:', default = LAST_ARGS }, function(input)
+        if input then LAST_ARGS = input end
+    end)
+    return LAST_ARGS
+end
+
+local function update_jvm_args()
+    vim.ui.input({ prompt = 'Jvm args:', default = LAST_JVM_ARGS }, function(input)
+        if input then LAST_JVM_ARGS = input end
+    end)
+    return LAST_JVM_ARGS
+end
+
+M.attachDapKeymapsToBuf = function()
+    nmap('<A-c>', function()
+        if jdtls_dap.setup_dap_main_class_configs then
+            vim.cmd.wa()
+            jdtls_dap.setup_dap_main_class_configs({
+                config_overrides = {
+                    vmArgs = LAST_JVM_ARGS,
+                    args = LAST_ARGS,
+                },
+                on_ready = dap.continue
+            })
+        end
+    end, 'Dap continue')
+
+    nmap('<A-q>', function()
+        update_args()
+        update_jvm_args()
+    end, 'Set JVM and Application args')
+
+    nmap('<A-i>', function()
+        dap.step_into({ askForTargets = true })
+    end, 'Step [I]nto')
+
+    nmap('<C-b>', dap.toggle_breakpoint, 'Toggle [B]reakpoint')
+    nmap('<C-n>', function()
+        dap.list_breakpoints()
+    end, 'Toggle [B]reakpoint')
+    nmap('<A-n>', dap.restart_frame, 'Restart frame')
+    nmap('<A-f>', dap.focus_frame, 'Focus frame')
+    nmap('<A-o>', dap.step_over, 'Step [O]ver')
+    nmap('<A-O>', dap.step_out, 'Step [O]ut')
+    nmap('<A-x>', dap.terminate, 'Terminate')
+
+    nmap('<A-r>', function()
+        vim.cmd.wa()
+        dap.run_last()
+    end, 'Run last')
+
+    nmap('<A-2>', function()
+        dap.repl.toggle({
+            height = 10,
+        })
+    end, 'Repl toggle')
+
+
+    local init_events = { 'attach', 'launch' }
+    local end_events = { 'event_terminated', }
+
+    for _, value in ipairs(init_events) do
+        dap.listeners.before[value]['custom_keymaps'] = function()
+            vmap('<leader>e', function()
+                local widgets = require('dap.ui.widgets')
+                widgets.cursor_float(widgets.expression).open()
+            end)
+
+            nmap('<leader>n', function()
+                local widgets = require('dap.ui.widgets')
+                widgets.cursor_float(widgets.frames).open()
+            end)
+        end
+    end
+
+    for _, value in ipairs(end_events) do
+        dap.listeners.before[value]['custom_keymaps'] = function()
+            vim.keymap.del('n', '<leader>n')
+            vim.keymap.del('v', '<leader>e')
+        end
+    end
+end
 
 M.attachLspKeymapsToBuf = function()
     local end_instruction_cmd = ''
@@ -213,7 +354,12 @@ M.attachLspKeymapsToBuf = function()
     nmap('<leader>aev', jdtls.extract_variable_all, 'Extract variable', opts)
     nmap('<leader>aem', jdtls.extract_method, 'Extract method', opts)
     nmap('<leader>aai', jdtls.organize_imports, 'Organize imports', opts)
-    nmap('<leader>aau', jdtls.update_project_config, 'Update project config', opts)
+    nmap('<leader>aau', function()
+        jdtls.update_project_config()
+        if jdtls_dap.setup_dap_main_class_configs then
+            jdtls_dap.setup_dap_main_class_configs()
+        end
+    end, 'Update project config', opts)
     nmap('<leader>aar', jdtls.set_runtime, 'Set java runtime', opts)
 
     imap('<A-w>', function()
@@ -240,13 +386,14 @@ M.attachLspKeymapsToBuf = function()
     imap('<A-o>', function()
         vim.api.nvim_feedkeys(insert_final_start_icmd, 'm', true)
     end, 'Insert final at the start of the line')
-
 end
 
 
 
 -- On import
 resolve_jdtls_install()
+resolve_dap_install()
+
 
 if vim.fn.has('unix') == 1 then
     resolve_java_install_unix()

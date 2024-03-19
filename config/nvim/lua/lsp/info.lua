@@ -5,7 +5,8 @@ local configPath, _ = vim.fn.stdpath('config')
 local TOOLING_PATH = configPath .. '/assets/tools'
 local LSP_SETTINGS_PATH = '/lua/lsp/settings'
 local LSP_SETTINGS_MODULE = 'lsp.settings.'
-local ADDITIONAL_TOOLS_TO_INSTALL = { 'jdtls' }
+local ADDITIONAL_LSP_TO_INSTALL = { 'jdtls' }
+local ADDITIONAL_DAP_TO_INSTALL = { 'javadbg' }
 
 local function is_str_blank(str)
     return not str or str == ''
@@ -34,12 +35,18 @@ M.get_tooling_path = function()
     return TOOLING_PATH
 end
 
-M.ensure_installed_servers_name = function()
+M.ensure_installed_lsps = function()
     local servers = {}
     for _, currentFile in pairs(vim.fn.readdir(configPath .. LSP_SETTINGS_PATH)) do
         table.insert(servers, vim.fn.fnamemodify(currentFile, ':t:r'))
     end
-    servers = vim.fn.extend(servers, ADDITIONAL_TOOLS_TO_INSTALL)
+    servers = vim.fn.extend(servers, ADDITIONAL_LSP_TO_INSTALL)
+    return servers
+end
+
+M.ensure_installed_daps = function()
+    local servers = {}
+    servers = vim.fn.extend(servers, ADDITIONAL_DAP_TO_INSTALL)
     return servers
 end
 
@@ -55,7 +62,12 @@ M.get_configured_lspconfigs = function()
 end
 
 M.get_lsp_capabilities = function()
-    return require('cmp_nvim_lsp').default_capabilities()
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true
+    }
+    return capabilities
 end
 
 
