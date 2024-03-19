@@ -3,6 +3,7 @@ local M = {}
 local info = require('lsp.info')
 local jdtls = require('jdtls')
 local jdtls_dap = require('jdtls.dap')
+local jdtls_tests = require('jdtls.tests')
 local dap = require('dap')
 
 local mason_registry = require('mason-registry')
@@ -17,11 +18,13 @@ local jdtls_bundles = {}
 local features = {
     dap = false,
     lsp = false,
+    javatest = false,
 }
 
 local JDTLS_CACHE_DIR = vim.fn.stdpath('cache') .. '/nvim-jdtls'
 local JDTLS_LAUNCHER_PATH = '/plugins/org.eclipse.equinox.launcher_*.jar'
 local DAP_LAUNCHER_PATH = '/extension/server/com.microsoft.java.debug.plugin-*.jar'
+local JAVATEST_LAUNCHER_PATH = '/extension/server/*.jar'
 
 local function resolve_java_install_unix()
     -- From OS ENV
@@ -53,6 +56,23 @@ local function resolve_dap_install()
             features.dap = true
         else
             vim.notify('JAVA-DEBUG NOT FOUND!')
+        end
+    end
+end
+
+local function resolve_javatest_install()
+    if mason_registry.has_package('java-test') then
+        local java_test_path = mason_registry
+            .get_package('java-test')
+            :get_install_path()
+
+        local java_test_bundle = vim.split(vim.fn.glob(java_test_path .. JAVATEST_LAUNCHER_PATH), '\n')
+
+        if info.is_str_not_blank(java_test_bundle[1]) then
+            vim.list_extend(jdtls_bundles, java_test_bundle)
+            features.javatest = true
+        else
+            vim.notify('JAVA-TEST NOT FOUND!')
         end
     end
 end
@@ -91,9 +111,6 @@ end
 
 local function find_root_fs()
     return vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw', 'pom.xml' }, { upward = true })[1])
-end
-
-M.fetch = function()
 end
 
 M.config = function()
@@ -388,12 +405,27 @@ M.attachLspKeymapsToBuf = function()
     end, 'Insert final at the start of the line')
 end
 
+M.attachTestKeymapsToBuf = function()
+    nmap('<A-t>', function()
+        vim.cmd.wa()
+        jdtls.test_nearest_method()
+    end, 'Test nearest method')
+
+    nmap('<leader>aat', function()
+        vim.cmd.wa()
+        jdtls.test_class()
+    end, 'Test class')
+
+    nmap('<leader>aas', jdtls_tests.goto_subjects, 'Goto subjects')
+    nmap('<leader>aag', jdtls_tests.generate, 'Generate tests')
+end
+
 
 
 -- On import
 resolve_jdtls_install()
 resolve_dap_install()
-
+resolve_javatest_install()
 
 if vim.fn.has('unix') == 1 then
     resolve_java_install_unix()

@@ -13,6 +13,11 @@ if features.dap then
     lsp_java.attachDapKeymapsToBuf()
 end
 
+if features.javatest then
+    lsp_java.attachTestKeymapsToBuf()
+end
+
+
 if config ~= nil then
     jdtls.start_or_attach(config)
 end
