@@ -161,7 +161,7 @@ M.config = function()
     vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'ErrorMsg', linehl = '', numhl = '' })
     vim.fn.sign_define('DapBreakpointRejected', { text = '󰅙', texthl = 'NonText', linehl = '', numhl = '' })
     vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'WarningMsg', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapLogPoint', { text = '󰺮', texthl = 'ModeMsg', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapLogPoint', { text = '󰺮', texthl = 'DiagnosticHint', linehl = '', numhl = '' })
     vim.fn.sign_define('DapStopped', { text = '', texthl = 'Title', linehl = 'debug_line', numhl = '' })
 
     local config = {
@@ -271,7 +271,6 @@ end
 
 local nmap = require('core.keymaps').nmap
 local imap = require('core.keymaps').imap
-local vmap = require('core.keymaps').vmap
 local opts = { noremap = true, silent = true, buffer = true }
 
 local LAST_ARGS = ''
@@ -312,12 +311,25 @@ M.attachDapKeymapsToBuf = function()
 
     nmap('<A-i>', function()
         dap.step_into({ askForTargets = true })
-    end, 'Step [I]nto')
+    end, 'Step into')
+
+    nmap('<leader>bl', dap.list_breakpoints, 'List breakpoints')
+    nmap('<leader>bc', dap.clear_breakpoints, 'Clear breakpoints')
+    nmap('<leader>bp', function()
+        dap.toggle_breakpoint(nil, nil, vim.api.nvim_get_current_line())
+    end, 'Set print breakpoint')
+
+    nmap('<leader>bh', function()
+        vim.ui.input({ prompt = 'Number of hits' }, function(hits)
+            if hits then
+                dap.set_breakpoint(nil, hits, nil)
+            else
+                vim.notify('Operation aborted.')
+            end
+        end)
+    end, 'Set hit breakpoint')
 
     nmap('<C-b>', dap.toggle_breakpoint, 'Toggle [B]reakpoint')
-    nmap('<C-n>', function()
-        dap.list_breakpoints()
-    end, 'Toggle [B]reakpoint')
     nmap('<A-n>', dap.restart_frame, 'Restart frame')
     nmap('<A-f>', dap.focus_frame, 'Focus frame')
     nmap('<A-o>', dap.step_over, 'Step [O]ver')
@@ -335,17 +347,13 @@ M.attachDapKeymapsToBuf = function()
         })
     end, 'Repl toggle')
 
-
     local init_events = { 'attach', 'launch' }
     local end_events = { 'event_terminated', }
+    local dapui = require('dapui')
 
     for _, value in ipairs(init_events) do
         dap.listeners.before[value]['custom_keymaps'] = function()
-            vmap('<leader>e', function()
-                local widgets = require('dap.ui.widgets')
-                widgets.cursor_float(widgets.expression).open()
-            end)
-
+            dapui.open();
             nmap('<leader>n', function()
                 local widgets = require('dap.ui.widgets')
                 widgets.cursor_float(widgets.frames).open()
@@ -355,8 +363,8 @@ M.attachDapKeymapsToBuf = function()
 
     for _, value in ipairs(end_events) do
         dap.listeners.before[value]['custom_keymaps'] = function()
+            dapui.close();
             vim.keymap.del('n', '<leader>n')
-            vim.keymap.del('v', '<leader>e')
         end
     end
 end
@@ -371,13 +379,14 @@ M.attachLspKeymapsToBuf = function()
     nmap('<leader>aev', jdtls.extract_variable_all, 'Extract variable', opts)
     nmap('<leader>aem', jdtls.extract_method, 'Extract method', opts)
     nmap('<leader>aai', jdtls.organize_imports, 'Organize imports', opts)
+    nmap('<leader>aar', jdtls.set_runtime, 'Set java runtime', opts)
+
     nmap('<leader>aau', function()
         jdtls.update_project_config()
         if jdtls_dap.setup_dap_main_class_configs then
             jdtls_dap.setup_dap_main_class_configs()
         end
     end, 'Update project config', opts)
-    nmap('<leader>aar', jdtls.set_runtime, 'Set java runtime', opts)
 
     imap('<A-w>', function()
         jdtls.extract_variable()
@@ -394,7 +403,6 @@ M.attachLspKeymapsToBuf = function()
         end
         vim.api.nvim_feedkeys(end_instruction_cmd, 'm', true)
     end, 'Insert ; at the end of the line', opts)
-
 
     nmap('<leader>L', function()
         vim.api.nvim_feedkeys(insert_final_start_ncmd, 'm', true)

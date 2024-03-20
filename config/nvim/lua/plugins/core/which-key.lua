@@ -53,6 +53,9 @@ return {
             q = 'Persistence',
             t = 'Toggle',
             w = 'Workspace',
+            b = {
+                name = 'Breakpoint'
+            },
             a = {
                 name = 'Action',
                 e = 'Extract',
