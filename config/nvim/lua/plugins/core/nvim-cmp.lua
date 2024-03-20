@@ -1,12 +1,12 @@
 return {
     'hrsh7th/nvim-cmp',
-    commit = '93f385c17611039f3cc35e1399f1c0a8cf82f1fb',
     dependencies = {
         'hrsh7th/cmp-nvim-lsp-signature-help',
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',
         'hrsh7th/cmp-cmdline',
+        'rcarriga/cmp-dap',
         'L3MON4D3/LuaSnip',
     },
     config = function()
@@ -25,6 +25,9 @@ return {
         end
 
         cmp.setup({
+            enabled = function()
+                return vim.api.nvim_buf_get_option(0, 'buftype') ~= 'prompt' or require('cmp_dap').is_dap_buffer()
+            end,
             snippet = {
                 expand = function(args)
                     luasnip.lsp_expand(args.body)
@@ -92,6 +95,12 @@ return {
             })
         })
 
+        cmp.setup.filetype({ 'dap-repl', 'dapui_watches', 'dapui_hover' }, {
+            sources = {
+                { name = 'dap' }, { name = 'nvim_lsp' }, { name = 'luasnip' },
+            },
+        })
+
         local cmdline_maps = {
             ['<C-p>'] = { c = function(fallback) fallback() end },
             ['<C-n>'] = { c = function(fallback) fallback() end },
@@ -125,6 +134,7 @@ return {
                 end
             },
         }
+
         -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
         cmp.setup.cmdline({ '/', '?' }, {
             mapping = cmp.mapping.preset.cmdline(cmdline_maps),
