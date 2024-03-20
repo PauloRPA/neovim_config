@@ -341,30 +341,31 @@ M.attachDapKeymapsToBuf = function()
         dap.run_last()
     end, 'Run last')
 
-    nmap('<A-2>', function()
-        dap.repl.toggle({
-            height = 10,
-        })
-    end, 'Repl toggle')
+    nmap('<leader>n', function()
+        local widgets = require('dap.ui.widgets')
+        widgets.cursor_float(widgets.frames).open()
+    end, 'Show Frames at cursor')
 
     local init_events = { 'attach', 'launch' }
-    local end_events = { 'event_terminated', }
-    local dapui = require('dapui')
+    local end_events = { 'event_terminated', 'event_exited' }
+    local ui = require('plugins.lsp.nvim-dap-ui')
 
+    local window_changed = false
     for _, value in ipairs(init_events) do
-        dap.listeners.before[value]['custom_keymaps'] = function()
-            dapui.open();
-            nmap('<leader>n', function()
-                local widgets = require('dap.ui.widgets')
-                widgets.cursor_float(widgets.frames).open()
-            end)
+        dap.listeners.before[value]['custom'] = function()
+            if next(require('dap.breakpoints').get()) ~= nil then
+                ui.open_ui(true);
+                window_changed = true
+            end
         end
     end
 
     for _, value in ipairs(end_events) do
-        dap.listeners.before[value]['custom_keymaps'] = function()
-            dapui.close();
-            vim.keymap.del('n', '<leader>n')
+        dap.listeners.before[value]['custom'] = function()
+            if window_changed then
+                ui.close_ui(true);
+            end
+            window_changed = false
         end
     end
 end

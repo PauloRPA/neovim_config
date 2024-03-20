@@ -1,5 +1,6 @@
 return {
     'mfussenegger/nvim-dap',
+    tag = '0.7.0',
     config = function()
         local dap = require('dap')
 

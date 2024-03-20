@@ -8,10 +8,15 @@ return {
     config = function()
         local ntConfig = require('nvim-tree')
         local ntApi = require('nvim-tree.api')
-        local nmap = require('core.keymaps').nmap
+        local usercmds = require('plugins.integrations.usercmd')
+
+        local nmap = require('plugins.integrations.eventmap').nmap(function()
+            usercmds.fire(usercmds.event_types.DebuggerWindowPersistence)
+        end, function()
+            usercmds.fire(usercmds.event_types.DebuggerWindowPersistence)
+        end)
 
         -- Integration
-        local usercmds = require('plugins.integrations.usercmd')
         local getStatusUpdateEvent = usercmds.event_types.GitStatusUpdate
         local windowDispositionPersistenceEvent = usercmds.event_types.WindowDispositionPersistence
         usercmds.addListener(getStatusUpdateEvent, ntApi.tree.reload)
