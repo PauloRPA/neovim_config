@@ -29,7 +29,9 @@ local JAVATEST_LAUNCHER_PATH = '/extension/server/*.jar'
 local function resolve_java_install_unix()
     -- From OS ENV
     java_installation.jdk_path = os.getenv('JAVA_HOME')
-    java_installation.bin = java_installation.jdk_path .. '/bin'
+    if java_installation.jdk_path then
+        java_installation.bin = java_installation.jdk_path .. '/bin'
+    end
 
     -- From ASDF if exists
     if vim.fn.executable('asdf') == 1 then
