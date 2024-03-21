@@ -8,7 +8,7 @@ return {
 
         local eventNmap = require('plugins.integrations.eventmap').nmap(nil, function()
             local windowDispositionPersistenceEvent = require('plugins.integrations.metaev').types
-            .WindowDispositionPersistence
+                .WindowDispositionPersistence
             require('plugins.integrations.usercmd').fire(windowDispositionPersistenceEvent)
         end)
 

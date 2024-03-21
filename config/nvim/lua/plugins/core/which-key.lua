@@ -9,15 +9,15 @@ return {
         local wk = require('which-key')
 
         wk.setup({
-            disable = {
-                buftypes = {},
-                filetypes = { '' },
-            },
+            -- disable = {
+            --     buftypes = {},
+            --     filetypes = {},
+            -- },
         })
 
         -- VISUAL MODE
         wk.register({
-            a ={
+            a = {
                 name = 'Action',
                 s = {
                     name = 'Snippet',
@@ -53,9 +53,15 @@ return {
             f = 'Function',
             q = 'Persistence',
             t = 'Toggle',
-            a ={
+            w = 'Workspace',
+            b = {
+                name = 'Breakpoint'
+            },
+            a = {
                 name = 'Action',
                 w = 'Wrap',
+                e = 'Extract',
+                a = 'Application specific',
                 c = 'CD',
                 s = {
                     name = 'Snippet',

@@ -1,0 +1,1 @@
+{"nse":{"body":"final Set<${3:$2}> ${1:set} = new HashSet<${2:String}>();","prefix":"nse"},"ars":{"prefix":"ars","body":"Arrays.toString(${1:args});"},"nal":{"body":"final List<${3:$2}> ${1:list} = new ArrayList<${2:String}>();","prefix":"nal"}}

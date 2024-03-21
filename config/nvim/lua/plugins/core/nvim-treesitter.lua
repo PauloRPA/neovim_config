@@ -16,6 +16,8 @@ return {
         require('treesitter-context').setup {
             max_lines = 1, -- Values <= 0 mean no limit.
         }
+        local nmap = require('core.keymaps').nmap
+        nmap('<leader>ak', vim.lsp.buf.definition)
 
         -- Setup
         tsConfig.setup({
@@ -29,6 +31,7 @@ return {
                 'javascript',
                 'vimdoc',
                 'bash',
+                'vim',
             },
 
             highlight = { enable = true, },
@@ -51,6 +54,15 @@ return {
                 enable = true,
             },
             textobjects = {
+                lsp_interop = {
+                    enable = true,
+                    border = 'single',
+                    floating_preview_opts = {},
+                    peek_definition_code = {
+                        ['<leader>df'] = '@function.inner',
+                        ['<leader>dF'] = '@assignment.outer',
+                    },
+                },
                 select = {
                     enable = true,
                     lookahead = true,

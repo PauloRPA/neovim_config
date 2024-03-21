@@ -1,6 +1,6 @@
 return {
     'szw/vim-maximizer',
-    config = function ()
+    config = function()
         local nmap = require('core.keymaps').nmap
 
         nmap('<leader>m', '<cmd>MaximizerToggle<CR>', 'Maximize current window')

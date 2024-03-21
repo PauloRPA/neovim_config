@@ -14,13 +14,13 @@ return {
         local smap = require('core.keymaps').smap
         local imap = require('core.keymaps').imap
 
-        function next_option()
+        local function next_option()
             if luasnip.choice_active() then
                 luasnip.change_choice(1)
             end
         end
 
-        function prev_option()
+        local function prev_option()
             if luasnip.choice_active() then
                 luasnip.change_choice(-1)
             end
@@ -67,7 +67,7 @@ return {
         })
 
         require('luasnip.loaders.from_vscode').lazy_load()
-        require('luasnip.loaders.from_snipmate').lazy_load()
-        require("luasnip.loaders.from_vscode").lazy_load { paths = { vim.fn.stdpath("config") .. '/lua/snippets' } }
+        -- require('luasnip.loaders.from_snipmate').lazy_load()
+        require('luasnip.loaders.from_vscode').lazy_load { paths = { vim.fn.stdpath('config') .. '/lua/snippets' } }
     end
 }

@@ -23,7 +23,7 @@ local function map(mode, key, action, description, opt, default_opts)
 end
 
 local modes = { 'n', 'i', 'v', 'x', 't', 'o', 's' }
-for _,mode in ipairs(modes) do
+for _, mode in ipairs(modes) do
     M[mode .. 'map'] = function(key, action, description, opt)
         map(mode, key, action, description, opt, opts)
     end
@@ -96,14 +96,14 @@ M.load = function()
     xmap('<leader>dc', function()
         vim.api.nvim_feedkeys('"ty', 'x', false) -- Save text under selection to register t
         vim.cmd('silent! h ' .. vim.fn.getreg('t'))
-    end, '[>] Indent and maintain selection' )
+    end, '[>] Indent and maintain selection')
 
     -- Indentation op
-    vmap('>', '>gv', '[>] Indent and maintain selection' )
-    vmap('<', '<gv', '[<] Indent and maintain selection' )
+    vmap('>', '>gv', '[>] Indent and maintain selection')
+    vmap('<', '<gv', '[<] Indent and maintain selection')
 
     -- Terminal mappings
-    tmap('<Esc>', '<C-\\><C-n>', 'Exit terminal mode with escape' )
+    tmap('<Esc>', '<C-\\><C-n>', 'Exit terminal mode with escape')
 
     -- Diagnostic mappings
     nmap('<leader>]', vim.diagnostic.goto_next, 'Goto next diagnostics')

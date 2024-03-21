@@ -1,5 +1,5 @@
 return {
-    enabled = false;
+    enabled = false,
     'startup-nvim/startup.nvim',
     tag = 'stable',
     dependencies = {
@@ -26,7 +26,7 @@ return {
             type = 'mapping', -- can be mapping or oldfiles
             align = 'center',
             margin = 5,
-            title = "Basic Commands",
+            title = 'Basic Commands',
             content = {
                 { ' Find File', 'Telescope find_files', '<leader>f' },
                 { ' Recent Files', 'Telescope oldfiles', '<leader>o' },
