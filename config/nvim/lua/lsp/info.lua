@@ -3,8 +3,8 @@ M = {}
 local configPath, _ = vim.fn.stdpath('config')
 
 local TOOLING_PATH = configPath .. '/assets/tools'
-local LSP_SETTINGS_PATH = '/lua/lsp/settings'
-local LSP_SETTINGS_MODULE = 'lsp.settings.'
+local LSP_SETTINGS_PATH = '/lua/lsp/servers'
+local LSP_SETTINGS_MODULE = 'lsp.servers.'
 local ADDITIONAL_LSP_TO_INSTALL = { 'jdtls' }
 local ADDITIONAL_DAP_TO_INSTALL = { 'javadbg', 'javatest' }
 
