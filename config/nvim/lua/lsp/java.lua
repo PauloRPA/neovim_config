@@ -334,11 +334,25 @@ M.attachDapKeymapsToBuf = function()
     nmap('<A-f>', dap.focus_frame, 'Focus frame')
     nmap('<A-o>', dap.step_over, 'Step [O]ver')
     nmap('<A-O>', dap.step_out, 'Step [O]ut')
-    nmap('<A-x>', dap.terminate, 'Terminate')
+    nmap('<A-x>', function()
+        dap.terminate(nil, nil, function()
+            require('neotest').run.stop()
+        end)
+    end, 'Terminate')
 
     nmap('<A-r>', function()
         vim.cmd.wa()
-        dap.run_last()
+        if next(require('dap.breakpoints').get()) ~= nil then
+            dap.run_last()
+        else
+            if dap.session() then
+                dap.terminate(nil, nil, function()
+                    require('neotest').run.run() -- Run nearest method
+                end)
+            else
+                require('neotest').run.run() -- Run nearest method
+            end
+        end
     end, 'Run last')
 
     nmap('<leader>n', function()
@@ -417,7 +431,17 @@ end
 M.attachTestKeymapsToBuf = function()
     nmap('<A-t>', function()
         vim.cmd.wa()
-        jdtls.test_nearest_method()
+        if next(require('dap.breakpoints').get()) ~= nil then
+            jdtls.test_nearest_method()
+        else
+            if dap.session() then
+                dap.terminate(nil, nil, function()
+                    require('neotest').run.run() -- Run nearest method
+                end)
+            else
+                require('neotest').run.run() -- Run nearest method
+            end
+        end
     end, 'Test nearest method')
 
     nmap('<leader>aat', function()
