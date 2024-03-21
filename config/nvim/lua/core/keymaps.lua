@@ -76,6 +76,7 @@ M.load = function()
 
     -- Emacs keybindings for command line mode
     imap('<A-b>', '<C-Left>', 'Move a word before')
+    imap('<A-d>', '<C-o>cw', 'Move a word after')
     imap('<A-f>', '<C-Right>', 'Move a word ahead')
 
     imap('<C-b>', '<Left>', 'Move a char before')

@@ -25,7 +25,6 @@ return {
             ensure_installed = {
                 'java',
                 'lua',
-                'markdown',
                 'html',
                 'css',
                 'javascript',
