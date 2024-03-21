@@ -7,16 +7,10 @@ return {
 
         nmap('<leader>st', '<cmd>TodoTelescope<CR>', 'Search Todos in Telescope')
 
+        -- TODO NOTE HACK WARN FIX PERF TEST
         require('todo-comments').setup({
             signs = false,
             sign_priority = 8,
-            -- TODO: TODO
-            -- NOTE: NOTE
-            -- HACK: HACK
-            -- WARN: WARN
-            -- FIX: FIX
-            -- PERF: PERF
-            -- TEST: TEST
             highlight = {
                 comments_only = true, -- uses treesitter to match keywords in comments only
                 exclude = {},         -- list of file types to exclude highlighting

@@ -2,8 +2,6 @@ return {
     'neovim/nvim-lspconfig',
     config = function()
         local lspconfig = require('lspconfig')
-        local usercmd = require('plugins.integrations.usercmd')
-        local metaev = require('plugins.integrations.metaev').types
         local info = require('lsp.info')
         local lsp_run = require('lsp.lsp_run')
 

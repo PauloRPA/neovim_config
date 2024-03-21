@@ -15,7 +15,6 @@ return {
         vim.o.foldlevelstart = 99
         vim.o.foldenable = true
 
-        -- NOTE: Reserved for future use. It selects between peeking folded content and LSP hover.
         local function peekOrHover()
             local winid = require('ufo').peekFoldedLinesUnderCursor()
             if winid then

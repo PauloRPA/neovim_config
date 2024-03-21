@@ -22,8 +22,6 @@ return {
         },
         close = { -- *ultimate-autopair-map-close-config*
             enable = (true),
-            -- map = '<A-k>',  -- NOTE: Keymap disabled due to conflicts
-            -- cmap = '<A-k>', -- NOTE: Keymap disabled due to conflicts
         },
         tabout = { -- *ultimate-autopair-map-tabout-config*
             enable = true,

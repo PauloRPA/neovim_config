@@ -50,6 +50,9 @@ M.config = function()
     local operations = { 'open', 'close', 'toggle' }
     local lastLayout = nil
 
+    -- ────────────────────────────────────────────────────────────────────────────
+    -- TODO: A proper way to deal with multiple panes
+    -- HACK: Clean this mess as soon as possible
     for _, op in ipairs(operations) do
         for _, layout in ipairs(layouts) do
             M[op .. '_' .. layout.name] = function(closeOthers)
@@ -90,6 +93,7 @@ M.config = function()
             end
         end
     end
+    -- ────────────────────────────────────────────────────────────────────────────
 
     local nmap = require('core.keymaps').nmap
     local vmap = require('core.keymaps').vmap
