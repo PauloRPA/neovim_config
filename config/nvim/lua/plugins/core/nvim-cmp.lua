@@ -65,9 +65,9 @@ return {
             },
             sorting = {
                 comparators = {
-                    cmp.config.compare.score,
-                    emmet_lsSorting,
                     cmp.config.compare.exact,
+                    emmet_lsSorting,
+                    cmp.config.compare.score,
                     cmp.config.compare.recently_used,
                 }
             },
