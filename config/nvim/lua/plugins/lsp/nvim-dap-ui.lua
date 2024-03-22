@@ -43,10 +43,17 @@ M.config = function()
             } },
             position = 'bottom',
             size = 14
+        }, {
+            elements = { {
+                id = 'console',
+                size = 1
+            }, },
+            position = 'bottom',
+            size = 16
         }, },
     })
 
-    local layouts = { { name = 'ui', 1, 2 }, { name = 'bottom', 3 } }
+    local layouts = { { name = 'ui', 1, 2 }, { name = 'bottom', 3 }, { name = 'console', 4 } }
     local operations = { 'open', 'close', 'toggle' }
     local lastLayout = nil
 
@@ -112,6 +119,10 @@ M.config = function()
     end, 'Toggle reset dap-ui')
     nmap('<A-2>', function()
         M.toggle_reset_bottom(true)
+    end, 'Toggle reset dapui bottom')
+
+    nmap('<A-9>', function()
+        M.toggle_reset_console(true)
     end, 'Toggle reset dapui bottom')
 
     nmap('<A-e>', dapui.eval, 'Open dap-ui')
