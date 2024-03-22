@@ -16,8 +16,6 @@ return {
         require('treesitter-context').setup {
             max_lines = 1, -- Values <= 0 mean no limit.
         }
-        local nmap = require('core.keymaps').nmap
-        nmap('<leader>ak', vim.lsp.buf.definition)
 
         -- Setup
         tsConfig.setup({
