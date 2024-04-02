@@ -1,1 +1,1 @@
-{"ars":{"prefix":"ars","body":"Arrays.toString(${1:args});"},"nal":{"prefix":"nal","body":"final List<${3:$2}> ${1:list} = new ArrayList<${2:String}>();"},"nse":{"prefix":"nse","body":"final Set<${3:$2}> ${1:set} = new HashSet<${2:String}>();"}}
+{"nal":{"prefix":"nal","body":"final List<${3:$2}> ${1:list} = new ArrayList<${2:String}>();"},"nso":{"prefix":"nso","body":"final Set<${2:type}> ${1:set} = Set.of(${3:values});$0"},"ars":{"prefix":"ars","body":"Arrays.toString(${1:args});"},"nse":{"prefix":"nse","body":"final Set<${3:$2}> ${1:set} = new HashSet<${2:String}>();"}}
