@@ -3,7 +3,7 @@ return {
     build = ':TSUpdate',
     tag = 'v0.9.2',
     dependencies = {
-        'nvim-treesitter/nvim-treesitter-textobjects',
+        { branch = 'main', 'nvim-treesitter/nvim-treesitter-textobjects' },
         'nvim-treesitter/nvim-treesitter-context',
         'RRethy/nvim-treesitter-endwise',
         'windwp/nvim-ts-autotag',
