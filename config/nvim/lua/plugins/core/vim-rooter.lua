@@ -2,7 +2,7 @@ return {
     'airblade/vim-rooter',
     config = function()
         local rooter = {
-            rooter_patterns = { '.git', 'pom.xml', 'resourcepacks', 'Makefile' },
+            rooter_patterns = { '.git', 'pom.xml', 'resourcepacks', 'Makefile', 'init.lua' },
             rooter_silent_chdir = 1,
         }
 
