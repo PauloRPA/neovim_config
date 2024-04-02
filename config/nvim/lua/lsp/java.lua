@@ -104,6 +104,7 @@ local function resolve_jdtls_install()
 end
 
 local function cwd_root()
+    vim.cmd([[Rooter]])
     return vim.fn.getcwd()
 end
 
@@ -184,6 +185,9 @@ M.config = function()
             '-jar', config_keys.launcher_jar,
             '-configuration', platform_config,
             '-data', current_project_data_dir,
+        },
+        workspaceFolders = {
+            cwd_root() or jdtls_root() or find_root_fs(),
         },
         settings = {
             java = {
