@@ -1,6 +1,5 @@
 return {
-    'https://gitlab.com/itaranto/plantuml.nvim',
-    tag = 'v1.4.0',
+    'https://github.com/Groveer/plantuml.nvim',
     config = function()
         local puml = vim.api.nvim_create_augroup('Puml mappings', { clear = true })
         vim.api.nvim_create_autocmd({ 'BufReadPost' }, {
