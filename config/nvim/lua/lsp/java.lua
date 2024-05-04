@@ -240,6 +240,12 @@ M.config = function()
                     'java.util.Objects.requireNonNull',
                     'java.util.Objects.requireNonNullElse',
                     'org.mockito.Mockito.*',
+                    'MockMvcBuilders.*',
+                    'MockMvcRequestBuilders.*',
+                    'MockMvcResultMatchers.*',
+                    'MockMvcResultHandlers.*',
+                    'MockRestRequestMatchers.*',
+                    'MockRestResponseCreators.*',
                 },
             },
             contentProvider = {
