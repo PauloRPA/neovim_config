@@ -37,8 +37,6 @@ M.attachDapKeymapsToBuf = function()
         dap.step_into({ askForTargets = true })
     end, 'Step into')
 
-    -- WARN: Direct reference to dap-ui.
-    -- Change this after refactoring the "multiple panes" code
     nmap('<leader>n', function()
         local widgets = require('dap.ui.widgets')
         widgets.cursor_float(widgets.frames).open()
