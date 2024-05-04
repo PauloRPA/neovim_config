@@ -161,12 +161,6 @@ M.config = function()
     local current_project_data_dir = config_keys.data_dir .. '/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
     vim.cmd([[hi debug_line guibg=#16161e blend=0 cterm=bold gui=bold]])
 
-    vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'ErrorMsg', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapBreakpointRejected', { text = '󰅙', texthl = 'NonText', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'WarningMsg', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapLogPoint', { text = '󰺮', texthl = 'DiagnosticHint', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapStopped', { text = '', texthl = 'Title', linehl = 'debug_line', numhl = '' })
-
     local config = {
         cmd = {
             'java',
@@ -320,80 +314,6 @@ M.attachDapKeymapsToBuf = function()
         update_args()
         update_jvm_args()
     end, 'Set JVM and Application args')
-
-    nmap('<A-i>', function()
-        dap.step_into({ askForTargets = true })
-    end, 'Step into')
-
-    nmap('<leader>bl', dap.list_breakpoints, 'List breakpoints')
-    nmap('<leader>bc', dap.clear_breakpoints, 'Clear breakpoints')
-    nmap('<leader>bp', function()
-        dap.toggle_breakpoint(nil, nil, vim.api.nvim_get_current_line())
-    end, 'Set print breakpoint')
-
-    nmap('<leader>bh', function()
-        vim.ui.input({ prompt = 'Number of hits' }, function(hits)
-            if hits then
-                dap.set_breakpoint(nil, hits, nil)
-            else
-                vim.notify('Operation aborted.')
-            end
-        end)
-    end, 'Set hit breakpoint')
-
-    nmap('<C-b>', dap.toggle_breakpoint, 'Toggle [B]reakpoint')
-    nmap('<A-n>', dap.restart_frame, 'Restart frame')
-    nmap('<A-f>', dap.focus_frame, 'Focus frame')
-    nmap('<A-o>', dap.step_over, 'Step [O]ver')
-    nmap('<A-O>', dap.step_out, 'Step [O]ut')
-    nmap('<A-x>', function()
-        dap.terminate(nil, nil, function()
-            require('neotest').run.stop()
-        end)
-    end, 'Terminate')
-
-    nmap('<A-r>', function()
-        vim.cmd.wa()
-        if next(require('dap.breakpoints').get()) ~= nil then
-            dap.run_last()
-        else
-            if dap.session() then
-                dap.terminate(nil, nil, function()
-                    require('neotest').run.run() -- Run nearest method
-                end)
-            else
-                require('neotest').run.run() -- Run nearest method
-            end
-        end
-    end, 'Run last')
-
-    nmap('<leader>n', function()
-        local widgets = require('dap.ui.widgets')
-        widgets.cursor_float(widgets.frames).open()
-    end, 'Show Frames at cursor')
-
-    local init_events = { 'attach', 'launch' }
-    local end_events = { 'event_terminated', 'event_exited' }
-    local ui = require('plugins.lsp.nvim-dap-ui')
-
-    local window_changed = false
-    for _, value in ipairs(init_events) do
-        dap.listeners.before[value]['custom'] = function()
-            if next(require('dap.breakpoints').get()) ~= nil then
-                ui.open_ui(true);
-                window_changed = true
-            end
-        end
-    end
-
-    for _, value in ipairs(end_events) do
-        dap.listeners.before[value]['custom'] = function()
-            if window_changed then
-                ui.close_ui(true);
-            end
-            window_changed = false
-        end
-    end
 end
 
 M.attachLspKeymapsToBuf = function()
@@ -443,17 +363,7 @@ end
 M.attachTestKeymapsToBuf = function()
     nmap('<A-t>', function()
         vim.cmd.wa()
-        if next(require('dap.breakpoints').get()) ~= nil then
-            jdtls.test_nearest_method()
-        else
-            if dap.session() then
-                dap.terminate(nil, nil, function()
-                    require('neotest').run.run() -- Run nearest method
-                end)
-            else
-                require('neotest').run.run() -- Run nearest method
-            end
-        end
+        jdtls.test_nearest_method()
     end, 'Test nearest method')
 
     nmap('<leader>aat', function()
@@ -464,8 +374,6 @@ M.attachTestKeymapsToBuf = function()
     nmap('<leader>aas', jdtls_tests.goto_subjects, 'Goto subjects')
     nmap('<leader>aag', jdtls_tests.generate, 'Generate tests')
 end
-
-
 
 -- On import
 resolve_jdtls_install()
