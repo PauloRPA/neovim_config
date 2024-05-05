@@ -180,6 +180,7 @@ M.config = function()
             '-configuration', platform_config,
             '-data', current_project_data_dir,
         },
+        single_file_support = true,
         workspaceFolders = {
             cwd_root() or jdtls_root() or find_root_fs(),
         },
@@ -204,7 +205,7 @@ M.config = function()
                     },
                 },
                 postfix = {
-                    enabled = false,
+                    enabled = true,
                 },
                 telemetry = {
                     enabled = false,
