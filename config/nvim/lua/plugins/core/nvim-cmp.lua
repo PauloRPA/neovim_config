@@ -24,6 +24,11 @@ return {
             return false
         end
 
+        local lsp_server_icons = {
+            emmet_ls = '󰈑 ',
+            html = '󰬏 ',
+        }
+
         cmp.setup({
             enabled = function()
                 return vim.api.nvim_buf_get_option(0, 'buftype') ~= 'prompt' or require('cmp_dap').is_dap_buffer()
@@ -50,11 +55,8 @@ return {
                 format = function(entry, vim_item)
                     if entry.source.name == 'nvim_lsp' then
                         local server_name = entry.source.source.client.config.name
-                        if server_name == 'emmet_ls' then
-                            vim_item.menu = '󰈑 '
-                        end
-                        if server_name == 'html' then
-                            vim_item.menu = '󰬏 '
+                        if lsp_server_icons[server_name] then
+                            vim_item.menu = lsp_server_icons[server_name]
                         end
                     end
                     return vim_item
@@ -62,9 +64,9 @@ return {
             },
             sorting = {
                 comparators = {
-                    cmp.config.compare.exact,
-                    emmet_lsSorting,
                     cmp.config.compare.score,
+                    emmet_lsSorting,
+                    cmp.config.compare.exact,
                     cmp.config.compare.recently_used,
                 }
             },
@@ -74,6 +76,23 @@ return {
                 { name = 'luasnip', group_index = 1 },
                 { name = 'path', keyword_length = 2, group_index = 2 },
                 { name = 'buffer', keyword_length = 3, group_index = 2 },
+            })
+        })
+
+        cmp.setup.filetype({ 'html', 'css' }, {
+            sorting = {
+                comparators = {
+                    emmet_lsSorting,
+                    cmp.config.compare.score,
+                    cmp.config.compare.exact,
+                    cmp.config.compare.recently_used,
+                }
+            },
+            sources = cmp.config.sources({
+                { name = 'nvim_lsp_signature_help', group_index = 1 },
+                { name = 'nvim_lsp', group_index = 1 },
+                { name = 'luasnip', group_index = 1 },
+                { name = 'path', keyword_length = 2, group_index = 2 },
             })
         })
 
