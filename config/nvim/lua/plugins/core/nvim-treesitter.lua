@@ -71,16 +71,17 @@ return {
                         ['ac'] = { query = '@conditional.outer', desc = 'outer part of a conditional' },
                         ['ic'] = { query = '@conditional.inner', desc = 'inner part of a conditional' },
 
+                        ['al'] = { query = '@attribute.outer', desc = 'outer part of a attribute' },
+                        ['il'] = { query = '@attribute.inner', desc = 'inner part of a attribute' },
+
                         ['aC'] = { query = '@class.outer', desc = 'outer part of a class' },
                         ['iC'] = { query = '@class.inner', desc = 'inner part of a class' },
 
                         ['ar'] = { query = '@return.outer', desc = 'outer part of a return statement' },
                         ['ir'] = { query = '@return.inner', desc = 'inner part of a return statement' },
 
-                        ['ad'] = { query = '@assignment.lhs', desc = 'left hand side of an assignment' },
-                        ['id'] = { query = '@assignment.rhs', desc = 'right hand side of an assignment' },
-                        ['as'] = { query = '@assignment.outer', desc = 'outer part of an assignment' },
-                        ['is'] = { query = '@assignment.inner', desc = 'inner part of an assignment' },
+                        ['as'] = { query = '@assignment.lhs', desc = 'outer part of an assignment' },
+                        ['is'] = { query = '@assignment.rhs', desc = 'inner part of an assignment' },
                     },
                     selection_modes = {
                         ['@function.outer'] = 'V', -- linewise
@@ -91,12 +92,10 @@ return {
                 swap = {
                     enable = true,
                     swap_next = {
-                        ['<leader>l'] = { query = '@parameter.inner', desc = 'Swap next parameter' },
-                        ['<A-J>'] = { query = '@function.outer', desc = 'Swap next function' },
+                        ['<A-L>'] = { query = { '@attribute.outer', '@parameter.inner', '@assignment.outer', '@number.inner', '@function.outer' }, desc = 'Swap next function, attribute or parameter' },
                     },
                     swap_previous = {
-                        ['<leader>h'] = { query = '@parameter.inner', desc = 'Swap previous parameter' },
-                        ['<A-K>'] = { query = '@function.outer', desc = 'Swap previous function' },
+                        ['<A-H>'] = { query = { '@attribute.outer', '@parameter.inner', '@assignment.outer', '@number.inner', '@function.outer' }, desc = 'Swap previous function, attribute or parameter' },
                     },
                 },
 
@@ -105,7 +104,7 @@ return {
                     set_jumps = true, -- whether to set jumps in the jumplist
                     goto_next_start = {
                         ['<A-j>'] = { query = '@function.outer', desc = 'Go to next function start' },
-                        ['<A-l>'] = { query = '@parameter.inner', desc = 'Go to next parameter start' },
+                        ['<A-l>'] = { query = { '@parameter.inner', '@attribute.outer' }, desc = 'Go to next parameter or attribute start' },
                         ['[c'] = { query = '@class.outer', desc = '' },
                     },
                     goto_next_end = {
@@ -113,7 +112,7 @@ return {
                     },
                     goto_previous_start = {
                         ['<A-k>'] = { query = '@function.outer', desc = 'Go to previous function start' },
-                        ['<A-h>'] = { query = '@parameter.inner', desc = 'Go to previous parameter start' },
+                        ['<A-h>'] = { query = { '@parameter.inner', '@attribute.outer' }, desc = 'Go to previous parameter or attribute start' },
                         ['[C'] = { query = '@class.outer', desc = '' },
                     },
                     goto_previous_end = {
