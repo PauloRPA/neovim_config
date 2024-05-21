@@ -77,6 +77,8 @@ return {
                         ['aC'] = { query = '@class.outer', desc = 'outer part of a class' },
                         ['iC'] = { query = '@class.inner', desc = 'inner part of a class' },
 
+                        ['ik'] = { query = '@css.selector', desc = 'inner part of a css selector' },
+
                         ['ar'] = { query = '@return.outer', desc = 'outer part of a return statement' },
                         ['ir'] = { query = '@return.inner', desc = 'inner part of a return statement' },
 
@@ -92,10 +94,10 @@ return {
                 swap = {
                     enable = true,
                     swap_next = {
-                        ['<A-L>'] = { query = { '@attribute.outer', '@parameter.inner', '@assignment.outer', '@number.inner', '@function.outer' }, desc = 'Swap next function, attribute or parameter' },
+                        ['<A-L>'] = { query = { '@attribute.outer', '@parameter.inner', '@assignment.outer', '@number.inner', '@function.outer', '@css.ruleset' }, desc = 'Swap next function, attribute or parameter' },
                     },
                     swap_previous = {
-                        ['<A-H>'] = { query = { '@attribute.outer', '@parameter.inner', '@assignment.outer', '@number.inner', '@function.outer' }, desc = 'Swap previous function, attribute or parameter' },
+                        ['<A-H>'] = { query = { '@attribute.outer', '@parameter.inner', '@assignment.outer', '@number.inner', '@function.outer', '@css.ruleset' }, desc = 'Swap previous function, attribute or parameter' },
                     },
                 },
 
@@ -103,16 +105,16 @@ return {
                     enable = true,
                     set_jumps = true, -- whether to set jumps in the jumplist
                     goto_next_start = {
-                        ['<A-j>'] = { query = '@function.outer', desc = 'Go to next function start' },
-                        ['<A-l>'] = { query = { '@parameter.inner', '@attribute.outer' }, desc = 'Go to next parameter or attribute start' },
+                        ['<A-j>'] = { query = { '@function.outer', '@css.selector' }, desc = 'Go to next function start' },
+                        ['<A-l>'] = { query = { '@parameter.inner', '@attribute.outer', '@number.inner', '@assignment.outer' }, desc = 'Go to next parameter or attribute start' },
                         ['[c'] = { query = '@class.outer', desc = '' },
                     },
                     goto_next_end = {
                         ['<leader>J'] = { query = '@function.outer', desc = 'Go to next function end' },
                     },
                     goto_previous_start = {
-                        ['<A-k>'] = { query = '@function.outer', desc = 'Go to previous function start' },
-                        ['<A-h>'] = { query = { '@parameter.inner', '@attribute.outer' }, desc = 'Go to previous parameter or attribute start' },
+                        ['<A-k>'] = { query = { '@function.outer', '@css.selector' }, desc = 'Go to previous function start' },
+                        ['<A-h>'] = { query = { '@parameter.inner', '@attribute.outer', '@number.inner', '@assignment.outer' }, desc = 'Go to previous parameter or attribute start' },
                         ['[C'] = { query = '@class.outer', desc = '' },
                     },
                     goto_previous_end = {
