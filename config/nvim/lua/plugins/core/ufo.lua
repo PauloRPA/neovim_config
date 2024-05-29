@@ -1,6 +1,6 @@
 return {
     'kevinhwang91/nvim-ufo',
-    tag = 'v1.3.0',
+    tag = 'v1.4.0',
     dependencies = { 'kevinhwang91/promise-async' },
     config = function()
         -- Mappings
@@ -30,9 +30,8 @@ return {
 
         nmap('K', peekOrHover, 'Hover Documentation / Peek fold')
 
-        -- WARN: When adding LSPs to the configuration, adjustments will be needed.
         require('ufo').setup({
-            close_fold_kinds = { 'imports', 'comment' },
+            close_fold_kinds_for_ft = { 'imports', 'comment' },
             provider_selector = function()
                 return { 'treesitter', 'indent' }
             end,

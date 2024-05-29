@@ -11,7 +11,7 @@ return {
         local tsConfig = require('nvim-treesitter.configs')
 
         -- Extensions
-        require('nvim-ts-autotag').setup()
+        require('nvim-ts-autotag').setup({})
         require('treesitter-context').setup {
             max_lines = 1, -- Values <= 0 mean no limit.
         }
@@ -50,12 +50,10 @@ return {
             },
 
             -- Extensions config
-            autotag = { -- autotag plugin - nvim-ts-autotag
-                enable = true
-            },
             endwise = {
                 enable = true,
             },
+
             textobjects = {
                 lsp_interop = {
                     enable = true,

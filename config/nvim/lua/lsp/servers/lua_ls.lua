@@ -16,7 +16,7 @@ return {
                 globals = { 'vim' },
             },
             workspace = {
-                { vim.env.VIMRUNTIME .. '/' }, -- Make the server aware of Neovim runtime files and plugins
+                -- { vim.env.VIMRUNTIME .. '/' }, -- Make the server aware of Neovim runtime files and plugins
                 checkThirdParty = false,
             },
             telemetry = {
