@@ -6,3 +6,4 @@
 (tag_name) @css.selector
 (id_name) @css.selector
 (universal_selector) @css.selector
+(block) @block

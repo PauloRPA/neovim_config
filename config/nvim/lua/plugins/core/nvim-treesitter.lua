@@ -16,6 +16,12 @@ return {
             max_lines = 1, -- Values <= 0 mean no limit.
         }
 
+        local nmap = require('core.keymaps').nmap
+        nmap('<A-I>', function()
+            vim.cmd('TSTextobjectGotoNextStart @block')
+            vim.api.nvim_input('o')
+        end, '')
+
         -- Setup
         tsConfig.setup({
             -- Config
@@ -28,6 +34,7 @@ return {
                 'vimdoc',
                 'bash',
                 'vim',
+                'xml',
             },
 
             highlight = { enable = true, },
@@ -94,10 +101,10 @@ return {
                 swap = {
                     enable = true,
                     swap_next = {
-                        ['<A-L>'] = { query = { '@attribute.outer', '@parameter.inner', '@assignment.outer', '@number.inner', '@function.outer', '@css.ruleset' }, desc = 'Swap next function, attribute or parameter' },
+                        ['<A-L>'] = { query = { '@attribute.outer', '@parameter.inner', '@assignment.outer', '@number.inner', '@function.outer', '@css.ruleset', '@xml.element' }, desc = 'Swap next function, attribute or parameter' },
                     },
                     swap_previous = {
-                        ['<A-H>'] = { query = { '@attribute.outer', '@parameter.inner', '@assignment.outer', '@number.inner', '@function.outer', '@css.ruleset' }, desc = 'Swap previous function, attribute or parameter' },
+                        ['<A-H>'] = { query = { '@attribute.outer', '@parameter.inner', '@assignment.outer', '@number.inner', '@function.outer', '@css.ruleset', '@xml.element' }, desc = 'Swap previous function, attribute or parameter' },
                     },
                 },
 
@@ -105,7 +112,7 @@ return {
                     enable = true,
                     set_jumps = true, -- whether to set jumps in the jumplist
                     goto_next_start = {
-                        ['<A-j>'] = { query = { '@function.outer', '@css.selector' }, desc = 'Go to next function start' },
+                        ['<A-j>'] = { query = { '@function.outer', '@class.outer', '@css.selector', '@xml.element' }, desc = 'Go to next function start' },
                         ['<A-l>'] = { query = { '@parameter.inner', '@attribute.outer', '@number.inner', '@assignment.outer' }, desc = 'Go to next parameter or attribute start' },
                         ['[c'] = { query = '@class.outer', desc = '' },
                     },
@@ -113,7 +120,7 @@ return {
                         ['<leader>J'] = { query = '@function.outer', desc = 'Go to next function end' },
                     },
                     goto_previous_start = {
-                        ['<A-k>'] = { query = { '@function.outer', '@css.selector' }, desc = 'Go to previous function start' },
+                        ['<A-k>'] = { query = { '@function.outer', '@class.outer', '@css.selector', '@xml.element' }, desc = 'Go to previous function start' },
                         ['<A-h>'] = { query = { '@parameter.inner', '@attribute.outer', '@number.inner', '@assignment.outer' }, desc = 'Go to previous parameter or attribute start' },
                         ['[C'] = { query = '@class.outer', desc = '' },
                     },

@@ -86,8 +86,8 @@ return {
                 MkdnGoForward = { 'n', '<C-i>' },
                 MkdnEnter = { { 'n', 'v' }, '<CR>' },
 
-                MkdnNextHeading = { 'n', '<C-j>' },
-                MkdnPrevHeading = { 'n', '<C-k>' },
+                MkdnNextHeading = { 'n', '<A-j>' },
+                MkdnPrevHeading = { 'n', '<A-k>' },
                 MkdnIncreaseHeading = { 'n', '+' },
                 MkdnDecreaseHeading = { 'n', '-' },
 
