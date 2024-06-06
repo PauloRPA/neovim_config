@@ -13,6 +13,32 @@ return {
         local cmp = require('cmp')
         local luasnip = require('luasnip')
 
+        local function length_and_detail(entry1, entry2)
+            local diff = #entry1.completion_item.label - #entry2.completion_item.label
+            if diff < 0 then
+                return true
+            elseif diff > 0 then
+                return false
+            end
+
+            if not entry1.completion_item.detail then
+                return nil
+            end
+
+            if not entry2.completion_item.detail then
+                return nil
+            end
+
+            local diff_detail = #entry1.completion_item.detail - #entry2.completion_item.detail
+            if diff_detail < 0 then
+                return true
+            elseif diff_detail > 0 then
+                return false
+            end
+
+            return nil
+        end
+
         local function emmet_lsSorting(entry1, entry2)
             if entry2.source.source.client and entry2.source.source.client.name == 'emmet_ls' then
                 if entry1.source.source.client then
@@ -31,7 +57,8 @@ return {
 
         cmp.setup({
             enabled = function()
-                return vim.api.nvim_buf_get_option(0, 'buftype') ~= 'prompt' or require('cmp_dap').is_dap_buffer()
+                return vim.api.nvim_get_option_value('buftype', { buf = 0 }) ~= 'prompt' or
+                    require('cmp_dap').is_dap_buffer()
             end,
             snippet = {
                 expand = function(args)
@@ -65,18 +92,43 @@ return {
             sorting = {
                 comparators = {
                     cmp.config.compare.score,
-                    emmet_lsSorting,
-                    cmp.config.compare.exact,
+                    cmp.config.compare.length,
+                    cmp.config.compare.group_index,
                     cmp.config.compare.recently_used,
+                    cmp.config.compare.locality,
+                    cmp.config.compare.exact,
                 }
             },
             sources = cmp.config.sources({
                 { name = 'nvim_lsp_signature_help', group_index = 1 },
                 { name = 'nvim_lsp', group_index = 1 },
                 { name = 'luasnip', group_index = 1 },
-                { name = 'path', keyword_length = 2, group_index = 2 },
-                { name = 'buffer', keyword_length = 3, group_index = 2 },
-            })
+                { name = 'path', group_index = 2 },
+                { name = 'buffer', group_index = 2 },
+            }),
+            experimental = {
+                ghost_text = true,
+            }
+        })
+
+        cmp.setup.filetype({ 'java' }, {
+            sorting = {
+                comparators = {
+                    cmp.config.compare.score,
+                    length_and_detail,
+                    cmp.config.compare.group_index,
+                    cmp.config.compare.recently_used,
+                    cmp.config.compare.locality,
+                    cmp.config.compare.exact,
+                }
+            },
+            sources = cmp.config.sources({
+                { name = 'nvim_lsp_signature_help', group_index = 1 },
+                { name = 'nvim_lsp', group_index = 1 },
+                { name = 'luasnip', group_index = 1 },
+                { name = 'path', group_index = 2 },
+                { name = 'buffer', group_index = 2 },
+            }),
         })
 
         cmp.setup.filetype({ 'html', 'css' }, {

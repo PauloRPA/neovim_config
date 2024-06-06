@@ -338,18 +338,15 @@ M.attachLspKeymapsToBuf = function()
 
     imap('<A-w>', function()
         jdtls.extract_variable()
-        vim.defer_fn(function()
-            vim.api.nvim_feedkeys(extract_rename_cmd, 'm', true)
-        end, 300)
     end, 'Extract and rename new object', opts)
 
     imap('<A-;>', function()
         if (string.match(vim.api.nvim_get_current_line(), ';') == ';') then
-            end_instruction_cmd = vim.api.nvim_replace_termcodes('<esc>A<CR>', true, false, true)
+            end_instruction_cmd = vim.api.nvim_replace_termcodes('<Esc><Esc>A', true, false, true)
         else
-            end_instruction_cmd = vim.api.nvim_replace_termcodes('<esc>A;<CR>', true, false, true)
+            end_instruction_cmd = vim.api.nvim_replace_termcodes('<Esc><Esc>A;', true, false, true)
         end
-        vim.api.nvim_feedkeys(end_instruction_cmd, 'm', true)
+        vim.api.nvim_feedkeys(end_instruction_cmd, 't', true)
     end, 'Insert ; at the end of the line', opts)
 
     nmap('<leader>L', function()
