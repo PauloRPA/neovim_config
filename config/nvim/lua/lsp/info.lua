@@ -16,6 +16,24 @@ local function is_str_not_blank(str)
     return str and str ~= ''
 end
 
+local function setup_lsp_handlers()
+    local handlers_config = {
+        ['textDocument/hover'] = {
+            border = 'single',
+            title = 'Hover',
+        },
+    }
+
+    for method, config in pairs(handlers_config) do
+        local vim_handler = vim.lsp.handlers[method]
+        vim.lsp.handlers[method] = vim.lsp.with(vim_handler, config)
+    end
+end
+
+local function setup()
+    setup_lsp_handlers()
+end
+
 M.is_str_not_blank = is_str_not_blank;
 M.is_str_blank = is_str_blank
 
@@ -27,8 +45,9 @@ M.has_tool = function(tool)
     return is_str_not_blank(vim.fn.glob(TOOLING_PATH .. '/*' .. tool .. '*'))
 end
 
-M.fetch = function()
+M.init = function()
     require('lsp.java')
+    setup()
 end
 
 M.get_tooling_path = function()
@@ -69,6 +88,5 @@ M.get_lsp_capabilities = function()
     }
     return capabilities
 end
-
 
 return M

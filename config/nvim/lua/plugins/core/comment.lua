@@ -23,7 +23,7 @@ return {
                 block = ' -',
             },
             opleader = {
-                line = 'f[',
+                line = 'c[',
                 block = ' -',
             },
             mappings = {

@@ -85,6 +85,8 @@ M.load = function()
     imap('<C-a>', '<Home>', 'Move to start')
     imap('<C-d>', '<Del>', 'Delete char')
     imap('<C-n>', '<Esc>o', 'New line below')
+    imap('<A-n>', '<Esc>o', 'New line below')
+    imap('<A-O>', '<Esc>O', 'New line above')
 
     -- User functions
     nmap('<Space>', '<Nop>', 'Nop')
