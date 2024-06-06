@@ -17,7 +17,15 @@ return {
         }
 
         local nmap = require('core.keymaps').nmap
+        local imap = require('core.keymaps').imap
+
         nmap('<A-I>', function()
+            vim.cmd('TSTextobjectGotoNextStart @block')
+            vim.api.nvim_input('o')
+        end, '')
+
+        imap('<A-I>', function()
+            vim.api.nvim_input('<Esc>')
             vim.cmd('TSTextobjectGotoNextStart @block')
             vim.api.nvim_input('o')
         end, '')
