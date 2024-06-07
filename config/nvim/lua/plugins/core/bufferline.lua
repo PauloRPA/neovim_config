@@ -7,6 +7,20 @@ return {
         local bufferline = require('bufferline')
         local bufferGroups = require('bufferline.groups')
 
+        local function closeOtherGroups(groups)
+            local all_groups = vim.fn.keys(bufferGroups.get_all())
+
+            for i = #all_groups, 1, -1 do
+                if (groups[all_groups[i]]) then
+                    table.remove(all_groups, i)
+                end
+            end
+
+            for index, _ in ipairs(all_groups) do
+                vim.cmd('BufferLineGroupClose ' .. all_groups[index])
+            end
+        end
+
         local function selectToggleGroup()
             local groupsToIgnore = { pinned = true, ungrouped = true }
             local groups = vim.fn.keys(bufferGroups.get_all())
@@ -37,6 +51,10 @@ return {
         nmap('<leader>tg', selectToggleGroup, 'Select a tab group to toggle')
         nmap('<leader>ap', '<cmd>BufferLinePick<CR>', 'Pick a buffer tab')
         nmap('<C-w>W', '<cmd>BufferLineCloseOthers<CR>', 'Close other buffers')
+        nmap('<C-w>u', '<cmd>BufferLineGroupClose ungrouped<CR>', 'Close ungrouped buffers')
+        nmap('<C-w>p', function()
+            closeOtherGroups({ pinned = true })
+        end, 'Close unpinned buffers')
 
         bufferline.setup({
             options = {
@@ -63,6 +81,20 @@ return {
                             auto_close = false, -- whether or not close this group if it doesn't contain the current buffer
                             matcher = function(buf)
                                 return buf.path:match('%onfig/nvim/lua/.*.lua')
+                            end,
+                            separator = { -- Optional
+                                style = bufferGroups.separator.tab
+                            },
+                        },
+                        {
+                            name = 'Proj',
+                            highlight = {
+                                fg = 'lightblue'
+                            },
+
+                            auto_close = false, -- whether or not close this group if it doesn't contain the current buffer
+                            matcher = function(buf)
+                                return buf.path:match('%' .. vim.fn.getcwd() .. '.*')
                             end,
                             separator = { -- Optional
                                 style = bufferGroups.separator.tab
