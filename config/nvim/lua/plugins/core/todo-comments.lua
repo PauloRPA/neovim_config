@@ -13,9 +13,8 @@ return {
             sign_priority = 8,
             highlight = {
                 comments_only = true, -- uses treesitter to match keywords in comments only
-                exclude = {},         -- list of file types to exclude highlighting
+                exclude = {}, -- list of file types to exclude highlighting
             },
         })
-    end
-
+    end,
 }

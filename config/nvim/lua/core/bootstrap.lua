@@ -25,7 +25,7 @@ local function setup()
         spec = {
             { import = 'plugins.core' },
             { import = 'plugins.lsp' },
-        }
+        },
     }, {
         install = {
             colorscheme = { 'tokyonight-night' },
@@ -36,7 +36,7 @@ local function setup()
         },
         change_detection = {
             notify = true,
-        }
+        },
     })
 end
 

@@ -34,7 +34,7 @@ local function setup()
     setup_lsp_handlers()
 end
 
-M.is_str_not_blank = is_str_not_blank;
+M.is_str_not_blank = is_str_not_blank
 M.is_str_blank = is_str_blank
 
 M.get_tool_path = function(tool)
@@ -84,7 +84,7 @@ M.get_lsp_capabilities = function()
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
     capabilities.textDocument.foldingRange = {
         dynamicRegistration = false,
-        lineFoldingOnly = true
+        lineFoldingOnly = true,
     }
     return capabilities
 end

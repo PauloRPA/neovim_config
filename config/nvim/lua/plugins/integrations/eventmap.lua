@@ -16,17 +16,21 @@ local modeMapFunctions = {
 local function eventMap(mode, pre, pos)
     return function(key, action, description, opt)
         modeMapFunctions[mode](key, function()
-            if (pre ~= nil) then pre() end
+            if pre ~= nil then
+                pre()
+            end
 
-            if (type(action) == 'string') then
+            if type(action) == 'string' then
                 vim.api.nvim_input(action)
             end
 
-            if (type(action) == 'function') then
+            if type(action) == 'function' then
                 action()
             end
 
-            if (pos ~= nil) then pos() end
+            if pos ~= nil then
+                pos()
+            end
         end, description, opt)
     end
 end

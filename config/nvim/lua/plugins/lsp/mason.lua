@@ -27,7 +27,7 @@ return {
                 end,
                 javadbg = nil,
                 javatest = nil,
-            }
+            },
         })
-    end
+    end,
 }

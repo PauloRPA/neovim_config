@@ -27,9 +27,9 @@ return {
         -- ──────────────────────────────────────────────────────────────────────
 
         require('comment-box').setup({
-            doc_width = 80,  -- width of the document
-            box_width = 60,  -- width of the boxes
+            doc_width = 80, -- width of the document
+            box_width = 60, -- width of the boxes
             line_width = 76, -- width of the lines
         })
-    end
+    end,
 }

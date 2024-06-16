@@ -57,13 +57,13 @@ return {
 
         cmp.setup({
             enabled = function()
-                return vim.api.nvim_get_option_value('buftype', { buf = 0 }) ~= 'prompt' or
-                    require('cmp_dap').is_dap_buffer()
+                return vim.api.nvim_get_option_value('buftype', { buf = 0 }) ~= 'prompt'
+                    or require('cmp_dap').is_dap_buffer()
             end,
             snippet = {
                 expand = function(args)
                     luasnip.lsp_expand(args.body)
-                end
+                end,
             },
             mapping = cmp.mapping.preset.insert({
                 -- ['<C-d>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior, count = 4 }),
@@ -87,7 +87,7 @@ return {
                         end
                     end
                     return vim_item
-                end
+                end,
             },
             sorting = {
                 comparators = {
@@ -97,7 +97,7 @@ return {
                     cmp.config.compare.recently_used,
                     cmp.config.compare.locality,
                     cmp.config.compare.exact,
-                }
+                },
             },
             sources = cmp.config.sources({
                 { name = 'nvim_lsp_signature_help', group_index = 1 },
@@ -108,7 +108,7 @@ return {
             }),
             experimental = {
                 ghost_text = true,
-            }
+            },
         })
 
         cmp.setup.filetype({ 'java' }, {
@@ -120,7 +120,7 @@ return {
                     cmp.config.compare.recently_used,
                     cmp.config.compare.locality,
                     cmp.config.compare.exact,
-                }
+                },
             },
             sources = cmp.config.sources({
                 { name = 'nvim_lsp_signature_help', group_index = 1 },
@@ -138,25 +138,36 @@ return {
                     cmp.config.compare.score,
                     cmp.config.compare.exact,
                     cmp.config.compare.recently_used,
-                }
+                },
             },
             sources = cmp.config.sources({
                 { name = 'nvim_lsp_signature_help', group_index = 1 },
                 { name = 'nvim_lsp', group_index = 1 },
                 { name = 'luasnip', group_index = 1 },
                 { name = 'path', keyword_length = 2, group_index = 2 },
-            })
+            }),
         })
 
         cmp.setup.filetype({ 'dap-repl', 'dapui_watches', 'dapui_hover' }, {
             sources = {
-                { name = 'dap' }, { name = 'nvim_lsp' }, { name = 'luasnip' }, { name = 'buffer' },
+                { name = 'dap' },
+                { name = 'nvim_lsp' },
+                { name = 'luasnip' },
+                { name = 'buffer' },
             },
         })
 
         local cmdline_maps = {
-            ['<C-p>'] = { c = function(fallback) fallback() end },
-            ['<C-n>'] = { c = function(fallback) fallback() end },
+            ['<C-p>'] = {
+                c = function(fallback)
+                    fallback()
+                end,
+            },
+            ['<C-n>'] = {
+                c = function(fallback)
+                    fallback()
+                end,
+            },
             -- ['<C-d>'] = { c = function(fallback) if cmp.visible() then cmp.select_next_item({ behavior = cmp.SelectBehavior, count = 4 }) else fallback() end end},
             -- ['<C-u>'] = { c = function(fallback) if cmp.visible() then cmp.select_prev_item({ behavior = cmp.SelectBehavior, count = 4 }) else fallback() end end},
             ['<C-j>'] = {
@@ -166,7 +177,7 @@ return {
                     else
                         fallback()
                     end
-                end
+                end,
             },
             ['<C-k>'] = {
                 c = function(fallback)
@@ -175,7 +186,7 @@ return {
                     else
                         fallback()
                     end
-                end
+                end,
             },
             ['<Tab>'] = {
                 c = function(fallback)
@@ -184,7 +195,7 @@ return {
                     else
                         fallback()
                     end
-                end
+                end,
             },
         }
 
@@ -193,15 +204,13 @@ return {
             mapping = cmp.mapping.preset.cmdline(cmdline_maps),
             sources = {
                 { name = 'buffer' },
-            }
+            },
         })
 
         -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
         cmp.setup.cmdline(':', {
             mapping = cmp.mapping.preset.cmdline(cmdline_maps),
-            sources = cmp.config.sources(
-                { { name = 'path' } },
-                { { name = 'cmdline' } })
+            sources = cmp.config.sources({ { name = 'path' } }, { { name = 'cmdline' } }),
         })
     end,
 }

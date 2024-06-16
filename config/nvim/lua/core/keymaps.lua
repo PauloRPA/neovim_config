@@ -19,7 +19,7 @@ local function map(mode, key, action, description, opt, default_opts)
         opt.desc = description
     end
 
-    vim.keymap.set(mode, key, action, opt);
+    vim.keymap.set(mode, key, action, opt)
 end
 
 local modes = { 'n', 'i', 'v', 'x', 't', 'o', 's' }
@@ -94,7 +94,7 @@ M.load = function()
     nmap('<leader>dc', function()
         vim.api.nvim_feedkeys('"tyiw', 'x', false) -- Save word under cursor to register t
         vim.cmd('silent! h ' .. vim.fn.getreg('t'))
-    end, 'Open documentation for the word under the cursor');
+    end, 'Open documentation for the word under the cursor')
 
     xmap('<leader>dc', function()
         vim.api.nvim_feedkeys('"ty', 'x', false) -- Save text under selection to register t

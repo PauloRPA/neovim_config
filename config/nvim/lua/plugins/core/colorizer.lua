@@ -6,6 +6,6 @@ return {
         'lua',
         html = {
             mode = 'foreground',
-        }
-    }
+        },
+    },
 }

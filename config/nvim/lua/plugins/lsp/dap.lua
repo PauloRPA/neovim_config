@@ -11,5 +11,5 @@ return {
         vim.fn.sign_define('DapStopped', { text = '', texthl = 'Title', linehl = 'debug_line', numhl = '' })
 
         dap.defaults.fallback.terminal_win_cmd = 'set splitbelow | 7split new | set nosplitbelow'
-    end
+    end,
 }

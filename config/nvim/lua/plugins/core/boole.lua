@@ -3,7 +3,7 @@ return {
     opts = {
         mappings = {
             increment = '<C-a>',
-            decrement = '<C-x>'
+            decrement = '<C-x>',
         },
         additions = {
             { 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dec' },
@@ -11,10 +11,10 @@ return {
             { 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE' },
         },
         allow_caps_additions = {
-            { 'enable', 'disable' }
+            { 'enable', 'disable' },
             -- enable → disable
             -- Enable → Disable
             -- ENABLE → DISABLE
-        }
-    }
+        },
+    },
 }

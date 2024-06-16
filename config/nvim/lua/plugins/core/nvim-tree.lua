@@ -1,4 +1,5 @@
 return {
+
     'nvim-tree/nvim-tree.lua',
     tag = 'nvim-tree-v0.99.0',
     dependencies = {
@@ -22,12 +23,11 @@ return {
         usercmds.addListener(getStatusUpdateEvent, ntApi.tree.reload)
 
         usercmds.addListener(windowDispositionPersistenceEvent, function()
-            if (ntApi.tree.is_visible()) then
+            if ntApi.tree.is_visible() then
                 ntApi.tree.toggle({ focus = false })
                 ntApi.tree.toggle({ focus = false })
             end
-        end
-        )
+        end)
 
         -- Keymappings
         nmap('<leader>e', ntApi.tree.toggle, 'Toggle nvim-tree')
@@ -51,7 +51,6 @@ return {
             ntApi.tree.open({ path = currentPath })
         end, 'Cd tree into current working dir')
 
-
         local function on_attach(bufnr)
             local function opts(desc)
                 return { desc = 'NTree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
@@ -64,7 +63,7 @@ return {
             nmap('<C-w>', function()
                 local node = ntApi.tree.get_node_under_cursor()
                 if node then
-                    vim.cmd.bd({ args = { node.name }, mods = { emsg_silent = true, } })
+                    vim.cmd.bd({ args = { node.name }, mods = { emsg_silent = true } })
                 end
             end, nil, opts('Close buffer'))
         end
@@ -77,7 +76,7 @@ return {
             sync_root_with_cwd = true,
             auto_reload_on_write = true,
             select_prompts = true,
-            update_focused_file = { enable = true, },
+            update_focused_file = { enable = true },
             diagnostics = {
                 enable = true,
                 debounce_delay = 150,
@@ -85,8 +84,8 @@ return {
                     hint = ' ',
                     info = ' ',
                     warning = ' ',
-                    error = ' '
-                }
+                    error = ' ',
+                },
             },
             renderer = {
                 group_empty = true,
@@ -114,8 +113,8 @@ return {
                     min = 2,
                     max = 30,
                     padding = 1,
-                }
-            }
+                },
+            },
         })
-    end
+    end,
 }

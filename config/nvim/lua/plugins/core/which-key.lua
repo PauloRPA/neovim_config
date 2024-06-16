@@ -34,7 +34,7 @@ return {
                 name = 'Doc+Util',
                 c = 'Open documentation for selected text',
             },
-        }, { mode = 'v', prefix = '<leader>', })
+        }, { mode = 'v', prefix = '<leader>' })
 
         -- NORMAL MODE
         wk.register({
@@ -55,7 +55,7 @@ return {
             t = 'Toggle',
             w = 'Workspace',
             b = {
-                name = 'Breakpoint'
+                name = 'Breakpoint',
             },
             a = {
                 name = 'Action',
@@ -67,8 +67,8 @@ return {
                     name = 'Snippet',
                     a = 'Add snippet',
                     e = 'Edit snippet',
-                }
+                },
             },
         }, { mode = 'n', prefix = '<leader>' })
-    end
+    end,
 }

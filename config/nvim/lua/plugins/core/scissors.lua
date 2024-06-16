@@ -21,7 +21,7 @@ return {
                     deleteSnippet = '<C-d>',
                     duplicateSnippet = '<C-c>',
                     openInFile = '<C-o>',
-                    insertNextToken = '<C-n>',            -- insert & normal mode
+                    insertNextToken = '<C-n>', -- insert & normal mode
                     jumpBetweenBodyAndPrefix = '<C-Tab>', -- insert & normal mode
                 },
             },

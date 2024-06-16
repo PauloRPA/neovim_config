@@ -23,7 +23,7 @@ return {
             templates_dir = vim.fn.stdpath('config') .. '/assets/templates',
             mappings = {
                 -- ['*.java'] = 'java.skel',
-            }
+            },
         })
-    end
+    end,
 }

@@ -18,8 +18,11 @@ return {
         nmap('<leader>sw', builtin.grep_string, 'Grep word under the cursor')
         nmap('<leader>sc', builtin.commands, 'Lists available plugin/user commands')
 
-        nmap('<leader>sgc', builtin.git_commits,
-            'List git commits [<CR> Checkout] [<C-r>[m - mixed, s - soft, h - hard] reset ]')
+        nmap(
+            '<leader>sgc',
+            builtin.git_commits,
+            'List git commits [<CR> Checkout] [<C-r>[m - mixed, s - soft, h - hard] reset ]'
+        )
         nmap('<leader>sgs', builtin.git_stash, 'List git stash [<CR> pop]')
         nmap('<leader>sgb', builtin.git_branches, 'List git branches [<CR> Checkout]')
 
@@ -42,9 +45,8 @@ return {
                         ['<C-u>'] = actions.results_scrolling_up,
                         ['<C-d>'] = actions.results_scrolling_down,
                     },
-                }
-            }
-
+                },
+            },
         })
-    end
+    end,
 }

@@ -11,7 +11,7 @@ return {
             local all_groups = vim.fn.keys(bufferGroups.get_all())
 
             for i = #all_groups, 1, -1 do
-                if (groups[all_groups[i]]) then
+                if groups[all_groups[i]] then
                     table.remove(all_groups, i)
                 end
             end
@@ -26,13 +26,13 @@ return {
             local groups = vim.fn.keys(bufferGroups.get_all())
 
             for i = #groups, 1, -1 do
-                if (groupsToIgnore[groups[i]]) then
+                if groupsToIgnore[groups[i]] then
                     table.remove(groups, i)
                 end
             end
 
             vim.ui.select(groups, { prompt = 'Select the group you want to toggle' }, function(choice)
-                if (choice) then
+                if choice then
                     vim.cmd('BufferLineGroupToggle ' .. choice)
                 end
             end)
@@ -58,7 +58,7 @@ return {
 
         bufferline.setup({
             options = {
-                mode = 'buffers',           -- set to 'tabs' to only show tabpages instead
+                mode = 'buffers', -- set to 'tabs' to only show tabpages instead
                 move_wraps_at_ends = false, -- whether or not the move command 'wraps' at the first or last position
                 truncate_names = true,
                 diagnostics = 'nvim_lsp',
@@ -71,7 +71,7 @@ return {
                 end,
                 groups = {
                     options = {
-                        toggle_hidden_on_enter = true -- when you re-enter a hidden group this options re-opens that group so the buffer is visible
+                        toggle_hidden_on_enter = true, -- when you re-enter a hidden group this options re-opens that group so the buffer is visible
                     },
                     items = {
                         bufferGroups.builtin.pinned:with({ icon = '' }),
@@ -83,13 +83,13 @@ return {
                                 return buf.path:match('%onfig/nvim/lua/.*.lua')
                             end,
                             separator = { -- Optional
-                                style = bufferGroups.separator.tab
+                                style = bufferGroups.separator.tab,
                             },
                         },
                         {
                             name = 'Proj',
                             highlight = {
-                                fg = 'lightblue'
+                                fg = 'lightblue',
                             },
 
                             auto_close = false, -- whether or not close this group if it doesn't contain the current buffer
@@ -97,10 +97,10 @@ return {
                                 return buf.path:match('%' .. vim.fn.getcwd() .. '.*')
                             end,
                             separator = { -- Optional
-                                style = bufferGroups.separator.tab
+                                style = bufferGroups.separator.tab,
                             },
                         },
-                    }
+                    },
                 },
                 offsets = {
                     {
@@ -108,7 +108,7 @@ return {
                         text = 'File Explorer',
                         text_align = 'center',
                         separator = false,
-                    }
+                    },
                 },
             },
         })

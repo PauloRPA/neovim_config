@@ -28,18 +28,18 @@ return {
                 paths = true,
                 tables = true,
                 yaml = false,
-                cmp = false
+                cmp = false,
             },
             new_file_template = {
                 use_template = true,
                 placeholders = {
                     before = {
                         title = 'link_title',
-                        date = 'os_date'
+                        date = 'os_date',
                     },
-                    after = {}
+                    after = {},
                 },
-                template = '# {{ title }}'
+                template = '# {{ title }}',
             },
             tables = {
                 trim_whitespace = true,
@@ -50,8 +50,8 @@ return {
                     cell_padding = 1,
                     separator_padding = 1,
                     outer_pipes = true,
-                    mimic_alignment = true
-                }
+                    mimic_alignment = true,
+                },
             },
             links = {
                 style = 'markdown',
@@ -67,8 +67,8 @@ return {
                     if parent == 'journal' then
                         text = os.date('%m-%Y/%d')
                     end
-                    return (text)
-                end
+                    return text
+                end,
             },
             mappings = {
                 MkdnTab = false,
@@ -114,5 +114,5 @@ return {
                 MkdnUnfoldSection = false,
             },
         })
-    end
+    end,
 }

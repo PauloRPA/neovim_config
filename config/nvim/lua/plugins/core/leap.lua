@@ -45,10 +45,10 @@ return {
         -- before/after the cursor (default is +/-2).
         local function leap_line_start(skip_range)
             local winid = vim.api.nvim_get_current_win()
-            require('leap').leap {
+            require('leap').leap({
                 target_windows = { winid },
                 targets = get_line_starts(winid, skip_range),
-            }
+            })
         end
 
         -- END Setup leap linewise motions --------------------------
@@ -65,11 +65,13 @@ return {
         -- For maximum comfort, force linewise selection in the mappings:
         xmap('<A-v>', function()
             -- Only force V if not already in it (otherwise it would exit Visual mode).
-            if vim.fn.mode(1) ~= 'V' then vim.cmd('normal! V') end
+            if vim.fn.mode(1) ~= 'V' then
+                vim.cmd('normal! V')
+            end
             leap_line_start()
         end, 'Leap selection linewise')
 
-        vim.keymap.set('o', '|', "V<cmd>lua leap_line_start()<cr>")
+        vim.keymap.set('o', '|', 'V<cmd>lua leap_line_start()<cr>')
 
         require('leap.user').set_repeat_keys('<cr>', '<bs>', {
             relative_directions = true,

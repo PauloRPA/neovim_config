@@ -37,7 +37,7 @@ M.load = function()
                 timeout = 150,
                 on_macro = false,
                 on_visual = true,
-                event = vim.api.nvim_get_vvar('event')
+                event = vim.api.nvim_get_vvar('event'),
             })
         end,
         group = user_au,

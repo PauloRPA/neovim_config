@@ -15,8 +15,8 @@ return {
         css = {
             options = {
                 ['stylesheet.intUnit'] = 'px',
-                ['stylesheet.unitAliases'] = { e = 'em', p = '%', x = 'ex', r = 'rem' }
+                ['stylesheet.unitAliases'] = { e = 'em', p = '%', x = 'ex', r = 'rem' },
             },
         },
-    }
+    },
 }

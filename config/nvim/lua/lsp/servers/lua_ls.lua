@@ -10,7 +10,7 @@ return {
                     align_continuous_rect_table_field = 'false',
                     align_array_table = 'false',
                     quote_style = 'single',
-                }
+                },
             },
             diagnostics = {
                 globals = { 'vim' },
@@ -22,6 +22,6 @@ return {
             telemetry = {
                 enable = false,
             },
-        }
-    }
+        },
+    },
 }

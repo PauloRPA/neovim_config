@@ -5,10 +5,10 @@ return {
     enabled = true,
     opts = {
         { '*', '*', dosuround = true, suround = true, multiline = true, ft = { 'markdown' } },
-        bs = {                                   -- *ultimate-autopair-map-backspace-config*
-            map = { '<bs>', '<C-h>', '<C-w>' },  --string or table
+        bs = { -- *ultimate-autopair-map-backspace-config*
+            map = { '<bs>', '<C-h>', '<C-w>' }, --string or table
             cmap = { '<bs>', '<C-h>', '<C-w>' }, --string or table
-            space = 'balance',                   --false, true or 'balance'
+            space = 'balance', --false, true or 'balance'
             indent_ignore = true,
         },
         cr = { -- *ultimate-autopair-map-newline-config*
@@ -21,7 +21,7 @@ return {
             hopout = true,
         },
         close = { -- *ultimate-autopair-map-close-config*
-            enable = (true),
+            enable = true,
         },
         tabout = { -- *ultimate-autopair-map-tabout-config*
             enable = true,

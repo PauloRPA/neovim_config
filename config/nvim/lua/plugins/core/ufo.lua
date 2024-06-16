@@ -41,7 +41,7 @@ return {
                     scrollD = '<C-n>',
                     jumpTop = '[',
                     jumpBot = ']',
-                }
+                },
             },
         })
     end,

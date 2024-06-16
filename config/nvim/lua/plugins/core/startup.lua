@@ -53,7 +53,7 @@ return {
                 -- open_section = '<TAB>',
                 -- open_help = '?',
             },
-            parts = { 'header', 'keybindings' } -- all sections in order
+            parts = { 'header', 'keybindings' }, -- all sections in order
         })
-    end
+    end,
 }

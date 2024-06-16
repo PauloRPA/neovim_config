@@ -3,7 +3,6 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
         local oil = require('oil')
-
         local nmap = require('core.keymaps').nmap
 
         nmap('-', function()
@@ -31,7 +30,7 @@ return {
                 concealcursor = 'nvic',
             },
             lsp_file_methods = {
-                autosave_changes = true
+                autosave_changes = true,
             },
             delete_to_trash = false,
             skip_confirm_for_simple_edits = false,
@@ -117,5 +116,5 @@ return {
                 border = 'rounded',
             },
         })
-    end
+    end,
 }

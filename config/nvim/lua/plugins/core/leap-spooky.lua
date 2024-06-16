@@ -42,7 +42,7 @@ return {
             vim.api.nvim_input('<C-o>P')
         end, 'Paste leap content')
 
-        require('leap-spooky').setup {
+        require('leap-spooky').setup({
             -- Additional text objects, to be merged with the default ones.
             extra_text_objects = { 'ia', 'aa', 'if', 'af', 'ad', 'id' },
             --  `yrr<leap>` and `ymm<leap>` will yank a line in the current window.
@@ -60,6 +60,6 @@ return {
             -- The yanked text will automatically be pasted at the cursor position
             -- if the unnamed register is in use.
             paste_on_remote_yank = false,
-        }
-    end
+        })
+    end,
 }

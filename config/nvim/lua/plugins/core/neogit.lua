@@ -10,8 +10,8 @@ return {
     config = function()
         local neogit = require('neogit')
         local eventNmap = require('plugins.integrations.eventmap').nmap(nil, function()
-            local windowDispositionPersistenceEvent = require('plugins.integrations.metaev').types
-                .WindowDispositionPersistence
+            local windowDispositionPersistenceEvent =
+                require('plugins.integrations.metaev').types.WindowDispositionPersistence
             require('plugins.integrations.usercmd').fire(windowDispositionPersistenceEvent)
         end)
 

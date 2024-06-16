@@ -22,17 +22,17 @@ return {
             status = {
                 enabled = true,
                 signs = true,
-                virtual_text = false
+                virtual_text = false,
             },
             diagnostic = {
                 enabled = true,
-                severity = 1
+                severity = 1,
             },
             adapters = {
                 require('neotest-java')({
                     ignore_wrapper = false, -- whether to ignore maven/gradle wrapper
-                })
-            }
+                }),
+            },
         })
-    end
+    end,
 }

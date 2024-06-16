@@ -17,7 +17,9 @@ M.fire = function(eventType, data)
 end
 
 M.addListener = function(eventType, callback)
-    if (event_callbacks[eventType] == nil) then return end
+    if event_callbacks[eventType] == nil then
+        return
+    end
     table.insert(event_callbacks[eventType], callback)
 end
 
@@ -30,9 +32,8 @@ for _, evType in pairs(M.event_types) do
                 callback(ev)
             end
         end,
-        desc = evType .. ' autocmd'
+        desc = evType .. ' autocmd',
     })
 end
-
 
 return M

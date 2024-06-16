@@ -35,7 +35,7 @@ return {
                         custom = {},
                     },
                 },
-            }
+            },
         })
         local nmap = require('core.keymaps').nmap
         local imap = require('core.keymaps').imap

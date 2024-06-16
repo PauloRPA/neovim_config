@@ -32,7 +32,6 @@ return {
             },
             pre_hook = nil,
             post_hook = nil,
-
         })
-    end
+    end,
 }

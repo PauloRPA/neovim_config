@@ -7,22 +7,22 @@ return {
         local nmap = require('core.keymaps').nmap
 
         local eventNmap = require('plugins.integrations.eventmap').nmap(nil, function()
-            local windowDispositionPersistenceEvent = require('plugins.integrations.metaev').types
-                .WindowDispositionPersistence
+            local windowDispositionPersistenceEvent =
+                require('plugins.integrations.metaev').types.WindowDispositionPersistence
             require('plugins.integrations.usercmd').fire(windowDispositionPersistenceEvent)
         end)
 
         local tmap = require('core.keymaps').tmap
         local toggleterm = require('toggleterm')
 
-        local bottom = Terminal:new {
+        local bottom = Terminal:new({
             direction = 'horizontal', -- the layout for the terminal, same as the main config options
             close_on_exit = true,
-            auto_scroll = true,       -- automatically scroll to the bottom on terminal output
+            auto_scroll = true, -- automatically scroll to the bottom on terminal output
             count = 1,
-        }
+        })
 
-        local float = Terminal:new {
+        local float = Terminal:new({
             direction = 'float', -- the layout for the terminal, same as the main config options
             float_opts = {
                 border = 'curved',
@@ -30,7 +30,7 @@ return {
             close_on_exit = true,
             auto_scroll = true, -- automatically scroll to the bottom on terminal output
             count = 2,
-        }
+        })
 
         eventNmap('<A-1>', function()
             bottom:toggle()
