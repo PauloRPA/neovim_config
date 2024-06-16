@@ -319,9 +319,13 @@ end
 
 M.attachLspKeymapsToBuf = function()
     local end_instruction_cmd = ''
-    local extract_rename_cmd = vim.api.nvim_replace_termcodes('<esc>lcw', true, false, true)
     local insert_final_start_ncmd = vim.api.nvim_replace_termcodes('Ifinal <esc>', true, false, true)
     local insert_final_start_icmd = vim.api.nvim_replace_termcodes('<esc>Ifinal <esc>A', true, false, true)
+
+    nmap('<C-s>', function()
+        vim.lsp.buf.format()
+        vim.cmd.wa()
+    end, 'Saves all modified buffers')
 
     nmap('<leader>aec', jdtls.extract_constant, 'Extract constant', opts)
     nmap('<leader>aev', jdtls.extract_variable_all, 'Extract variable', opts)

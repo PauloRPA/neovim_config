@@ -15,7 +15,7 @@ M.attachLspKeymapsToBuf = function()
     nmap('gr', require('telescope.builtin').lsp_references, 'Goto References', opts)
 
     nmap('<C-s>', function()
-        vim.lsp.buf.format()
+        -- vim.lsp.buf.format()
         vim.cmd.wa()
     end, 'Saves all modified buffers')
     nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, 'Workspace Add Folder', opts)
