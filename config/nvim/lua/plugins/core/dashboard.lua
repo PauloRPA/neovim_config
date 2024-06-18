@@ -47,6 +47,11 @@ return {
                     group = 'Number',
                     action = 'lua require("persistence").load()',
                     key = 'l',
+                },{
+                    desc = '󰊢 Load Git',
+                    group = 'Directory',
+                    action = 'lua require("core.functions").open_current_git_files()',
+                    key = 'g',
                 }, {
                     desc = '󰉉 Old files',
                     group = 'NonText',
