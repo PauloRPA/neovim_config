@@ -8,6 +8,8 @@ local git_lsfile_commands = {
     untracked = 'git ls-files -o --exclude-standard',
 }
 
+--- Returns a table with files marked as deleted, modified or untracked by git.
+---@return table with deleted, modified and untracked files.
 M.get_current_git_files = function()
     local git_files = {}
 
@@ -21,6 +23,7 @@ M.get_current_git_files = function()
     return git_files
 end
 
+--- Open files marked as deleted, modified or untracked by git.
 M.open_current_git_files = function()
     local git_files = M.get_current_git_files()
 
@@ -29,6 +32,16 @@ M.open_current_git_files = function()
             vim.cmd.e(file)
         end
     end
+end
+
+--- Returns a string with all LSP client names attached to the current buffer.
+---@return string lsp names
+M.get_attached_lsp_client_names = function()
+    local names = ''
+    for _, client in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
+        names = names .. client.name .. ' '
+    end
+    return names
 end
 
 return M
