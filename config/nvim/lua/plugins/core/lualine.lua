@@ -8,7 +8,7 @@ return {
 
         local function getClientNames()
             local names = ''
-            for _, client in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
+            for _, client in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
                 names = names .. client.name .. ' '
             end
             return names
