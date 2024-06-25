@@ -21,8 +21,7 @@ return {
                     deleteSnippet = '<C-d>',
                     duplicateSnippet = '<C-c>',
                     openInFile = '<C-o>',
-                    insertNextToken = '<C-n>', -- insert & normal mode
-                    jumpBetweenBodyAndPrefix = '<C-Tab>', -- insert & normal mode
+                    insertNextPlaceholder = '<C-n>', -- insert & normal mode
                 },
             },
             snippetDir = vim.fn.stdpath('config') .. '/lua/snippets',
