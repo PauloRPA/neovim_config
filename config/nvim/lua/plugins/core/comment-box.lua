@@ -1,28 +1,19 @@
 return {
     'LudoPinelli/comment-box.nvim',
     config = function()
-        local nmap = require('core.keymaps').nmap
-        local vmap = require('core.keymaps').vmap
+        local nvmap = require('core.keymaps').multi('nv')
 
         --        ╭─────────────────────────────────────────────────────────╮
         --        │                       Comment-Box                       │
         --        ╰─────────────────────────────────────────────────────────╯
 
-        --  ───────────────────────────── Normal Mode ─────────────────────────────
+        --  ───────────────────────────── Normal Visual mode ─────────────────────────────
 
-        nmap('<leader>awb', '<Cmd>CBccbox<CR>', 'Wrap in a box')
-        nmap('<leader>awl', '<Cmd>CBccline6<CR>', 'Wrap in a stylized line')
-        nmap('<leader>awh', '<Cmd>CBllline6<CR>', 'Wrap in a stylized line left')
-        nmap('<leader>awL', '<Cmd>CBline<CR>', 'Draw line')
-        nmap('<leader>awd', '<Cmd>CBd<CR>', 'Remove box')
-
-        --  ───────────────────────────── Visual mode ─────────────────────────────
-
-        vmap('<leader>awb', '<Cmd>CBccbox<CR>', 'Wrap in a box')
-        vmap('<leader>awl', '<Cmd>CBccline6<CR>', 'Wrap in a stylized line')
-        vmap('<leader>awh', '<Cmd>CBllline6<CR>', 'Wrap in a stylized line left')
-        vmap('<leader>awL', '<Cmd>CBline<CR>', 'Draw line')
-        vmap('<leader>awd', '<Cmd>CBd<CR>', 'Remove box')
+        nvmap('<leader>awb', '<Cmd>CBccbox<CR>', 'Wrap in a box')
+        nvmap('<leader>awl', '<Cmd>CBccline6<CR>', 'Wrap in a stylized line')
+        nvmap('<leader>awh', '<Cmd>CBllline6<CR>', 'Wrap in a stylized line left')
+        nvmap('<leader>awL', '<Cmd>CBline<CR>', 'Draw line')
+        nvmap('<leader>awd', '<Cmd>CBd<CR>', 'Remove box')
 
         -- ──────────────────────────────────────────────────────────────────────
 

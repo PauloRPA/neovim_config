@@ -12,6 +12,7 @@ return {
 
         local smap = require('core.keymaps').smap
         local imap = require('core.keymaps').imap
+        local simap = require('core.keymaps').multi('si')
 
         local function next_option()
             if luasnip.choice_active() then
@@ -25,16 +26,10 @@ return {
             end
         end
 
-        imap('<C-j>', function()
+        simap('<C-j>', function()
             next_option()
         end, 'Next snippet option')
-        imap('<C-k>', function()
-            prev_option()
-        end, 'Previous snippet option')
-        smap('<C-j>', function()
-            next_option()
-        end, 'Next snippet option')
-        smap('<C-k>', function()
+        simap('<C-k>', function()
             prev_option()
         end, 'Previous snippet option')
 
@@ -44,16 +39,11 @@ return {
 
         imap('<A-h>', '<Nop>', 'Nothing!')
 
-        imap('<A-j>', function()
+        simap('<A-j>', function()
             luasnip.jump(1)
         end, 'Jump to the next portion of the current snippet')
-        imap('<A-k>', function()
-            luasnip.jump(-1)
-        end, 'Jump to the previous portion of the current snippet')
-        smap('<A-j>', function()
-            luasnip.jump(1)
-        end, 'Jump to the next portion of the current snippet')
-        smap('<A-k>', function()
+
+        simap('<A-k>', function()
             luasnip.jump(-1)
         end, 'Jump to the previous portion of the current snippet')
 

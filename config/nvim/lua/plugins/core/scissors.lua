@@ -4,12 +4,11 @@ return {
     config = function()
         local scissors = require('scissors')
         local nmap = require('core.keymaps').nmap
-        local vmap = require('core.keymaps').vmap
+        local nvmap = require('core.keymaps').multi('nv')
         local smap = require('core.keymaps').smap
 
         nmap('<leader>ase', scissors.editSnippet, 'Edit snippet')
-        nmap('<leader>asa', scissors.addNewSnippet, 'Add new snippet')
-        vmap('<leader>asa', scissors.addNewSnippet, 'Add new snippet')
+        nvmap('<leader>asa', scissors.addNewSnippet, 'Add new snippet')
         smap('<A-p>', 's<BS><C-o>P', 'Paste content')
 
         scissors.setup({
