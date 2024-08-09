@@ -22,10 +22,30 @@ local function map(mode, key, action, description, opt, default_opts)
     vim.keymap.set(mode, key, action, opt)
 end
 
+local modeMapFunc = {}
 local modes = { 'n', 'i', 'v', 'x', 't', 'o', 's' }
 for _, mode in ipairs(modes) do
     M[mode .. 'map'] = function(key, action, description, opt)
         map(mode, key, action, description, opt, opts)
+    end
+    modeMapFunc[mode] = M[mode .. 'map']
+end
+
+M.multi = function(multimodes)
+    local modeMap = type(multimodes) == 'table' and multimodes or {}
+    if type(multimodes) == 'string' then
+        for ch in multimodes:gmatch('.') do
+            table.insert(modeMap, ch)
+        end
+    end
+
+    return function(key, action, description, opt)
+        for _, mode in ipairs(modeMap) do
+            local mappingFunction = modeMapFunc[mode]
+            if mappingFunction then
+                mappingFunction(key, action, description, opt)
+            end
+        end
     end
 end
 
