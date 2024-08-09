@@ -1,6 +1,5 @@
 local M = {
     'rcarriga/nvim-dap-ui',
-    commit = 'edfa93f60b189e5952c016eee262d0685d838450',
     dependencies = { 'mfussenegger/nvim-dap', { 'nvim-neotest/nvim-nio', tags = 'v1.8.0' } },
     config = function()
         local dapui = require('dapui')
@@ -26,7 +25,7 @@ local M = {
                     id = 'repl',
                     size = 0.5
                 }, {
-                    id = 'console',
+                    id = 'watches',
                     size = 0.5
                 } },
                 position = 'bottom',

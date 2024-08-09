@@ -1,6 +1,5 @@
 return {
     'kevinhwang91/nvim-ufo',
-    tag = 'v1.4.0',
     dependencies = { 'kevinhwang91/promise-async' },
     config = function()
         -- Mappings
@@ -19,8 +18,7 @@ return {
             local winid = require('ufo').peekFoldedLinesUnderCursor()
             if winid then
                 local bufnr = vim.api.nvim_win_get_buf(winid)
-                local keys = { 'a', 'i', 'o', 'A', 'I', 'O', 'gd', 'gr' }
-                for _, k in ipairs(keys) do
+                local keys = { 'a', 'i', 'o', 'A', 'I', 'O', 'gd', 'gr' } for _, k in ipairs(keys) do
                     vim.keymap.set('n', k, '<CR>' .. k, { noremap = false, buffer = bufnr })
                 end
             else

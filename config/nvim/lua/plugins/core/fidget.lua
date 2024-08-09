@@ -1,6 +1,5 @@
 return {
     'j-hui/fidget.nvim',
-    tag = 'v1.4.0',
     event = { 'BufReadPre' },
     config = function()
         require('fidget').setup({

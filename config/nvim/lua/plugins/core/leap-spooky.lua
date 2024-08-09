@@ -1,6 +1,5 @@
 return {
     'ggandor/leap-spooky.nvim',
-    commit = '5f44a1f63dc1c4ce50244e92da5bc0d8d1f6eb47',
     dependencies = { 'ggandor/leap.nvim' },
     config = function()
         local imap = require('core.keymaps').imap

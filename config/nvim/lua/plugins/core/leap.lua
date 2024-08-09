@@ -1,6 +1,5 @@
 return {
     'ggandor/leap.nvim',
-    commit = '52f7ce4fcc1764caac77cf4d43c2c4f5fb42d517',
     config = function()
         -- Setup leap linewise motions ------------------------------
 

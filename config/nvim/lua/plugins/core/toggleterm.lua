@@ -1,7 +1,6 @@
 return {
     'akinsho/toggleterm.nvim',
     version = '*',
-    tag = 'v2.10.0',
     config = function()
         local Terminal = require('toggleterm.terminal').Terminal
         local nmap = require('core.keymaps').nmap

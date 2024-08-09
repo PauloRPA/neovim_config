@@ -1,6 +1,5 @@
 return {
     'akinsho/bufferline.nvim',
-    tag = 'v4.6.1',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
         local nmap = require('core.keymaps').nmap

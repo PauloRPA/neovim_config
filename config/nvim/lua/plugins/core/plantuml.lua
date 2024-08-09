@@ -1,5 +1,5 @@
 return {
-    'https://github.com/Groveer/plantuml.nvim',
+    'Groveer/plantuml.nvim',
     config = function()
         local puml = vim.api.nvim_create_augroup('Puml mappings', { clear = true })
         vim.api.nvim_create_autocmd({ 'BufReadPost' }, {
