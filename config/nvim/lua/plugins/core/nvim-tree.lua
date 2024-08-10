@@ -107,6 +107,7 @@ return {
                 git_ignored = true,
             },
             view = {
+                preserve_window_proportions = true,
                 width = {
                     min = 2,
                     max = 30,

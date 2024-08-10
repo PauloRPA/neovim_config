@@ -1,6 +1,7 @@
 local M = {}
 
-local info = require('lsp.info')
+local func = require('core.functions')
+local info = require('core.info')
 local jdtls = require('jdtls')
 local jdtls_dap = require('jdtls.dap')
 local jdtls_tests = require('jdtls.tests')
@@ -25,6 +26,11 @@ local JDTLS_CACHE_DIR = vim.fn.stdpath('cache') .. '/nvim-jdtls'
 local JDTLS_LAUNCHER_PATH = '/plugins/org.eclipse.equinox.launcher_*.jar'
 local DAP_LAUNCHER_PATH = '/extension/server/com.microsoft.java.debug.plugin-*.jar'
 local JAVATEST_LAUNCHER_PATH = '/extension/server/*.jar'
+local JAVA_CWD_FILES = { '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' }
+
+local jdtls_root = jdtls.setup.find_root(JAVA_CWD_FILES)
+local rooter_root = require('core.functions').cwd_root_rooter()
+local find_root_fs_root = require('core.functions').find_root_fs(JAVA_CWD_FILES)
 
 local function resolve_java_install_unix()
     -- From OS ENV
@@ -53,7 +59,7 @@ local function resolve_dap_install()
 
         local java_debug_bundle = vim.split(vim.fn.glob(dap_install .. DAP_LAUNCHER_PATH), '\n')
 
-        if info.is_str_not_blank(java_debug_bundle[1]) then
+        if func.is_str_not_blank(java_debug_bundle[1]) then
             vim.list_extend(jdtls_bundles, java_debug_bundle)
             features.dap = true
         else
@@ -70,7 +76,7 @@ local function resolve_javatest_install()
 
         local java_test_bundle = vim.split(vim.fn.glob(java_test_path .. JAVATEST_LAUNCHER_PATH), '\n')
 
-        if info.is_str_not_blank(java_test_bundle[1]) then
+        if func.is_str_not_blank(java_test_bundle[1]) then
             vim.list_extend(jdtls_bundles, java_test_bundle)
             features.javatest = true
         else
@@ -103,33 +109,20 @@ local function resolve_jdtls_install()
     end
 end
 
-local function cwd_root()
-    vim.cmd([[Rooter]])
-    return vim.fn.getcwd()
-end
-
-local function jdtls_root()
-    return jdtls.setup.find_root({ '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' })
-end
-
-local function find_root_fs()
-    return vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw', 'pom.xml' }, { upward = true })[1])
-end
-
 M.config = function()
     local config_keys = {}
 
-    if info.is_str_blank(jdtls_install) then
+    if func.is_str_blank(jdtls_install) then
         vim.notify('JDTLS IS NOT YET INSTALLED!')
         return nil
     end
 
-    if info.is_str_blank(platform_config) then
+    if func.is_str_blank(platform_config) then
         vim.notify('PLATFORM CONFIG EMPTY!')
         return nil
     end
 
-    if info.is_str_blank(java_installation) then
+    if func.is_str_blank(java_installation) then
         vim.notify('JAVA NOT FOUND!')
         return nil
     end
@@ -182,7 +175,7 @@ M.config = function()
         },
         single_file_support = true,
         workspaceFolders = {
-            cwd_root() or jdtls_root() or find_root_fs(),
+           rooter_root or jdtls_root or find_root_fs_root,
         },
         settings = {
             java = {
@@ -261,7 +254,7 @@ M.config = function()
                 useBlocks = true,
             },
         },
-        root_dir = cwd_root() or jdtls_root() or find_root_fs(),
+        root_dir = rooter_root or jdtls_root or find_root_fs_root,
         on_attach = function()
             jdtls_dap.setup_dap_main_class_configs()
             jdtls.setup_dap({ hotcodereplace = 'auto' })

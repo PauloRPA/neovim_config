@@ -44,4 +44,39 @@ M.get_attached_lsp_client_names = function()
     return names
 end
 
+--- Returns the current cwd
+---@return string current cwd
+M.cwd_root = function()
+    return vim.fn.getcwd()
+end
+
+--- Runs vim rooter then returns the current cwd
+---@return string current cwd
+M.cwd_root_rooter = function()
+    vim.cmd([[Rooter]])
+    return vim.fn.getcwd()
+end
+
+--- Tries to find a path with the table of filenames given.
+---@param reference_files table of filenames (with extension) that will be used to search for a path
+--- eg: { 'gradlew', '.git', 'mvnw', 'pom.xml' }
+---@return string path found based on the reference filenames provided
+M.find_root_fs = function(reference_files)
+    return vim.fs.dirname(vim.fs.find(reference_files, { upward = true })[1])
+end
+
+--- Checks if a string is blank or null
+---@param str string to check
+---@return boolean false if the str is not blank
+M.is_str_blank = function(str)
+    return not str or str == ''
+end
+
+--- Checks if a string is blank or null
+---@param str string to check
+---@return boolean true if the str is not blank
+M.is_str_not_blank = function(str)
+    return str and str ~= ''
+end
+
 return M
