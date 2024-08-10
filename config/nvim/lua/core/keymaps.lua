@@ -59,6 +59,7 @@ M.load = function()
     local tmap = M.tmap
     local vmap = M.vmap
     local xmap = M.xmap
+    local func = require('core.functions')
 
     -- Remap for dealing with word wrap
     nmap('k', 'gk', 'Move one line down')
@@ -80,6 +81,7 @@ M.load = function()
     nmap('<C-right>', '4<C-w><', 'Resize right')
     nmap('<C-up>', '4<C-w>+', 'Resize up')
     nmap('<C-down>', '4<C-w>-', 'Resize down')
+    nmap('<leader>og', func.open_current_git_files, 'Open current git files')
 
     nmap('<C-c>', '<C-w>c', 'Close current pane')
 
