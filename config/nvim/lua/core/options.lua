@@ -21,6 +21,7 @@ local options = {
     relativenumber = true, -- Make line numbers default
     scrolloff = 6,
     autoread = true,
+    sessionoptions = 'buffers,curdir,folds,help,tabpages,winsize,terminal',
 }
 
 M.load = function()
