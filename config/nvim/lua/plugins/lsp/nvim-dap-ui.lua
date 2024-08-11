@@ -1,6 +1,6 @@
 local M = {
     'rcarriga/nvim-dap-ui',
-    dependencies = { 'mfussenegger/nvim-dap', { 'nvim-neotest/nvim-nio', tags = 'v1.8.0' } },
+    dependencies = { 'mfussenegger/nvim-dap', { 'nvim-neotest/nvim-nio', tags = 'v1.10.0' } },
     config = function()
         local dapui = require('dapui')
 
@@ -51,7 +51,8 @@ local M = {
         })
 
         local vmap = require('core.keymaps').vmap
-        local nmap = require('plugins.integrations.eventmap').nmap(function()
+        local nmap = require('core.keymaps').nmap
+        local evnmap = require('plugins.integrations.eventmap').nmap(function()
             dapui.close()
         end, nil)
 
@@ -90,19 +91,19 @@ local M = {
             end
         end
 
-        nmap('<A-2>', function()
+        evnmap('<A-2>', function()
             toggle_layout_by_name('bottom', true)
         end, 'Toggle reset dapui bottom')
 
-        nmap('<A-3>', function()
+        evnmap('<A-3>', function()
             toggle_layout_by_name('ui', true)
         end, 'Toggle dap-ui')
 
-        nmap('<A-9>', function()
+        evnmap('<A-9>', function()
             toggle_layout_by_name('console')
         end, 'Toggle dap-ui')
 
-        nmap('<A-e>', dapui.eval, 'Open dap-ui')
+        evnmap('<A-e>', dapui.eval, 'Open dap-ui')
         vmap('<A-e>', dapui.eval, 'Open dap-ui')
 
         nmap('<A-w>', function()
