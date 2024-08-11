@@ -39,16 +39,16 @@ return {
             return nil
         end
 
-        local function emmet_lsSorting(entry1, entry2)
-            if entry2.source.source.client and entry2.source.source.client.name == 'emmet_ls' then
-                if entry1.source.source.client then
-                    return entry1.source.source.client.name ~= entry2.source.source.client.name
-                else
-                    return true
-                end
-            end
-            return false
-        end
+        -- local function emmet_lsSorting(entry1, entry2)
+        --     if entry2.source.source.client and entry2.source.source.client.name == 'emmet_ls' then
+        --         if entry1.source.source.client then
+        --             return entry1.source.source.client.name ~= entry2.source.source.client.name
+        --         else
+        --             return true
+        --         end
+        --     end
+        --     return false
+        -- end
 
         local lsp_server_icons = {
             emmet_ls = '󰈑 ',
@@ -111,7 +111,7 @@ return {
             },
         })
 
-        cmp.setup.filetype({ 'java' }, {
+        cmp.setup.filetype('java', {
             sorting = {
                 comparators = {
                     cmp.config.compare.score,
@@ -128,23 +128,6 @@ return {
                 { name = 'luasnip', group_index = 1 },
                 { name = 'path', group_index = 2 },
                 { name = 'buffer', group_index = 2 },
-            }),
-        })
-
-        cmp.setup.filetype({ 'html', 'css' }, {
-            sorting = {
-                comparators = {
-                    emmet_lsSorting,
-                    cmp.config.compare.score,
-                    cmp.config.compare.exact,
-                    cmp.config.compare.recently_used,
-                },
-            },
-            sources = cmp.config.sources({
-                { name = 'nvim_lsp_signature_help', group_index = 1 },
-                { name = 'nvim_lsp', group_index = 1 },
-                { name = 'luasnip', group_index = 1 },
-                { name = 'path', keyword_length = 2, group_index = 2 },
             }),
         })
 
