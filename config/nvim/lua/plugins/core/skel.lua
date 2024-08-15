@@ -20,7 +20,7 @@ return {
                 ['NAMESPACE_CLOSE'] = skeld.get_namespaceclose,
             },
 
-            templates_dir = vim.fn.stdpath('config') .. '/assets/templates',
+            templates_dir = require('core.info').path_skel_templates,
             mappings = {
                 -- ['*.java'] = 'java.skel',
             },

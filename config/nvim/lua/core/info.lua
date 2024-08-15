@@ -7,6 +7,8 @@ M.nvim_config_lua = M.nvim_config .. '/lua'
 M.path_assets = M.nvim_config .. '/assets'
 M.path_linters = M.path_assets .. '/lint'
 M.path_tooling = M.path_assets .. '/tools'
+M.path_skel_templates = M.path_assets .. '/templates'
+M.path_snippets = M.nvim_config_lua .. '/snippets'
 
 M.path_lsp = M.nvim_config_lua .. '/lsp'
 M.path_lsp_settings = M.path_lsp .. '/servers'
