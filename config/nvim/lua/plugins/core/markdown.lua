@@ -16,11 +16,19 @@ return {
         })
 
         require('render-markdown').setup({
-            headings = { '󰽢 ', ' ', ' ', ' ', ' ', ' ' },
+            heading = {
+                icons = { '󰽢 ', ' ', ' ', ' ', ' ', ' ' },
+                sign = false,
+            },
             file_types = { 'markdown' },
             checkbox = {
-                unchecked = ' ',
-                checked = ' ',
+                enabled = true,
+                unchecked = { icon = ' ' },
+                checked = { icon = ' ' },
+                custom = {
+                    todo = { raw = '[-]', rendered = '󱡤 ', highlight = 'RenderMarkdownTodo' },
+                    doubt = { raw = '[?]', rendered = ' ', highlight = 'WarningMsg' },
+                },
             },
         })
     end,
