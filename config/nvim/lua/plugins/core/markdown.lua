@@ -16,6 +16,7 @@ return {
         })
 
         require('render-markdown').setup({
+            render_modes = { 'n', 'v', 'i', 'c' },
             heading = {
                 icons = { '󰽢 ', ' ', ' ', ' ', ' ', ' ' },
                 sign = false,
