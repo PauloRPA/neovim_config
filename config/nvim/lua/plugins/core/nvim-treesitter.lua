@@ -34,11 +34,13 @@ return {
         tsConfig.setup({
             -- Config
             ensure_installed = {
-                'java',
-                'lua',
+                'tsx',
                 'html',
                 'css',
                 'javascript',
+                'java',
+                'yaml',
+                'lua',
                 'vimdoc',
                 'bash',
                 'vim',
@@ -100,7 +102,7 @@ return {
                     },
                     selection_modes = {
                         ['@function.outer'] = 'V', -- linewise
-                        ['@class.outer'] = 'V', -- linewise
+                        ['@class.outer'] = 'V',    -- linewise
                     },
                 },
 
