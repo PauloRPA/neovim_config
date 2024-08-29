@@ -11,6 +11,7 @@ return {
         for serverName, setupConfig in pairs(lspSetups) do
             setupConfig.on_attach = function()
                 require('lsp.keymaps').attachLspKeymapsToBuf()
+                lsp_run.on_attach()
             end
             setupConfig.capabilities = require('lsp.info').get_lsp_capabilities()
 

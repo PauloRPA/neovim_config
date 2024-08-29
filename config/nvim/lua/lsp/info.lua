@@ -46,4 +46,9 @@ M.get_lsp_capabilities = function()
     return capabilities
 end
 
+M.saga_loaded = function()
+    local lspsaga = require('lazy.core.config').plugins['lspsaga.nvim']
+    return lspsaga and true or false
+end
+
 return M

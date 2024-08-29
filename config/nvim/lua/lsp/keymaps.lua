@@ -76,4 +76,35 @@ M.attachDapKeymapsToBuf = function()
     end, 'Dap continue')
 end
 
+M.attachLspSagaKeymapsToBuf = function()
+    nmap('<leader>a<leader>', '<cmd>Lspsaga code_action<CR>', 'Code Action', opts)
+    nmap('<leader>ao', '<cmd>Lspsaga code_action<CR>', 'Code Action', opts)
+
+    nmap('gd', '<cmd>Lspsaga goto_definition<CR>', 'Goto Definition', opts)
+    nmap('gD', '<cmd>Lspsaga goto_type_definition<CR>', 'Goto type Definition', opts)
+    nmap('gr', '<cmd>Lspsaga incoming_calls<CR>', 'Goto References', opts)
+
+    nmap('<leader>of', '<cmd>Lspsaga finder<CR>', 'Open finder', opts)
+    nmap('<leader>oc', '<cmd>Lspsaga outgoing_calls<CR>', 'Open outgoing calls', opts)
+    nmap('<leader>ol', '<cmd>Lspsaga outline<CR>', 'Toggle outline panel', opts)
+    nmap('<leader>os', '<cmd>Lspsaga subtypes<CR>', 'Toggle subtypes', opts)
+    nmap('<leader>ou', '<cmd>Lspsaga supertypes<CR>', 'Toggle supertypes', opts)
+
+    nmap('<leader>df', '<cmd>Lspsaga peek_definition<CR>', 'Peek Definition', opts)
+    nmap('<leader>dF', '<cmd>Lspsaga peek_type_definition<CR>', 'Peek type Definition', opts)
+    nmap('<leader>[', '<cmd>Lspsaga diagnostic_jump_prev<CR>', 'Goto previous diagnostic', opts)
+    nmap('<leader>]', '<cmd>Lspsaga diagnostic_jump_next<CR>', 'Goto next diagnostic', opts)
+
+    nmap('<C-s>', function()
+        -- vim.lsp.buf.format()
+        vim.cmd.wa()
+    end, 'Saves all modified buffers')
+    nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, 'Workspace Add Folder', opts)
+    nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, 'Workspace Remove Folder', opts)
+
+    nmap('<leader>wl', function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, 'Workspace List Folders', opts)
+end
+
 return M

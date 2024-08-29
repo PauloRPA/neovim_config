@@ -1,5 +1,6 @@
 local jdtls = require('jdtls')
 local lsp_keymaps = require('lsp.keymaps')
+local lsp_info = require('lsp.info')
 local lsp_java = require('lsp.java')
 
 local config, features = lsp_java.config()
@@ -16,6 +17,10 @@ end
 
 if features.javatest then
     lsp_java.attachTestKeymapsToBuf()
+end
+
+if lsp_info.saga_loaded() then
+    lsp_keymaps.attachLspSagaKeymapsToBuf()
 end
 
 if config ~= nil then
