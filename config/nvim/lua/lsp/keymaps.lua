@@ -14,10 +14,6 @@ M.attachLspKeymapsToBuf = function()
     nmap('gI', vim.lsp.buf.implementation, 'Goto Implementation', opts)
     nmap('gr', require('telescope.builtin').lsp_references, 'Goto References', opts)
 
-    nmap('<C-s>', function()
-        -- vim.lsp.buf.format()
-        vim.cmd.wa()
-    end, 'Saves all modified buffers')
     nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, 'Workspace Add Folder', opts)
     nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, 'Workspace Remove Folder', opts)
 
@@ -95,10 +91,6 @@ M.attachLspSagaKeymapsToBuf = function()
     nmap('<leader>[', '<cmd>Lspsaga diagnostic_jump_prev<CR>', 'Goto previous diagnostic', opts)
     nmap('<leader>]', '<cmd>Lspsaga diagnostic_jump_next<CR>', 'Goto next diagnostic', opts)
 
-    nmap('<C-s>', function()
-        -- vim.lsp.buf.format()
-        vim.cmd.wa()
-    end, 'Saves all modified buffers')
     nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, 'Workspace Add Folder', opts)
     nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, 'Workspace Remove Folder', opts)
 

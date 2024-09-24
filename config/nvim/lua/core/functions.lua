@@ -79,4 +79,20 @@ M.is_str_not_blank = function(str)
     return str and str ~= ''
 end
 
+M.insert_at_start = function(ch, isInsertMode)
+    local prefix = isInsertMode and '<Esc>' or ''
+    local cmd = vim.api.nvim_replace_termcodes(prefix .. 'I' .. ch .. '<esc>', true, false, true)
+    vim.api.nvim_feedkeys(cmd, 't', true)
+end
+
+M.insert_at_end = function(ch)
+    local cmd = ''
+    if string.match(vim.api.nvim_get_current_line(), ch) == ch then
+        cmd = vim.api.nvim_replace_termcodes('<Esc><Esc>A', true, false, true)
+    else
+        cmd = vim.api.nvim_replace_termcodes('<Esc><Esc>A' .. ch, true, false, true)
+    end
+    vim.api.nvim_feedkeys(cmd, 't', true)
+end
+
 return M

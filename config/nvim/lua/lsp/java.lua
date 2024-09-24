@@ -311,15 +311,6 @@ M.attachDapKeymapsToBuf = function()
 end
 
 M.attachLspKeymapsToBuf = function()
-    local end_instruction_cmd = ''
-    local insert_final_start_ncmd = vim.api.nvim_replace_termcodes('Ifinal <esc>', true, false, true)
-    local insert_final_start_icmd = vim.api.nvim_replace_termcodes('<esc>Ifinal <esc>A', true, false, true)
-
-    nmap('<C-s>', function()
-        vim.lsp.buf.format()
-        vim.cmd.wa()
-    end, 'Saves all modified buffers')
-
     nmap('<leader>aec', jdtls.extract_constant, 'Extract constant', opts)
     nmap('<leader>aev', jdtls.extract_variable_all, 'Extract variable', opts)
     nmap('<leader>aem', jdtls.extract_method, 'Extract method', opts)
@@ -338,20 +329,15 @@ M.attachLspKeymapsToBuf = function()
     end, 'Extract and rename new object', opts)
 
     imap('<A-;>', function()
-        if (string.match(vim.api.nvim_get_current_line(), ';') == ';') then
-            end_instruction_cmd = vim.api.nvim_replace_termcodes('<Esc><Esc>A', true, false, true)
-        else
-            end_instruction_cmd = vim.api.nvim_replace_termcodes('<Esc><Esc>A;', true, false, true)
-        end
-        vim.api.nvim_feedkeys(end_instruction_cmd, 't', true)
+        func.insert_at_end(';')
     end, 'Insert ; at the end of the line', opts)
 
     nmap('<leader>L', function()
-        vim.api.nvim_feedkeys(insert_final_start_ncmd, 'm', true)
+        vim.api.nvim_feedkeys(func.insert_at_start('final '), 'm', true)
     end, 'Insert final at the start of the line', opts)
 
     imap('<A-o>', function()
-        vim.api.nvim_feedkeys(insert_final_start_icmd, 'm', true)
+        vim.api.nvim_feedkeys(func.insert_at_start('final ', true), 'm', true)
     end, 'Insert final at the start of the line')
 end
 

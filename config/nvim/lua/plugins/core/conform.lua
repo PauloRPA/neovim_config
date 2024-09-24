@@ -2,23 +2,18 @@ return {
     'stevearc/conform.nvim',
     config = function()
         local conform = require('conform')
-        local nmap = require('core.keymaps').nmap
-
-        nmap('<leader>aF', function()
-            conform.format({ bufnr = 0, async = true }, function(_, did_edit)
-                if did_edit then
-                    vim.cmd.w()
-                end
-            end)
-        end, 'Format current buffer with Conform')
 
         local formatters = {
-            lua = { 'stylua' },
-            -- java = { 'google-java-format' },
+            -- java = { 'google-java-format', },
+            -- javascript = { 'prettierd', 'prettier', lsp_format = 'fallback', stop_after_first = true },
+            lua = { 'stylua', lsp_format = 'fallback' },
         }
 
         conform.setup({
             formatters_by_ft = formatters,
+            default_format_opts = {
+                lsp_format = 'fallback',
+            },
         })
 
         conform.formatters['google-java-format'] = {
@@ -35,7 +30,7 @@ return {
             callback = function(args)
                 conform.format({ bufnr = args.buf, async = true }, function(_, did_edit)
                     if did_edit then
-                        vim.cmd.w()
+                        vim.cmd.wa()
                     end
                 end)
             end,
@@ -43,9 +38,10 @@ return {
         })
 
         local mtool = require('plugins.mason_tool_list')
-
         for _, formatter in pairs(formatters) do
-            mtool.addTools(formatter)
+            if type(formatter) == 'table' then
+                mtool.addTools(formatter)
+            end
         end
     end,
 }

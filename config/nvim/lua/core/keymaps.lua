@@ -94,7 +94,7 @@ M.load = function()
     nmap('<C-w>w', '<cmd>bn|bd#<CR>', 'Close current buffer')
     nmap('<C-w>k', '<cmd>bn|bd#<CR>', 'Close current buffer')
 
-    nmap('<C-s>', ':wa<CR>', 'Saves all modified buffers')
+    nmap('<C-s>', vim.cmd.wa, 'Saves all modified buffers')
 
     -- Emacs keybindings for command line mode
     imap('<A-b>', '<C-Left>', 'Move a word before')
