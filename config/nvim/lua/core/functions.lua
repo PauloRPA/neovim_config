@@ -3,7 +3,7 @@ local M = {}
 local LINE_SEPARATOR = '[^\r\n]+'
 
 local git_lsfile_commands = {
-    deleted = 'git ls-files -d',
+    -- deleted = 'git ls-files -d',
     modified = 'git ls-files -m',
     untracked = 'git ls-files -o --exclude-standard',
 }
