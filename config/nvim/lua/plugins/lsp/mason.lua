@@ -10,17 +10,18 @@ return {
     config = function()
         local masonLsp = require('mason-lspconfig')
         local masonDap = require('mason-nvim-dap')
-        local info = require('lsp.info')
+        local lsp_server = require('lsp.servers.info')
+        local dap_server = require('dap.servers.info')
         local mason = require('mason')
 
         mason.setup({})
 
         masonLsp.setup({
-            ensure_installed = info.ensure_installed_lsps(),
+            ensure_installed = lsp_server.ensure_installed_lsps(),
         })
 
         masonDap.setup({
-            ensure_installed = info.ensure_installed_daps(),
+            ensure_installed = dap_server.ensure_installed_daps(),
             handlers = {
                 function(config)
                     require('mason-nvim-dap').default_setup(config)

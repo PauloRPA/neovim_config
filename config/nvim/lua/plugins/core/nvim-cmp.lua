@@ -39,16 +39,19 @@ return {
             return nil
         end
 
-        -- local function emmet_lsSorting(entry1, entry2)
-        --     if entry2.source.source.client and entry2.source.source.client.name == 'emmet_ls' then
-        --         if entry1.source.source.client then
-        --             return entry1.source.source.client.name ~= entry2.source.source.client.name
-        --         else
-        --             return true
-        --         end
-        --     end
-        --     return false
-        -- end
+        local function clientName(client)
+            if client.source.source.client then
+                return client.source.source.client.name
+            end
+        end
+
+        local function emmetls_length_sorting(entry1, entry2)
+            local client_name2 = clientName(entry2)
+            if client_name2 == 'emmet_ls' then
+                return clientName(entry1) ~= client_name2
+            end
+            return cmp.config.compare.length(entry1, entry2)
+        end
 
         local lsp_server_icons = {
             emmet_ls = '󰈑 ',
@@ -109,6 +112,26 @@ return {
             experimental = {
                 ghost_text = true,
             },
+        })
+
+        cmp.setup.filetype('html', {
+            sorting = {
+                comparators = {
+                    emmetls_length_sorting,
+                    cmp.config.compare.score,
+                    cmp.config.compare.group_index,
+                    cmp.config.compare.recently_used,
+                    cmp.config.compare.locality,
+                    cmp.config.compare.exact,
+                },
+            },
+            sources = cmp.config.sources({
+                { name = 'luasnip', group_index = 1 },
+                { name = 'nvim_lsp_signature_help', group_index = 1 },
+                { name = 'nvim_lsp', group_index = 1 },
+                { name = 'path', group_index = 2 },
+                { name = 'buffer', group_index = 2 },
+            }),
         })
 
         cmp.setup.filetype('javascript', {

@@ -10,9 +10,15 @@ M.path_tooling = M.path_assets .. '/tools'
 M.path_skel_templates = M.path_assets .. '/templates'
 M.path_snippets = M.nvim_config_lua .. '/snippets'
 
+-- Dap
+M.path_dap = M.nvim_config_lua .. '/dap'
+M.path_dap_servers = M.path_dap .. '/servers'
+M.path_dap_servers_config = M.path_dap_servers .. '/config'
+
+-- Lsp
 M.path_lsp = M.nvim_config_lua .. '/lsp'
-M.path_lsp_settings = M.path_lsp .. '/servers'
 M.path_lsp_servers = M.path_lsp .. '/servers'
+M.path_lsp_servers_config = M.path_lsp_servers .. '/config'
 
 --- Returns the full path to a tool
 ---@param tool string tool name

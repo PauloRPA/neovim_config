@@ -1,15 +1,20 @@
 local M = {}
 
+local JDTLS_CACHE_DIR = vim.fn.stdpath('cache') .. '/nvim-jdtls'
+local JDTLS_LAUNCHER_PATH = '/plugins/org.eclipse.equinox.launcher_*.jar'
+local DAP_LAUNCHER_PATH = '/extension/server/com.microsoft.java.debug.plugin-*.jar'
+local JAVATEST_LAUNCHER_PATH = '/extension/server/*.jar'
+local JAVA_CWD_FILES = { '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' }
+
+local dap = require('dap')
 local func = require('core.functions')
 local info = require('core.info')
 local jdtls = require('jdtls')
 local jdtls_dap = require('jdtls.dap')
 local jdtls_tests = require('jdtls.tests')
-local dap = require('dap')
-
 local mason_registry = require('mason-registry')
-local lombok_path = ''
 
+local lombok_path = ''
 local jdtls_install = ''
 local dap_install = ''
 local platform_config = ''
@@ -21,12 +26,6 @@ local features = {
     lsp = false,
     javatest = false,
 }
-
-local JDTLS_CACHE_DIR = vim.fn.stdpath('cache') .. '/nvim-jdtls'
-local JDTLS_LAUNCHER_PATH = '/plugins/org.eclipse.equinox.launcher_*.jar'
-local DAP_LAUNCHER_PATH = '/extension/server/com.microsoft.java.debug.plugin-*.jar'
-local JAVATEST_LAUNCHER_PATH = '/extension/server/*.jar'
-local JAVA_CWD_FILES = { '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' }
 
 local jdtls_root = jdtls.setup.find_root(JAVA_CWD_FILES)
 local rooter_root = require('core.functions').cwd_root_rooter()
@@ -53,9 +52,7 @@ end
 
 local function resolve_dap_install()
     if mason_registry.has_package('java-debug-adapter') then
-        dap_install = mason_registry
-            .get_package('java-debug-adapter')
-            :get_install_path()
+        dap_install = mason_registry.get_package('java-debug-adapter'):get_install_path()
 
         local java_debug_bundle = vim.split(vim.fn.glob(dap_install .. DAP_LAUNCHER_PATH), '\n')
 
@@ -70,10 +67,7 @@ end
 
 local function resolve_javatest_install()
     if mason_registry.has_package('java-test') then
-        local java_test_path = mason_registry
-            .get_package('java-test')
-            :get_install_path()
-
+        local java_test_path = mason_registry.get_package('java-test'):get_install_path()
         local java_test_bundle = vim.split(vim.fn.glob(java_test_path .. JAVATEST_LAUNCHER_PATH), '\n')
 
         if func.is_str_not_blank(java_test_bundle[1]) then
@@ -88,7 +82,7 @@ end
 local function resolve_java_install_win()
     -- From OS ENV
     local os_java_home = os.getenv('JAVA_HOME')
-    java_installation.jdk_path = string.sub(os_java_home, 1, os_java_home:match '^.*()\\')
+    java_installation.jdk_path = string.sub(os_java_home, 1, os_java_home:match('^.*()\\'))
     java_installation.bin = java_installation.jdk_path .. '/bin'
 
     return java_installation
@@ -127,7 +121,7 @@ M.config = function()
         return nil
     end
 
-    features.lsp = true;
+    features.lsp = true
 
     config_keys.data_dir = JDTLS_CACHE_DIR
     config_keys.lombok_agent = lombok_path
@@ -143,17 +137,16 @@ M.config = function()
     end
 
     if vim.fn.has('win32') == 1 then
-        config_keys.java_bin = config_keys.jdk_17_home '\\bin\\java'
+        config_keys.java_bin = config_keys.jdk_17_home('\\bin\\java')
     end
 
     config_keys.runtimes = { {
         name = 'JavaSE-17',
-        path = config_keys.jdk_17_home
+        path = config_keys.jdk_17_home,
     } }
-
-    local current_project_data_dir = config_keys.data_dir .. '/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
     vim.cmd([[hi debug_line guibg=#16161e blend=0 cterm=bold gui=bold]])
 
+    local current_project_data_dir = config_keys.data_dir .. '/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
     local config = {
         cmd = {
             'java',
@@ -169,18 +162,21 @@ M.config = function()
             'java.base/java.util=ALL-UNNAMED',
             '--add-opens',
             'java.base/java.lang=ALL-UNNAMED',
-            '-jar', config_keys.launcher_jar,
-            '-configuration', platform_config,
-            '-data', current_project_data_dir,
+            '-jar',
+            config_keys.launcher_jar,
+            '-configuration',
+            platform_config,
+            '-data',
+            current_project_data_dir,
         },
         single_file_support = true,
         workspaceFolders = {
-           rooter_root or jdtls_root or find_root_fs_root,
+            rooter_root or jdtls_root or find_root_fs_root,
         },
         settings = {
             java = {
                 project = {
-                    referencedLibraries = vim.split(os.getenv('CLASSPATH') or '', ':')
+                    referencedLibraries = vim.split(os.getenv('CLASSPATH') or '', ':'),
                 },
                 eclipse = {
                     downloadSources = true,
@@ -214,7 +210,7 @@ M.config = function()
                 },
                 format = {
                     enabled = true,
-                }
+                },
             },
             signatureHelp = {
                 enabled = true,
@@ -244,12 +240,11 @@ M.config = function()
                 organizeImports = {
                     starThreshold = 9999,
                     staticStarThreshold = 9999,
-                }
+                },
             },
             codeGeneration = {
                 toString = {
-                    template =
-                    '${object.className}{${member.name()}=${member.value}, ${otherMembers}}',
+                    template = '${object.className}{${member.name()}=${member.value}, ${otherMembers}}',
                 },
                 useBlocks = true,
             },
@@ -263,7 +258,7 @@ M.config = function()
         init_options = {
             bundles = jdtls_bundles,
             extendedClientCapabilities = jdtls.extendedClientCapabilities,
-        }
+        },
     }
 
     return config, features
@@ -278,14 +273,18 @@ local LAST_JVM_ARGS = ''
 
 local function update_args()
     vim.ui.input({ prompt = 'Application args:', default = LAST_ARGS }, function(input)
-        if input then LAST_ARGS = input end
+        if input then
+            LAST_ARGS = input
+        end
     end)
     return LAST_ARGS
 end
 
 local function update_jvm_args()
     vim.ui.input({ prompt = 'Jvm args:', default = LAST_JVM_ARGS }, function(input)
-        if input then LAST_JVM_ARGS = input end
+        if input then
+            LAST_JVM_ARGS = input
+        end
     end)
     return LAST_JVM_ARGS
 end
@@ -299,7 +298,7 @@ M.attachDapKeymapsToBuf = function()
                     vmArgs = LAST_JVM_ARGS,
                     args = LAST_ARGS,
                 },
-                on_ready = dap.continue
+                on_ready = dap.continue,
             })
         end
     end, 'Dap continue')
@@ -311,11 +310,13 @@ M.attachDapKeymapsToBuf = function()
 end
 
 M.attachLspKeymapsToBuf = function()
-    nmap('<leader>aec', jdtls.extract_constant, 'Extract constant', opts)
-    nmap('<leader>aev', jdtls.extract_variable_all, 'Extract variable', opts)
-    nmap('<leader>aem', jdtls.extract_method, 'Extract method', opts)
-    nmap('<leader>aai', jdtls.organize_imports, 'Organize imports', opts)
+    nmap('<A-C>', jdtls.extract_constant, 'Extract constant', opts)
+    nmap('<A-V>', jdtls.extract_variable, 'Extract variable', opts)
+    nmap('<A-v>', jdtls.extract_variable_all, 'Extract variable', opts)
+    nmap('<A-M>', jdtls.extract_method, 'Extract method', opts)
+    nmap('<A-O>', jdtls.organize_imports, 'Organize imports', opts)
     nmap('<leader>aar', jdtls.set_runtime, 'Set java runtime', opts)
+    nmap('<leader>aap', jdtls.super_implementation, 'Super implementation', opts)
 
     nmap('<leader>aau', function()
         jdtls.update_project_config()
@@ -325,6 +326,9 @@ M.attachLspKeymapsToBuf = function()
     end, 'Update project config', opts)
 
     imap('<A-w>', function()
+        vim.schedule(function()
+            func.insert_at_end(';', '<Esc><Esc>i')
+        end)
         jdtls.extract_variable()
     end, 'Extract and rename new object', opts)
 
@@ -333,11 +337,11 @@ M.attachLspKeymapsToBuf = function()
     end, 'Insert ; at the end of the line', opts)
 
     nmap('<leader>L', function()
-        vim.api.nvim_feedkeys(func.insert_at_start('final '), 'm', true)
+        func.insert_at_start('final ')
     end, 'Insert final at the start of the line', opts)
 
     imap('<A-o>', function()
-        vim.api.nvim_feedkeys(func.insert_at_start('final ', true), 'm', true)
+        func.insert_at_start('final ', true, 'i')
     end, 'Insert final at the start of the line')
 end
 
@@ -356,17 +360,18 @@ M.attachTestKeymapsToBuf = function()
     nmap('<leader>aag', jdtls_tests.generate, 'Generate tests')
 end
 
--- On import
-resolve_jdtls_install()
-resolve_dap_install()
-resolve_javatest_install()
+M.setup = function()
+    resolve_jdtls_install()
+    resolve_dap_install()
+    resolve_javatest_install()
 
-if vim.fn.has('unix') == 1 then
-    resolve_java_install_unix()
-    platform_config = jdtls_install .. '/config_linux'
-elseif vim.fn.has('win32') == 1 then
-    resolve_java_install_win()
-    platform_config = jdtls_install .. '/config_win'
+    if vim.fn.has('unix') == 1 then
+        resolve_java_install_unix()
+        platform_config = jdtls_install .. '/config_linux'
+    elseif vim.fn.has('win32') == 1 then
+        resolve_java_install_win()
+        platform_config = jdtls_install .. '/config_win'
+    end
 end
 
 return M

@@ -79,20 +79,29 @@ M.is_str_not_blank = function(str)
     return str and str ~= ''
 end
 
-M.insert_at_start = function(ch, isInsertMode)
-    local prefix = isInsertMode and '<Esc>' or ''
-    local cmd = vim.api.nvim_replace_termcodes(prefix .. 'I' .. ch .. '<esc>', true, false, true)
-    vim.api.nvim_feedkeys(cmd, 't', true)
+M.input = function(input)
+    input = input and vim.api.nvim_replace_termcodes(input, true, false, true) or ''
+    vim.api.nvim_feedkeys(input, 'm', false)
 end
 
-M.insert_at_end = function(ch)
+M.insert_at_start = function(ch, isInsertMode, after)
+    after = after and vim.api.nvim_replace_termcodes(after, true, false, true) or ''
+    local prefix = isInsertMode and '<Esc>' or ''
+    local cmd = vim.api.nvim_replace_termcodes(prefix .. 'I' .. ch .. '<esc>', true, false, true)
+    if string.match(vim.api.nvim_get_current_line(), ch) ~= ch then
+        vim.api.nvim_feedkeys(cmd .. after, 't', true)
+    end
+end
+
+M.insert_at_end = function(ch, after)
+    after = after and vim.api.nvim_replace_termcodes(after, true, false, true) or ''
     local cmd = ''
     if string.match(vim.api.nvim_get_current_line(), ch) == ch then
         cmd = vim.api.nvim_replace_termcodes('<Esc><Esc>A', true, false, true)
     else
         cmd = vim.api.nvim_replace_termcodes('<Esc><Esc>A' .. ch, true, false, true)
     end
-    vim.api.nvim_feedkeys(cmd, 't', true)
+    vim.api.nvim_feedkeys(cmd .. after, 'm', false)
 end
 
 return M

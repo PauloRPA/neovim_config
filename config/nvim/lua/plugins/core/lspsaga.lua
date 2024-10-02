@@ -2,7 +2,7 @@ return {
     'nvimdev/lspsaga.nvim',
     init = function()
         local lsp_run = require('lsp.lsp_run')
-        local lsp_info = require('lsp.info')
+        local lsp_info = require('lsp.servers.info')
         local keymapsSaga = require('lsp.keymaps')
         lsp_run.add_on_attach(function()
             if lsp_info.saga_loaded() then

@@ -1,39 +1,37 @@
-M = {}
+local M = {}
 
 local info = require('core.info')
+local LSP_CONFIG_PATH = info.path_lsp_servers_config
+local LSP_CONFIG_MODULE = 'lsp.servers.config.'
 
-local LSP_SETTINGS_PATH = info.path_lsp_servers
-local LSP_SETTINGS_MODULE = 'lsp.servers.'
 local ADDITIONAL_LSP_TO_INSTALL = { 'jdtls' }
-local ADDITIONAL_DAP_TO_INSTALL = { 'javadbg', 'javatest' }
-
-M.init = function()
-    require('lsp.java')
-end
+local definitions = {
+    'cssls',
+    'html',
+    'jsonls',
+    'lemminx',
+    'markdown_oxide',
+}
 
 M.ensure_installed_lsps = function()
-    local servers = {}
-    for _, currentFile in pairs(vim.fn.readdir(LSP_SETTINGS_PATH)) do
+    local servers = vim.fn.copy(definitions)
+    for _, currentFile in pairs(vim.fn.readdir(LSP_CONFIG_PATH)) do
         table.insert(servers, vim.fn.fnamemodify(currentFile, ':t:r'))
     end
     servers = vim.fn.extend(servers, ADDITIONAL_LSP_TO_INSTALL)
     return servers
 end
 
-M.ensure_installed_daps = function()
-    local servers = {}
-    servers = vim.fn.extend(servers, ADDITIONAL_DAP_TO_INSTALL)
-    return servers
-end
-
-M.get_configured_lspconfigs = function()
+M.lsp_server_settings = function()
     local handlers = {}
-
-    for _, currentFile in pairs(vim.fn.readdir(LSP_SETTINGS_PATH)) do
+    for _, currentFile in pairs(vim.fn.readdir(LSP_CONFIG_PATH)) do
         currentFile = vim.fn.fnamemodify(currentFile, ':t:r')
-        handlers[currentFile] = require(LSP_SETTINGS_MODULE .. currentFile)
+        handlers[currentFile] = require(LSP_CONFIG_MODULE .. currentFile)
     end
 
+    for _, definition in ipairs(definitions) do
+        handlers[definition] = {}
+    end
     return handlers
 end
 
@@ -49,6 +47,10 @@ end
 M.saga_loaded = function()
     local lspsaga = require('lazy.core.config').plugins['lspsaga.nvim']
     return lspsaga and true or false
+end
+
+M.definitions = function()
+    return definitions
 end
 
 return M

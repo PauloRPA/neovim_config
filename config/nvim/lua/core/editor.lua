@@ -18,6 +18,7 @@ M.define_dap_signs = function()
     vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'WarningMsg', linehl = '', numhl = '' })
     vim.fn.sign_define('DapLogPoint', { text = '󰺮', texthl = 'DiagnosticHint', linehl = '', numhl = '' })
     vim.fn.sign_define('DapStopped', { text = '', texthl = 'Title', linehl = 'debug_line', numhl = '' })
+    vim.cmd([[hi debug_line guibg=#16161e blend=0 cterm=bold gui=bold]])
 end
 
 M.setup_lsp_handlers = function()

@@ -6,4 +6,4 @@ require('core.editor').load()
 
 -- Bootstrap plugin manager
 require('core.bootstrap').load()
-require('lsp.info').init()
+require('lsp.java_setup').setup()

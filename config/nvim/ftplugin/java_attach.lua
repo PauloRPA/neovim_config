@@ -1,7 +1,8 @@
 local jdtls = require('jdtls')
 local lsp_keymaps = require('lsp.keymaps')
-local lsp_info = require('lsp.info')
-local lsp_java = require('lsp.java')
+local dap_keymaps = require('dap.keymaps')
+local lsp_info = require('lsp.servers.info')
+local lsp_java = require('lsp.java_setup')
 
 local config, features = lsp_java.config()
 
@@ -11,7 +12,7 @@ if features.lsp then
 end
 
 if features.dap then
-    lsp_keymaps.attachDapKeymapsToBuf()
+    dap_keymaps.attachDapKeymapsToBuf()
     lsp_java.attachDapKeymapsToBuf()
 end
 
