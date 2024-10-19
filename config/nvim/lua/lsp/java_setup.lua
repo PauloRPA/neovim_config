@@ -144,7 +144,7 @@ M.config = function()
         name = 'JavaSE-17',
         path = config_keys.jdk_17_home,
     } }
-    vim.cmd([[hi debug_line guibg=#16161e blend=0 cterm=bold gui=bold]])
+    require('core.editor').set_debug_line()
 
     local current_project_data_dir = config_keys.data_dir .. '/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
     local config = {

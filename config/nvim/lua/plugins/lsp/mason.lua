@@ -32,15 +32,18 @@ return {
             ensure_installed = lsp_server.ensure_installed_lsps(),
         })
 
+        local handlers = {
+            function(config)
+                require('core.editor').set_debug_line()
+            end,
+            javadbg = nil,
+            javatest = nil,
+        }
+        handlers = vim.tbl_extend('keep', handlers, dap_server.handlers)
+
         masonDap.setup({
             ensure_installed = dap_server.ensure_installed_daps(),
-            handlers = {
-                function(config)
-                    require('mason-nvim-dap').default_setup(config)
-                end,
-                javadbg = nil,
-                javatest = nil,
-            },
+            handlers = handlers,
         })
 
         masonTools.setup({

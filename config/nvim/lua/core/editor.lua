@@ -21,6 +21,10 @@ M.define_dap_signs = function()
     vim.cmd([[hi debug_line guibg=#16161e blend=0 cterm=bold gui=bold]])
 end
 
+M.set_debug_line = function()
+    vim.cmd([[hi debug_line guibg=#16161e blend=0 cterm=bold gui=bold]])
+end
+
 M.setup_lsp_handlers = function()
     for method, config in pairs(HANDLERS_CONFIG) do
         local vim_handler = vim.lsp.handlers[method]
