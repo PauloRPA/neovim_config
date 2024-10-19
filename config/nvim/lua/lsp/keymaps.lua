@@ -4,7 +4,7 @@ local nmap = require('core.keymaps').nmap
 local opts = { noremap = true, silent = true, buffer = true }
 
 M.attachLspKeymapsToBuf = function()
-    nmap('<leader>a<leader>', vim.lsp.buf.code_action, 'Code Action', opts)
+    nmap('<leader>;', vim.lsp.buf.code_action, 'Code Action', opts)
     nmap('<leader>ao', vim.lsp.buf.code_action, 'Code Action', opts)
 
     nmap('<A-R>', vim.lsp.buf.rename, 'Rename', opts)
