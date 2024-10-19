@@ -5,7 +5,7 @@ local DAP_CONFIG_PATH = info.path_dap_servers_config
 local DAP_CONFIG_MODULE = 'dap.servers.config.'
 local ADDITIONAL_DAP_TO_INSTALL = { 'javadbg', 'javatest' }
 
-local definitions = {}
+local definitions = { 'firefox' }
 
 M.ensure_installed_daps = function()
     local servers = vim.fn.copy(definitions)
