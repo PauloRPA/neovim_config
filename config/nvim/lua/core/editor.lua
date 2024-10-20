@@ -1,5 +1,15 @@
 local M = {}
 
+local pallete = {
+    bg = '#282727',
+    deep_bg = '#0d0c0c',
+    breakpoint = '#e82424',
+    warning = '#ff9e3b',
+    active = '#8ba4b0',
+    print = '#6a9589',
+    inactive = '#625e5a',
+}
+
 local HANDLERS_CONFIG = {
     ['textDocument/hover'] = {
         border = 'single',
@@ -12,17 +22,21 @@ M.load = function()
     M.setup_lsp_handlers()
 end
 
-M.define_dap_signs = function()
-    vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'ErrorMsg', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapBreakpointRejected', { text = '󰅙', texthl = 'NonText', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'WarningMsg', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapLogPoint', { text = '󰺮', texthl = 'DiagnosticHint', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapStopped', { text = '', texthl = 'Title', linehl = 'debug_line', numhl = '' })
-    vim.cmd([[hi debug_line guibg=#16161e blend=0 cterm=bold gui=bold]])
+M.set_highlights = function()
+    vim.api.nvim_set_hl(0, 'breakpoint', { fg = pallete.breakpoint, bg = pallete.bg })
+    vim.api.nvim_set_hl(0, 'breakpoint_rejected', { fg = pallete.inactive, bg = pallete.bg })
+    vim.api.nvim_set_hl(0, 'breakpoint_condition', { fg = pallete.warning, bg = pallete.bg })
+    vim.api.nvim_set_hl(0, 'breakpoint_print', { fg = pallete.print, bg = pallete.bg })
+    vim.api.nvim_set_hl(0, 'breakpoint_active', { fg = pallete.active, bg = pallete.bg })
+    vim.api.nvim_set_hl(0, 'debug_line', { bg = pallete.deep_bg, blend = 0, bold = true })
 end
 
-M.set_debug_line = function()
-    vim.cmd([[hi debug_line guibg=#16161e blend=0 cterm=bold gui=bold]])
+M.define_dap_signs = function()
+    vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'breakpoint', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapBreakpointRejected', { text = '󰅙', texthl = 'breakpoint_rejected', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'breakpoint_condition', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapLogPoint', { text = '󰺮', texthl = 'breakpoint_print', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapStopped', { text = '', texthl = 'breakpoint_active', linehl = 'debug_line', numhl = '' })
 end
 
 M.setup_lsp_handlers = function()

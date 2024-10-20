@@ -7,3 +7,5 @@ require('core.editor').load()
 -- Bootstrap plugin manager
 require('core.bootstrap').load()
 require('lsp.java_setup').setup()
+
+require('core.editor').set_highlights()

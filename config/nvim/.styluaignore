@@ -1,4 +1,5 @@
 lua/plugins/core/dashboard.lua
 lua/plugins/lsp/nvim-dap-ui.lua
 lua/lsp/java.lua
+lua/core/editor.lua
 

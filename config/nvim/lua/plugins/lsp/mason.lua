@@ -33,9 +33,7 @@ return {
         })
 
         local handlers = {
-            function(config)
-                require('core.editor').set_debug_line()
-            end,
+            function(config) end,
             javadbg = nil,
             javatest = nil,
         }

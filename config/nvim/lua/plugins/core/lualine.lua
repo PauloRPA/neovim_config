@@ -10,7 +10,7 @@ return {
         lualine.setup({
             options = {
                 icons_enabled = true,
-                theme = 'tokyonight',
+                theme = 'kanagawa',
                 component_separators = ' ',
                 section_separators = { left = '', right = '' },
                 globalstatus = true,
