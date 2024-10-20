@@ -94,12 +94,12 @@ return {
             },
             sorting = {
                 comparators = {
-                    cmp.config.compare.score,
-                    cmp.config.compare.length,
-                    cmp.config.compare.group_index,
-                    cmp.config.compare.recently_used,
-                    cmp.config.compare.locality,
                     cmp.config.compare.exact,
+                    cmp.config.compare.score,
+                    cmp.config.compare.group_index,
+                    cmp.config.compare.locality,
+                    cmp.config.compare.length,
+                    cmp.config.compare.recently_used,
                 },
             },
             sources = cmp.config.sources({
