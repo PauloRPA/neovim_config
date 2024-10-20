@@ -1,19 +1,19 @@
 return {
     'windwp/nvim-autopairs',
-    enabled = false,
-    opts = {
-        map_c_h = true,
-        map_c_w = true,
-        fast_wrap = {
-            map = '<M-e>',
-            chars = { '{', '[', '(', '"', "'" },
-            pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], '%s+', ''),
-            offset = 0, -- Offset from pattern match
-            end_key = '.',
-            keys = 'qwertyuiopzxcvbnmasdfghjkl',
-            check_comma = true,
-            highlight = 'PmenuSel',
-            highlight_grey = 'LineNr',
-        },
-    },
+    enabled = true,
+    config = function()
+        require('nvim-autopairs').setup({
+            map_c_h = false,
+            map_c_w = false,
+            map_cr = false,
+            map_bs = false,
+            disable_in_macro = true,
+            disable_in_visualblock = true,
+        })
+        require('nvim-autopairs').clear_rules()
+        local Rule = require('nvim-autopairs.rule')
+        local npairs = require('nvim-autopairs')
+
+        npairs.add_rule(Rule('(', ')'))
+    end,
 }

@@ -13,6 +13,9 @@ return {
         local cmp = require('cmp')
         local luasnip = require('luasnip')
 
+        local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+        cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+
         local function length_and_detail(entry1, entry2)
             local diff = #entry1.completion_item.label - #entry2.completion_item.label
             if diff < 0 then
