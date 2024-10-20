@@ -1,6 +1,8 @@
 return {
     'nvim-telescope/telescope.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-smart-history.nvim' },
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+    },
     config = function()
         local keymaps = require('core.keymaps')
         local nmap = keymaps.nmap
@@ -28,10 +30,6 @@ return {
 
         require('telescope').setup({
             defaults = {
-                history = {
-                    path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
-                    limit = 100,
-                },
                 mappings = {
                     i = {
                         ['<C-u>'] = keymaps.fn.clearLine,
@@ -56,7 +54,5 @@ return {
                 },
             },
         })
-
-        require('telescope').load_extension('smart_history')
     end,
 }
