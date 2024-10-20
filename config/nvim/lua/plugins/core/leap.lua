@@ -1,5 +1,8 @@
 return {
     'ggandor/leap.nvim',
+    init = function()
+        vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
+    end,
     config = function()
         -- Setup leap linewise motions ------------------------------
 

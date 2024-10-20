@@ -29,6 +29,10 @@ M.set_highlights = function()
     vim.api.nvim_set_hl(0, 'breakpoint_print', { fg = pallete.print, bg = pallete.bg })
     vim.api.nvim_set_hl(0, 'breakpoint_active', { fg = pallete.active, bg = pallete.bg })
     vim.api.nvim_set_hl(0, 'debug_line', { bg = pallete.deep_bg, blend = 0, bold = true })
+
+    vim.api.nvim_set_hl(0, 'LeapMatch', { link = 'Title' })
+    vim.api.nvim_set_hl(0, 'LeapLabel', { link = 'ErrorMsg' })
+    vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
 end
 
 M.define_dap_signs = function()
