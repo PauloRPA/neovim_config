@@ -2,10 +2,10 @@ return {
     'akinsho/bufferline.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
+        local CURRENT_GROUP_NAME = 'Proj'
         local nmap = require('core.keymaps').nmap
         local bufferline = require('bufferline')
         local bufferGroups = require('bufferline.groups')
-        local CURRENT_GROUP_NAME = 'Proj'
 
         local function get_all_groups_except(except_groups)
             if type(except_groups) ~= 'table' then
@@ -80,35 +80,30 @@ return {
         bufferline.setup({
             options = {
                 mode = 'buffers', -- set to 'tabs' to only show tabpages instead
-                move_wraps_at_ends = false, -- whether or not the move command 'wraps' at the first or last position
                 truncate_names = true,
+                show_buffer_close_icons = false,
                 diagnostics = 'nvim_lsp',
-                sort_by = 'id',
-                numbers = function(opts)
-                    return string.format('%s·%s', opts.raise(opts.ordinal), opts.lower(opts.id))
-                end,
-                name_formatter = function(buf)
-                    return vim.fn.fnamemodify(buf.name, ':t:r')
+                color_icons = true, -- whether or not to add the filetype icon highlights
+                separator_style = 'slope',
+                enforce_regular_tabs = false,
+                sort_by = function(buffer_a, buffer_b)
+                    local modified_a = vim.fn.getftime(buffer_a.path)
+                    local modified_b = vim.fn.getftime(buffer_b.path)
+                    return modified_a > modified_b
                 end,
                 groups = {
                     options = {
-                        toggle_hidden_on_enter = true, -- when you re-enter a hidden group this options re-opens that group so the buffer is visible
+                        toggle_hidden_on_enter = true,
                     },
                     items = {
                         bufferGroups.builtin.pinned:with({ icon = '' }),
                         {
                             name = CURRENT_GROUP_NAME,
-                            highlight = {
-                                fg = 'lightblue',
-                            },
-
-                            auto_close = false, -- whether or not close this group if it doesn't contain the current buffer
+                            auto_close = false,
+                            icon = '',
                             matcher = function(buf)
                                 return buf.path:match('%' .. vim.fn.getcwd() .. '.*')
                             end,
-                            separator = { -- Optional
-                                style = bufferGroups.separator.tab,
-                            },
                         },
                     },
                 },
