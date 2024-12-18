@@ -1,9 +1,10 @@
 return {
     'nvim-focus/focus.nvim',
+    enabled = true,
     version = '*',
     config = function()
         local focus = require('focus')
-        local ignore_filetypes = { 'dapui_watches', 'dap-repl', 'dapui_stacks', 'dapui_scopes' }
+        local ignore_filetypes = { 'NvimTree', 'dapui_watches', 'dap-repl', 'dapui_stacks', 'dapui_scopes' }
         local focusGroup = vim.api.nvim_create_augroup('focus_group', { clear = true })
 
         vim.api.nvim_create_autocmd('FileType', {

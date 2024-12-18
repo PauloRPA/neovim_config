@@ -143,7 +143,7 @@ return {
                     set_jumps = true, -- whether to set jumps in the jumplist
                     goto_next_start = {
                         ['<A-j>'] = {
-                            query = { '@function.outer', '@class.outer', '@css.selector', '@xml.element' },
+                            query = { '@function.outer', '@class.outer', '@css.selector', '@xml.element', },
                             desc = 'Go to next function start',
                         },
                         ['<A-l>'] = {
@@ -158,7 +158,7 @@ return {
                     },
                     goto_previous_start = {
                         ['<A-k>'] = {
-                            query = { '@function.outer', '@class.outer', '@css.selector', '@xml.element' },
+                            query = { '@function.outer', '@class.outer', '@css.selector', '@xml.element', },
                             desc = 'Go to previous function start',
                         },
                         ['<A-h>'] = {
