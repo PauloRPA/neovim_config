@@ -2,7 +2,29 @@ return {
     'NeogitOrg/neogit',
     dependencies = {
         'nvim-lua/plenary.nvim',
-        'sindrets/diffview.nvim',
+        {
+            'sindrets/diffview.nvim',
+            config = function()
+                local nmap = require('core.keymaps').nmap
+
+                local diffview = vim.api.nvim_create_augroup('diffview', { clear = true })
+                vim.api.nvim_create_autocmd({ 'FileType' }, {
+                    pattern = { 'DiffviewFiles' },
+                    callback = function()
+                        nmap(
+                            'q',
+                            '<cmd>DiffviewClose<CR>',
+                            'Close Diffview',
+                            { noremap = true, silent = true, buffer = 0 }
+                        )
+                        vim.notify('gay')
+                    end,
+                    group = diffview,
+                })
+
+                require('diffview').setup({})
+            end,
+        },
     },
     config = function()
         local neogit = require('neogit')

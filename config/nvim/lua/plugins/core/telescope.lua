@@ -11,7 +11,9 @@ return {
         local actions = require('telescope.actions')
 
         nmap('<leader>f', builtin.find_files, 'Search files in cwd')
-        nmap('<leader><leader>', builtin.buffers, 'Search open buffers')
+        nmap('<leader><leader>', builtin.resume, 'Resume telescope')
+        nmap('<leader>sk', builtin.keymaps, 'Search open keymaps')
+        nmap('<leader>sa', builtin.buffers, 'Search open buffers')
         nmap('<leader>sf', builtin.git_files, 'Search git files')
         nmap('<leader>sh', builtin.help_tags, 'Search help tags')
         nmap('<leader>so', builtin.oldfiles, 'Search old files')
