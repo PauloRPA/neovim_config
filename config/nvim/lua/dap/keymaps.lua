@@ -3,6 +3,24 @@ M = {}
 local dap = require('dap')
 local nmap = require('core.keymaps').nmap
 
+local LAST_ARGS = ''
+
+M.args = function()
+    if LAST_ARGS == nil or LAST_ARGS == '' then
+        return nil
+    end
+    return { LAST_ARGS }
+end
+
+M.update_args = function()
+    vim.ui.input({ prompt = 'Application args:', default = LAST_ARGS }, function(input)
+        if input then
+            LAST_ARGS = input
+        end
+    end)
+    return LAST_ARGS
+end
+
 M.attachDapKeymapsToBuf = function()
     -- Debugging
     nmap('<C-b>', dap.toggle_breakpoint, 'Toggle [B]reakpoint')
@@ -51,6 +69,10 @@ M.attachDapKeymapsToBuf = function()
         vim.cmd.wa()
         dap.continue()
     end, 'Dap continue')
+
+    nmap('<A-q>', function()
+        M.args = { M.update_args() }
+    end, 'Set Application args')
 end
 
 return M

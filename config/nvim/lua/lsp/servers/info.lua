@@ -11,6 +11,7 @@ local definitions = {
     'jsonls',
     'lemminx',
     'markdown_oxide',
+    'pylsp',
 }
 
 M.ensure_installed_lsps = function()

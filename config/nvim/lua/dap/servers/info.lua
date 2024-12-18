@@ -7,12 +7,14 @@ local ADDITIONAL_DAP_TO_INSTALL = { 'javadbg', 'javatest' }
 local dap_keymaps = require('dap.keymaps')
 
 local default_setup = function(config)
+    config.configurations[1].args = dap_keymaps.args
     require('mason-nvim-dap').default_setup(config)
     dap_keymaps.attachDapKeymapsToBuf()
 end
 
 local definitions = {
     node2 = default_setup,
+    python = default_setup,
 }
 
 M.ensure_installed_daps = function()
