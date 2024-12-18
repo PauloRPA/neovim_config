@@ -32,6 +32,13 @@ return {
                     },
                 },
                 lualine_x = {
+                    {
+                        function()
+                            return vim.fn.matchstr(require('noice').api.status.search.get(), '\\[.*')
+                        end,
+                        cond = require('noice').api.status.search.has,
+                        color = { fg = '#ff9e64' },
+                    },
                     client_names,
                     require('recorder').recordingStatus,
                     require('recorder').displaySlots,
