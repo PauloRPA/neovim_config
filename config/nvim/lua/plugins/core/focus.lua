@@ -13,6 +13,7 @@ return {
             'dapui_scopes',
             'DiffviewFiles',
             'qf',
+            'toggleterm',
         }
 
         vim.api.nvim_create_autocmd('FileType', {
