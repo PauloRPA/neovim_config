@@ -17,7 +17,6 @@ return {
                             'Close Diffview',
                             { noremap = true, silent = true, buffer = 0 }
                         )
-                        vim.notify('gay')
                     end,
                     group = diffview,
                 })

@@ -10,7 +10,7 @@ local function clearLine()
     vim.api.nvim_input('<esc>v0ws') -- Save word under cursor to register t
 end
 
-local function map(mode, key, action, description, opt, default_opts)
+local function map(mode, key, action, description, opt, default_opts, pre, pos)
     if not opt then
         opt = default_opts
     end
@@ -19,11 +19,35 @@ local function map(mode, key, action, description, opt, default_opts)
         opt.desc = description
     end
 
-    vim.keymap.set(mode, key, action, opt)
+    local final_action = action
+
+    if pre or pos then
+        final_action = function()
+            if pre ~= nil and type(pre) == 'function' then
+                pre()
+            end
+
+            if type(action) == 'string' then
+                vim.api.nvim_input(action)
+            end
+
+            if type(action) == 'function' then
+                action()
+            end
+
+            if pos ~= nil and type(pos) == 'function' then
+                pos()
+            end
+        end
+    end
+
+    vim.keymap.set(mode, key, final_action, opt)
 end
 
 local modeMapFunc = {}
+local modeEVMapFunc = {}
 local modes = { 'n', 'i', 'v', 'x', 't', 'o', 's' }
+
 for _, mode in ipairs(modes) do
     M[mode .. 'map'] = function(key, action, description, opt)
         map(mode, key, action, description, opt, opts)
@@ -31,11 +55,31 @@ for _, mode in ipairs(modes) do
     modeMapFunc[mode] = M[mode .. 'map']
 end
 
-M.multi = function(multimodes)
+for _, mode in ipairs(modes) do
+    M[mode .. 'evmap'] = function(pre, pos)
+        return function(key, action, description, opt)
+            map(mode, key, action, description, opt, opts, pre, pos)
+        end
+    end
+    modeEVMapFunc[mode] = M[mode .. 'evmap']
+end
+
+M.multi = function(multimodes, pre, pos)
     local modeMap = type(multimodes) == 'table' and multimodes or {}
     if type(multimodes) == 'string' then
         for ch in multimodes:gmatch('.') do
             table.insert(modeMap, ch)
+        end
+    end
+
+    if pre or pos then
+        return function(key, action, description, opt)
+            for _, mode in ipairs(modeMap) do
+                local mappingFunction = modeEVMapFunc[mode]
+                if mappingFunction then
+                    mappingFunction(pre, pos)(key, action, description, opt)
+                end
+            end
         end
     end
 
