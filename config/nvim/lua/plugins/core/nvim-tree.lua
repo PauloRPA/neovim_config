@@ -9,7 +9,7 @@ return {
         local ntApi = require('nvim-tree.api')
         local usercmds = require('plugins.integrations.usercmd')
 
-        local nmap = require('plugins.integrations.eventmap').nmap(function()
+        local debug_windows_persistence_nmap = require('core.keymaps').nevmap(function()
             usercmds.fire(usercmds.event_types.DebuggerWindowPersistence)
         end, function()
             usercmds.fire(usercmds.event_types.DebuggerWindowPersistence)
@@ -28,8 +28,8 @@ return {
         end)
 
         -- Keymappings
-        nmap('<leader>e', ntApi.tree.toggle, 'Toggle nvim-tree')
-        nmap('<leader>acb', function()
+        debug_windows_persistence_nmap('<leader>e', ntApi.tree.toggle, 'Toggle nvim-tree')
+        debug_windows_persistence_nmap('<leader>acb', function()
             local currentPath = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p:h')
 
             if ntApi.tree.is_visible() then
@@ -39,7 +39,7 @@ return {
             ntApi.tree.open({ path = currentPath })
         end, 'Cd tree into current buffer location')
 
-        nmap('<leader>acw', function()
+        debug_windows_persistence_nmap('<leader>acw', function()
             local currentPath = vim.fn.getcwd()
 
             if ntApi.tree.is_visible() then
@@ -58,7 +58,7 @@ return {
             ntApi.config.mappings.default_on_attach(bufnr)
 
             -- Custom mappings
-            nmap('<C-w>', function()
+            debug_windows_persistence_nmap('<C-w>', function()
                 local node = ntApi.tree.get_node_under_cursor()
                 if node then
                     vim.cmd.bd({ args = { node.name }, mods = { emsg_silent = true } })

@@ -52,7 +52,7 @@ local M = {
 
         local vmap = require('core.keymaps').vmap
         local nmap = require('core.keymaps').nmap
-        local evnmap = require('plugins.integrations.eventmap').nmap(function()
+        local dapclose_map = require('core.keymaps').nevmap(function()
             dapui.close()
         end, nil)
 
@@ -91,19 +91,19 @@ local M = {
             end
         end
 
-        evnmap('<A-2>', function()
+        dapclose_map('<A-2>', function()
             toggle_layout_by_name('bottom', true)
         end, 'Toggle reset dapui bottom')
 
-        evnmap('<A-3>', function()
+        dapclose_map('<A-3>', function()
             toggle_layout_by_name('ui', true)
         end, 'Toggle dap-ui')
 
-        evnmap('<A-9>', function()
+        dapclose_map('<A-9>', function()
             toggle_layout_by_name('console')
         end, 'Toggle dap-ui')
 
-        evnmap('<A-e>', dapui.eval, 'Open dap-ui')
+        dapclose_map('<A-e>', dapui.eval, 'Open dap-ui')
         vmap('<A-e>', dapui.eval, 'Open dap-ui')
 
         nmap('<A-w>', function()

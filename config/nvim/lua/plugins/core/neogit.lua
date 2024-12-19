@@ -27,13 +27,13 @@ return {
     },
     config = function()
         local neogit = require('neogit')
-        local eventNmap = require('plugins.integrations.eventmap').nmap(nil, function()
+        local windows_disposition_persistence_nmap = require('core.keymaps').nevmap(nil, function()
             local windowDispositionPersistenceEvent =
                 require('plugins.integrations.metaev').types.WindowDispositionPersistence
             require('plugins.integrations.usercmd').fire(windowDispositionPersistenceEvent)
         end)
 
-        eventNmap('<leader>go', neogit.open, 'Open Neogit')
+        windows_disposition_persistence_nmap('<leader>go', neogit.open, 'Open Neogit')
 
         neogit.setup({
             kind = 'split_above',

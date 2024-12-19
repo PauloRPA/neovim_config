@@ -14,8 +14,8 @@ return {
             usercmds.fire(getStatusUpdateEvent)
         end
 
-        local evnmap = require('plugins.integrations.eventmap').nmap(nil, fireGitStatusEvent)
-        local vmap = require('plugins.integrations.eventmap').vmap(nil, fireGitStatusEvent)
+        local git_update_nmap = require('core.keymaps').nevmap(nil, fireGitStatusEvent)
+        local vmap = require('core.keymaps').vmap(nil, fireGitStatusEvent)
 
         -- Navigation
         nmap('<leader>ghn', function()
@@ -23,7 +23,7 @@ return {
                 return '<leader>gh'
             end
             vim.schedule(function()
-                gs.next_hunk()
+                gs.nav_hunk('next')
             end)
             return '<Ignore>'
         end, 'Next hunk', { expr = true })
@@ -33,17 +33,17 @@ return {
                 return '<leader>gH'
             end
             vim.schedule(function()
-                gs.prev_hunk()
+                gs.nav_hunk('prev')
             end)
             return '<Ignore>'
         end, 'Previous hunk', { expr = true })
 
         -- Hunk
         --
-        evnmap('<leader>ghs', gs.stage_hunk, 'Stage hunk')
-        evnmap('<leader>ghr', gs.reset_hunk, 'Reset hunk')
-        evnmap('<leader>ghu', gs.undo_stage_hunk, 'Undo stage hunk')
-        evnmap('<leader>ghk', gs.preview_hunk, 'Preview hunk')
+        git_update_nmap('<leader>ghs', gs.stage_hunk, 'Stage hunk')
+        git_update_nmap('<leader>ghr', gs.reset_hunk, 'Reset hunk')
+        git_update_nmap('<leader>ghu', gs.undo_stage_hunk, 'Undo stage hunk')
+        git_update_nmap('<leader>ghk', gs.preview_hunk, 'Preview hunk')
 
         vmap('<leader>ghs', function()
             gs.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
@@ -54,8 +54,8 @@ return {
         end, 'Reset hunk')
 
         -- Buffer
-        evnmap('<leader>gS', gs.stage_buffer, 'Stage buffer')
-        evnmap('<leader>gR', gs.reset_buffer, 'Reset buffer')
+        git_update_nmap('<leader>gS', gs.stage_buffer, 'Stage buffer')
+        git_update_nmap('<leader>gR', gs.reset_buffer, 'Reset buffer')
 
         -- Actions
         nmap('<leader>gb', function()

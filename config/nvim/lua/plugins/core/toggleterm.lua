@@ -5,7 +5,7 @@ return {
         local Terminal = require('toggleterm.terminal').Terminal
         local nmap = require('core.keymaps').nmap
 
-        local eventNmap = require('plugins.integrations.eventmap').nmap(nil, function()
+        local eventNmap = require('core.keymaps').nevmap(nil, function()
             local windowDispositionPersistenceEvent =
                 require('plugins.integrations.metaev').types.WindowDispositionPersistence
             require('plugins.integrations.usercmd').fire(windowDispositionPersistenceEvent)
