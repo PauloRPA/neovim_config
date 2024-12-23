@@ -265,6 +265,7 @@ end
 
 local nmap = require('core.keymaps').nmap
 local imap = require('core.keymaps').imap
+local nvmap = require('core.keymaps').multi('nv')
 local opts = { noremap = true, silent = true, buffer = true }
 
 local LAST_ARGS = ''
@@ -312,7 +313,7 @@ M.attachLspKeymapsToBuf = function()
     nmap('<A-C>', jdtls.extract_constant, 'Extract constant', opts)
     nmap('<A-V>', jdtls.extract_variable, 'Extract variable', opts)
     nmap('<A-v>', jdtls.extract_variable_all, 'Extract variable', opts)
-    nmap('<A-M>', jdtls.extract_method, 'Extract method', opts)
+    nvmap('<A-M>', jdtls.extract_method, 'Extract method', opts)
     nmap('<A-O>', jdtls.organize_imports, 'Organize imports', opts)
     nmap('<leader>aar', jdtls.set_runtime, 'Set java runtime', opts)
     nmap('<leader>aap', jdtls.super_implementation, 'Super implementation', opts)
