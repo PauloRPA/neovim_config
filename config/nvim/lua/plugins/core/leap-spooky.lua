@@ -32,12 +32,12 @@ return {
             end)
         end, 'Yank  inner leap content from another window')
 
-        inmap('<A-;>', function()
+        inmap('<A-m>', function()
             local keys = vim.api.nvim_replace_termcodes('<ESC>cirw', true, false, true)
             vim.api.nvim_feedkeys(keys, 'L', true) -- Unwrap content inside a parenthesis
         end, 'Cut inner leap content')
 
-        inmap('<A-:>', function()
+        inmap('<A-M>', function()
             local keys = vim.api.nvim_replace_termcodes('<ESC>ciRw', true, false, true)
             vim.api.nvim_feedkeys(keys, 'L', true) -- Unwrap content inside a parenthesis
         end, 'Cut inner leap content from another window')
