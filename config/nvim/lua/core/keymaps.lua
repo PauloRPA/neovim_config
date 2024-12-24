@@ -159,6 +159,7 @@ M.load = function()
 
     -- User functions
     nmap('<Space>', '<Nop>', 'Nop')
+    imap('<A-p>', '<ESC>pi', 'Paste content and return to insert mode')
 
     nmap('<leader>dc', function()
         vim.api.nvim_feedkeys('"tyiw', 'x', false) -- Save word under cursor to register t

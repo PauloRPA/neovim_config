@@ -2,44 +2,45 @@ return {
     'ggandor/leap-spooky.nvim',
     dependencies = { 'ggandor/leap.nvim' },
     config = function()
-        local imap = require('core.keymaps').imap
         local nmap = require('core.keymaps').nmap
-
-        nmap('<A-v>', function()
-            vim.api.nvim_input('vim')
-        end, 'Visual inner leap content')
-
-        nmap('<A-V>', function()
-            vim.api.nvim_input('viM')
-        end, 'Visual inner leap content from another window')
+        local imap = require('core.keymaps').imap
+        local inmap = require('core.keymaps').multi('in')
 
         nmap('<A-y>', function()
-            vim.api.nvim_input('yir')
+            local keys = vim.api.nvim_replace_termcodes('yirw', true, false, true)
+            vim.api.nvim_feedkeys(keys, 'L', true) -- Unwrap content inside a parenthesis
         end, 'Yank inner leap content')
 
         nmap('<A-Y>', function()
-            vim.api.nvim_input('yiR')
+            local keys = vim.api.nvim_replace_termcodes('yiRw', true, false, true)
+            vim.api.nvim_feedkeys(keys, 'L', true) -- Unwrap content inside a parenthesis
         end, 'Yank inner leap content from another window')
 
-        imap('<A-c>', function()
-            vim.api.nvim_input('<C-o>cim')
-        end, 'Cut inner leap content')
-
-        imap('<A-C>', function()
-            vim.api.nvim_input('<C-o>ciM')
-        end, 'Cut inner leap content from another window')
-
         imap('<A-y>', function()
-            vim.api.nvim_input('<C-o>yir')
+            local keys = vim.api.nvim_replace_termcodes('<ESC>lyirw', true, false, true)
+            vim.api.nvim_feedkeys(keys, 'L', true) -- Unwrap content inside a parenthesis
+            vim.schedule(function()
+                vim.cmd('startinsert')
+            end)
         end, 'Yank inner leap content')
 
         imap('<A-Y>', function()
-            vim.api.nvim_input('<C-o>yiR')
-        end, 'Yank inner leap content from another window')
+            local keys = vim.api.nvim_replace_termcodes('<ESC>lyiRw', true, false, true)
+            vim.api.nvim_feedkeys(keys, 'L', true) -- Unwrap content inside a parenthesis
+            vim.schedule(function()
+                vim.cmd('startinsert')
+            end)
+        end, 'Yank  inner leap content from another window')
 
-        imap('<A-p>', function()
-            vim.api.nvim_input('<C-o>P')
-        end, 'Paste leap content')
+        inmap('<A-;>', function()
+            local keys = vim.api.nvim_replace_termcodes('<ESC>cirw', true, false, true)
+            vim.api.nvim_feedkeys(keys, 'L', true) -- Unwrap content inside a parenthesis
+        end, 'Cut inner leap content')
+
+        inmap('<A-:>', function()
+            local keys = vim.api.nvim_replace_termcodes('<ESC>ciRw', true, false, true)
+            vim.api.nvim_feedkeys(keys, 'L', true) -- Unwrap content inside a parenthesis
+        end, 'Cut inner leap content from another window')
 
         require('leap-spooky').setup({
             -- Additional text objects, to be merged with the default ones.
