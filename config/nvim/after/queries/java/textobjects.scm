@@ -3,3 +3,6 @@
   name: (identifier) @method_name)  ; [67, 32] - [67, 37]
 
 (package_declaration (identifier) @package)
+
+(method_declaration 
+    type: (_) @return_type )
