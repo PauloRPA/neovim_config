@@ -289,6 +289,54 @@ local function update_jvm_args()
     return LAST_JVM_ARGS
 end
 
+local function map_wrappers()
+    local wrappers = {
+        ['<A-u>r'] = {
+            text = 'Optional<>',
+            modes = 'inv',
+        },
+        ['<A-u>o'] = {
+            text = 'Optional.of()',
+            modes = 'inv',
+        },
+        ['<A-u>as'] = {
+            text = 'Arrays.toString()',
+            modes = 'in',
+        },
+        ['<A-u>s'] = {
+            text = 'Arrays.stream()',
+            modes = 'in',
+        },
+        ['<A-u>j'] = {
+            text = 'if ()',
+            modes = 'i',
+            i = {
+                motion = 'caW',
+                suffix = 'la {<Enter>',
+            },
+        },
+        ['<A-u>l'] = {
+            text = '() -> {}',
+            modes = 'inv',
+            i = { suffix = 'F{a<Enter><End>', motion = 'cib' },
+            n = { suffix = 'F{a<Enter><Esc>$', motion = 'cib' },
+            v = { suffix = 'F{a<Enter><A-n>' },
+        },
+        ['<A-u>i'] = {
+            text = '() ->  ',
+            modes = 'inv',
+            n = { motion = 'cib' },
+            i = { motion = 'cib' },
+        },
+        ['<A-u>\''] = {
+            text = '""',
+            modes = 'inv',
+        },
+    }
+
+    require('core.keymaps').map_wrapper(wrappers)
+end
+
 M.attachDapKeymapsToBuf = function()
     nmap('<A-c>', function()
         if jdtls_dap.setup_dap_main_class_configs then
@@ -343,6 +391,8 @@ M.attachLspKeymapsToBuf = function()
     imap('<A-o>', function()
         func.insert_at_start('final ', true, 'i')
     end, 'Insert final at the start of the line')
+
+    map_wrappers()
 end
 
 M.attachTestKeymapsToBuf = function()
