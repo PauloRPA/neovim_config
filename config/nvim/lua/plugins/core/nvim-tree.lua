@@ -5,22 +5,15 @@ return {
     },
     keys = '<leader>e',
     config = function()
+        local nmap = require('core.keymaps').nmap
+
         local ntConfig = require('nvim-tree')
         local ntApi = require('nvim-tree.api')
-        local usercmds = require('plugins.integrations.usercmd')
-
-        local debug_windows_persistence_nmap = require('core.keymaps').nevmap(function()
-            usercmds.fire(usercmds.event_types.DebuggerWindowPersistence)
-        end, function()
-            usercmds.fire(usercmds.event_types.DebuggerWindowPersistence)
-        end)
+        local events = require('core.events')
 
         -- Integration
-        local getStatusUpdateEvent = usercmds.event_types.GitStatusUpdate
-        local windowDispositionPersistenceEvent = usercmds.event_types.WindowDispositionPersistence
-        usercmds.addListener(getStatusUpdateEvent, ntApi.tree.reload)
-
-        usercmds.addListener(windowDispositionPersistenceEvent, function()
+        events.git_update(ntApi.tree.reload)
+        events.tree_persistence(function()
             if ntApi.tree.is_visible() then
                 ntApi.tree.toggle({ focus = false })
                 ntApi.tree.toggle({ focus = false })
@@ -28,8 +21,8 @@ return {
         end)
 
         -- Keymappings
-        debug_windows_persistence_nmap('<leader>e', ntApi.tree.toggle, 'Toggle nvim-tree')
-        debug_windows_persistence_nmap('<leader>acb', function()
+        nmap('<leader>e', ntApi.tree.toggle, 'Toggle nvim-tree')
+        nmap('<leader>acb', function()
             local currentPath = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p:h')
 
             if ntApi.tree.is_visible() then
@@ -39,7 +32,7 @@ return {
             ntApi.tree.open({ path = currentPath })
         end, 'Cd tree into current buffer location')
 
-        debug_windows_persistence_nmap('<leader>acw', function()
+        nmap('<leader>acw', function()
             local currentPath = vim.fn.getcwd()
 
             if ntApi.tree.is_visible() then
@@ -58,7 +51,7 @@ return {
             ntApi.config.mappings.default_on_attach(bufnr)
 
             -- Custom mappings
-            debug_windows_persistence_nmap('<C-w>', function()
+            nmap('<C-w>', function()
                 local node = ntApi.tree.get_node_under_cursor()
                 if node then
                     vim.cmd.bd({ args = { node.name }, mods = { emsg_silent = true } })

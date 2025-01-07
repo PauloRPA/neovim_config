@@ -6,9 +6,7 @@ return {
         local nmap = require('core.keymaps').nmap
 
         local eventNmap = require('core.keymaps').nevmap(nil, function()
-            local windowDispositionPersistenceEvent =
-                require('plugins.integrations.metaev').types.WindowDispositionPersistence
-            require('plugins.integrations.usercmd').fire(windowDispositionPersistenceEvent)
+            require('core.events').tree_persistence()
         end)
 
         local tmap = require('core.keymaps').tmap

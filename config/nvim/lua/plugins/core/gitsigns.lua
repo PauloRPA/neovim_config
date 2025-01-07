@@ -2,20 +2,13 @@ return {
     'lewis6991/gitsigns.nvim',
     -- tag = 'v0.7',
     config = function()
+        local events = require('core.events')
+
+        local nmap = require('core.keymaps').nmap
+        local vmap = require('core.keymaps').vmap(nil, events.git_update)
+        local git_update_nmap = require('core.keymaps').nevmap(nil, events.git_update)
+
         local gs = require('gitsigns')
-
-        local keymaps = require('core.keymaps')
-        local nmap = keymaps.nmap
-
-        local usercmds = require('plugins.integrations.usercmd')
-        local getStatusUpdateEvent = usercmds.event_types.GitStatusUpdate
-
-        local function fireGitStatusEvent()
-            usercmds.fire(getStatusUpdateEvent)
-        end
-
-        local git_update_nmap = require('core.keymaps').nevmap(nil, fireGitStatusEvent)
-        local vmap = require('core.keymaps').vmap(nil, fireGitStatusEvent)
 
         -- Navigation
         nmap('<leader>ghn', function()
