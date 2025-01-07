@@ -3,7 +3,7 @@ return {
     config = function()
         local overseer = require('overseer')
         local nmap = require('core.keymaps').nmap
-        nmap('<leader>tt', overseer.toggle, 'Toggle overseer')
+        nmap('<leader>oe', overseer.toggle, 'Toggle overseer')
 
         overseer.setup({
             -- Default task strategy
@@ -41,21 +41,21 @@ return {
                     ['<CR>'] = 'RunAction',
                     ['<C-e>'] = 'Edit',
                     ['o'] = 'Open',
-                    ['<C-v>'] = 'OpenVsplit',
-                    ['<C-s>'] = 'OpenSplit',
-                    ['<C-f>'] = 'OpenFloat',
-                    ['<C-q>'] = 'OpenQuickFix',
+                    ['<A-v>'] = 'OpenVsplit',
+                    ['<A-s>'] = 'OpenSplit',
+                    ['<A-f>'] = 'OpenFloat',
+                    ['<A-q>'] = 'OpenQuickFix',
                     ['p'] = 'TogglePreview',
-                    ['<C-l>'] = 'IncreaseDetail',
-                    ['<C-h>'] = 'DecreaseDetail',
+                    ['<A-l>'] = 'IncreaseDetail',
+                    ['<A-h>'] = 'DecreaseDetail',
                     ['L'] = 'IncreaseAllDetail',
                     ['H'] = 'DecreaseAllDetail',
                     ['['] = 'DecreaseWidth',
                     [']'] = 'IncreaseWidth',
                     ['{'] = 'PrevTask',
                     ['}'] = 'NextTask',
-                    ['<C-k>'] = 'ScrollOutputUp',
-                    ['<C-j>'] = 'ScrollOutputDown',
+                    ['<A-k>'] = 'ScrollOutputUp',
+                    ['<A-j>'] = 'ScrollOutputDown',
                     ['q'] = 'Close',
                 },
             },
