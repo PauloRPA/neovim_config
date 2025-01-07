@@ -46,6 +46,7 @@ end
 
 local modeMapFunc = {}
 local modeEVMapFunc = {}
+---@enum vim_modes
 local modes = { 'n', 'i', 'v', 'x', 't', 'o', 's' }
 
 for _, mode in ipairs(modes) do
@@ -183,4 +184,81 @@ M.load = function()
     nmap('<leader>[', vim.diagnostic.goto_prev, 'Goto previous diagnostics')
 end
 
+---@class mode_config First letter of the desired vim mode
+---@field prefix string Prefix for the wrapper key sequence
+---@field suffix string Suffix for the wrapper key sequence
+---@field motion string Motion used by the wrapper key sequence
+
+---@class wrapper_mapping Key combo to invoke the wrapper. Or 'default' to set the default mode_config
+---@field text string Wrap text
+---@field modes string First letter of the desired vim modes
+---@field mode_config table<vim_modes, mode_config> First letter of the desired vim mode
+
+---@param wrapper_mappings wrapper_mapping[]
+local function map_wrapper(wrapper_mappings)
+    local defaults = {
+        n = {
+            prefix = nil,
+            suffix = 'l',
+            motion = 'ciw',
+        },
+        i = {
+            prefix = '<Esc>',
+            suffix = 'la',
+            motion = 'ciw',
+        },
+        v = {
+            prefix = nil,
+            suffix = nil,
+            motion = 'di',
+        },
+    }
+
+    if wrapper_mappings.defaults then
+        for mode, config in pairs(wrapper_mappings.defaults) do
+            if wrapper_mappings.defaults[mode] then
+                defaults[mode].prefix = config.prefix or defaults[mode].prefix
+                defaults[mode].suffix = config.suffix or defaults[mode].suffix
+                defaults[mode].motion = config.motion or defaults[mode].motion
+            end
+        end
+    end
+
+    local func = require('core.functions')
+    local keymaps = require('core.keymaps')
+
+    for key, text_modes in pairs(wrapper_mappings) do
+        if key == 'default' then
+            goto continue
+        end
+
+        local mode_mapping = {}
+        for ch in text_modes.modes:gmatch('.') do
+            table.insert(mode_mapping, ch)
+        end
+
+        for _, mode in ipairs(mode_mapping) do
+            local mapfunction = keymaps[mode .. 'map']
+            if not mapfunction then
+                goto next_mode
+            end
+
+            mapfunction(key, function()
+                local prefix = wrapper_mappings[key][mode] and wrapper_mappings[key][mode].prefix
+                    or defaults[mode].prefix
+                local suffix = wrapper_mappings[key][mode] and wrapper_mappings[key][mode].suffix
+                    or defaults[mode].suffix
+                local motion = wrapper_mappings[key][mode] and wrapper_mappings[key][mode].motion
+                    or defaults[mode].motion
+                func.wrap_text(text_modes.text, prefix, suffix, motion)
+            end, 'Wrap ' .. text_modes.text)
+
+            ::next_mode::
+        end
+
+        ::continue::
+    end
+end
+
+M.map_wrapper = map_wrapper
 return M

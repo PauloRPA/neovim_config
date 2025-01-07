@@ -79,6 +79,16 @@ M.is_str_not_blank = function(str)
     return str and str ~= ''
 end
 
+M.wrap_text = function(text, prefix, suffix, motion)
+    motion = motion or 'ciw'
+    prefix = prefix or ''
+    suffix = suffix or ''
+
+    local keys =
+        vim.api.nvim_replace_termcodes(prefix .. '"t' .. motion .. text .. '<Esc><Esc>"tP' .. suffix, true, false, true)
+    vim.api.nvim_feedkeys(keys, 'L', false)
+end
+
 M.input = function(input)
     input = input and vim.api.nvim_replace_termcodes(input, true, false, true) or ''
     vim.api.nvim_feedkeys(input, 'm', false)
