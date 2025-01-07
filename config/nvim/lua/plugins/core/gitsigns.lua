@@ -1,14 +1,14 @@
 return {
     'lewis6991/gitsigns.nvim',
-    -- tag = 'v0.7',
+    tag = 'v0.9.0',
     config = function()
         local events = require('core.events')
 
         local nmap = require('core.keymaps').nmap
-        local vmap = require('core.keymaps').vmap(nil, events.git_update)
+        local vmap = require('core.keymaps').vevmap(nil, events.git_update)
         local git_update_nmap = require('core.keymaps').nevmap(nil, events.git_update)
 
-        local gs = require('gitsigns')
+        local gs = require('gitsigns.actions')
 
         -- Navigation
         nmap('<leader>ghn', function()
@@ -32,7 +32,6 @@ return {
         end, 'Previous hunk', { expr = true })
 
         -- Hunk
-        --
         git_update_nmap('<leader>ghs', gs.stage_hunk, 'Stage hunk')
         git_update_nmap('<leader>ghr', gs.reset_hunk, 'Reset hunk')
         git_update_nmap('<leader>ghu', gs.undo_stage_hunk, 'Undo stage hunk')
