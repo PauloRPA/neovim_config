@@ -1,0 +1,6 @@
+Set Shell zsh
+Set FontSize 20
+Set Width 800
+Set Height 300
+
+Output @SIMPLE_FILENAME@.gif
