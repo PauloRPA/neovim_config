@@ -53,11 +53,11 @@ return {
             end)
         end
 
-        nmap('<Tab>', '<cmd>BufferLineCycleNext<CR>', 'Next buffer')
-        nmap('<S-Tab>', '<cmd>BufferLineCyclePrev<CR>', 'Previous buffer')
+        nmap('<leader>k', '<cmd>BufferLineCycleNext<CR>', 'Next buffer')
+        nmap('<leader>j', '<cmd>BufferLineCyclePrev<CR>', 'Previous buffer')
 
-        nmap('<C-Tab>', '<cmd>BufferLineMoveNext<CR>', 'Move current buffer to right')
-        nmap('<C-S-Tab>', '<cmd>BufferLineMovePrev<CR>', 'Move current buffer to left')
+        nmap('+', '<cmd>BufferLineMoveNext<CR>', 'Move current buffer to right')
+        nmap('_', '<cmd>BufferLineMovePrev<CR>', 'Move current buffer to left')
 
         nmap('<leader>tp', '<cmd>BufferLineTogglePin<CR>', 'Pin and unpin current buffer')
         nmap('<leader>tg', selectToggleGroup, 'Select a tab group to toggle')

@@ -131,9 +131,7 @@ M.load = function()
     nmap('<C-c>', '<C-w>c', 'Close current pane')
 
     -- Buffer op
-    nmap('<Tab>', '<cmd>bn<CR>', 'Next buffer')
-    nmap('<S-Tab>', '<cmd>bp<CR>', 'Previous buffer')
-    nmap('<leader>p', '<cmd>b#<CR>', 'Previous buffer')
+    nmap('<leader>p', '<cmd>b#<CR>', 'Last visited buffer')
     nmap('<leader>j', '<cmd>bp<CR>', 'Previous buffer')
     nmap('<leader>k', '<cmd>bn<CR>', 'Next buffer')
     nmap('<C-w>w', '<cmd>bn|bd#<CR>', 'Close current buffer')
