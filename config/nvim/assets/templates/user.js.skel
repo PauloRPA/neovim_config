@@ -1,0 +1,11 @@
+// ==UserScript==
+// @name        NewScript 
+// @namespace   Violentmonkey Scripts
+// @match       URLHERE
+// @grant       none
+// @version     1.0
+// @author      -
+// @description 1/16/2025, 1:44:25 PM
+// ==/UserScript==
+
+
