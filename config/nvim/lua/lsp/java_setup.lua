@@ -295,8 +295,12 @@ local function map_wrappers()
             text = 'Optional<>',
             modes = 'inv',
         },
-        ['<A-u>o'] = {
+        ['<A-u>O'] = {
             text = 'Optional.of()',
+            modes = 'inv',
+        },
+        ['<A-u>o'] = {
+            text = 'Optional.ofNullable()',
             modes = 'inv',
         },
         ['<A-u>as'] = {
