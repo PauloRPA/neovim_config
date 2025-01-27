@@ -1,11 +1,11 @@
 return {
     'lewis6991/gitsigns.nvim',
-    tag = 'v0.9.0',
+    tag = 'v0.8.1',
     config = function()
         local events = require('core.events')
 
         local nmap = require('core.keymaps').nmap
-        local vmap = require('core.keymaps').vevmap(nil, events.git_update)
+        local git_update_vmap = require('core.keymaps').vevmap(nil, events.git_update)
         local git_update_nmap = require('core.keymaps').nevmap(nil, events.git_update)
 
         local gs = require('gitsigns.actions')
@@ -37,11 +37,11 @@ return {
         git_update_nmap('<leader>ghu', gs.undo_stage_hunk, 'Undo stage hunk')
         git_update_nmap('<leader>ghk', gs.preview_hunk, 'Preview hunk')
 
-        vmap('<leader>ghs', function()
+        git_update_vmap('<leader>ghs', function()
             gs.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
         end, 'Stage hunk')
 
-        vmap('<leader>ghr', function()
+        git_update_vmap('<leader>ghr', function()
             gs.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
         end, 'Reset hunk')
 
@@ -61,10 +61,14 @@ return {
         nmap('<leader>gts', gs.toggle_signs, 'Toggle Signs Column')
         nmap('<leader>gtw', gs.toggle_word_diff, 'Toggle word diff')
 
+        nmap('<leader>gq', function()
+            gs.setqflist('attached', { open = false })
+            vim.notify('Quickfix updated')
+        end, 'Set git changes to quickfix list')
         nmap('<leader>gd', gs.diffthis, 'Diff index')
         nmap('<leader>gD', function()
-            gs.diffthis('~0')
-        end, 'Diff commit ~0')
+            gs.diffthis('~1')
+        end, 'Diff commit ~1')
 
         require('gitsigns').setup({
             signs = {
