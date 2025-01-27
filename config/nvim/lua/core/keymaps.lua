@@ -142,6 +142,7 @@ M.load = function()
     nmap('<A-<>', '<cmd>cprev<CR>z.', 'Previous quickfix item')
 
     nmap('<C-s>', vim.cmd.wa, 'Saves all modified buffers')
+    nmap('XX', vim.cmd.qa, 'Quits neovim')
 
     -- Emacs keybindings for command line mode
     imap('<A-b>', '<C-Left>', 'Move a word before')
