@@ -1,33 +1,49 @@
 return {
-    'rebelot/kanagawa.nvim',
+    'folke/tokyonight.nvim',
     lazy = false,
     priority = 1000,
     config = function()
-        local kanagawa = require('kanagawa')
-        kanagawa.setup({
-            compile = false, -- enable compiling the colorscheme
-            undercurl = true, -- enable undercurls
-            commentStyle = { italic = true },
-            functionStyle = {},
-            keywordStyle = { italic = true },
-            statementStyle = { bold = true },
-            typeStyle = {},
-            transparent = false, -- do not set background color
-            dimInactive = false, -- dim inactive window `:h hl-NormalNC`
-            terminalColors = true, -- define vim.g.terminal_color_{0,17}
-            colors = { -- add/modify theme and palette colors
-                palette = {},
-                theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
-            },
-            overrides = function(_) -- add/modify highlights
-                return {}
+        local function telescopeHL(hl, c)
+            local prompt = '#24283b'
+            local title_text = '#7dcfff'
+            local result_text = '#c2daff'
+
+            hl.TelescopeNormal = {
+                bg = c.bg_dark,
+                fg = result_text,
+            }
+            hl.TelescopeBorder = {
+                bg = c.bg_dark,
+                fg = c.bg_dark,
+            }
+            hl.TelescopePromptNormal = {
+                bg = prompt,
+            }
+            hl.TelescopePromptBorder = {
+                bg = prompt,
+                fg = prompt,
+            }
+            hl.TelescopePromptTitle = {
+                bg = prompt,
+                fg = title_text,
+            }
+            hl.TelescopePreviewTitle = {
+                bg = c.bg_dark,
+                fg = title_text,
+            }
+            hl.TelescopeResultsTitle = {
+                bg = c.bg_dark,
+                fg = title_text,
+            }
+        end
+
+        local tokyonight = require('tokyonight')
+        tokyonight.setup({
+            style = 'moon',
+            on_highlights = function(hl, c)
+                telescopeHL(hl, c)
             end,
-            theme = 'wave', -- Load "wave" theme when 'background' option is not set
-            background = { -- map the value of 'background' option to a theme
-                dark = 'wave', -- try "dragon" !
-                light = 'lotus',
-            },
         })
-        vim.cmd('colorscheme kanagawa-dragon')
+        vim.cmd('colorscheme tokyonight')
     end,
 }

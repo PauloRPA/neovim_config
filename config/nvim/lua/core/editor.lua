@@ -1,7 +1,7 @@
 local M = {}
 
 local pallete = {
-    bg = '#282727',
+    bg = '#222436',
     deep_bg = '#0d0c0c',
     breakpoint = '#e82424',
     warning = '#ff9e3b',

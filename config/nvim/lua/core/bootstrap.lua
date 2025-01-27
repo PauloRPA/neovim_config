@@ -28,7 +28,7 @@ local function setup()
         },
     }, {
         install = {
-            colorscheme = { 'kanagawa-dragon' },
+            colorscheme = { 'tokyonight-night' },
         },
         checker = {
             enabled = true,
