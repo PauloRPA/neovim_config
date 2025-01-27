@@ -12,7 +12,10 @@ return {
         local events = require('core.events')
 
         -- Integration
-        events.session_loaded(ntApi.tree.open)
+        events.session_loaded(function()
+            ntApi.tree.open()
+            vim.api.nvim_input('<C-l>z.')
+        end)
         events.git_update(ntApi.tree.reload)
         events.tree_persistence(function()
             if ntApi.tree.is_visible() then
