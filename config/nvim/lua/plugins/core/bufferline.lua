@@ -63,6 +63,7 @@ return {
         nmap('<leader>tg', selectToggleGroup, 'Select a tab group to toggle')
         nmap('<leader>ap', '<cmd>BufferLinePick<CR>', 'Pick a buffer tab')
         nmap('<C-w>W', '<cmd>BufferLineCloseOthers<CR>', 'Close other buffers')
+        nmap('<A-U>', '<cmd>BufferLineCloseOthers<CR>', 'Close other buffers')
         nmap('<C-w>u', '<cmd>BufferLineGroupClose ungrouped<CR>', 'Close ungrouped buffers')
 
         nmap('<leader>tc', function()
