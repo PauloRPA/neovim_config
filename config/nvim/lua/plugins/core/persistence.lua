@@ -5,8 +5,18 @@ return {
     config = function()
         local persistence = require('persistence')
         local nmap = require('core.keymaps').nmap
+        local events = require('core.events')
 
         persistence.setup({})
+
+        vim.api.nvim_create_autocmd({ 'User' }, {
+            pattern = { 'PersistenceLoadPost' },
+            callback = function()
+                events.session_loaded()
+            end,
+            desc = 'Auto open nvim-tree',
+            once = true,
+        })
 
         nmap('<leader>qd', function()
             persistence.load({ last = true })

@@ -12,6 +12,7 @@ return {
         local events = require('core.events')
 
         -- Integration
+        events.session_loaded(ntApi.tree.open)
         events.git_update(ntApi.tree.reload)
         events.tree_persistence(function()
             if ntApi.tree.is_visible() then

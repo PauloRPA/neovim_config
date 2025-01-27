@@ -1,7 +1,7 @@
 local M = {
     git_update = 'git_update',
     tree_persistence = 'tree_persistence',
-    debbuger_window_persistence = 'debbuger_window_persistence',
+    session_loaded = 'session_loaded',
 }
 
 local callbacks = {}
