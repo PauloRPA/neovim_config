@@ -2,6 +2,7 @@ return {
     'nvim-telescope/telescope.nvim',
     dependencies = {
         'nvim-lua/plenary.nvim',
+        { 'nvim-telescope/telescope-frecency.nvim', version = '*' },
     },
     config = function()
         local keymaps = require('core.keymaps')
@@ -54,7 +55,18 @@ return {
                         ['<A-k>'] = actions.cycle_history_prev,
                     },
                 },
+                history = {
+                    limit = 500,
+                },
             },
         })
+
+        nmap('<Leader>sp', function()
+            require('telescope').extensions.frecency.frecency({
+                workspace = 'CWD',
+            })
+        end, 'Search history based on frecency')
+
+        require('telescope').load_extension('frecency')
     end,
 }
