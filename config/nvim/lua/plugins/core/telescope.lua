@@ -27,12 +27,12 @@ return {
         end
 
         nmap('<leader>f', builtin.find_files, 'Search files in cwd')
+        nmap('<A-F>', builtin.find_files, 'Search files in cwd')
         nmap('<leader><leader>', builtin.resume, 'Resume telescope')
         nmap('<leader>sk', builtin.keymaps, 'Search open keymaps')
         nmap('<leader>sa', builtin.buffers, 'Search open buffers')
         nmap('<A-A>', builtin.buffers, 'Search open buffers')
         nmap('<leader>sf', builtin.git_files, 'Search git files')
-        nmap('<A-F>', builtin.git_files, 'Search git files')
         nmap('<leader>sh', builtin.help_tags, 'Search help tags')
         nmap('<leader>so', builtin.oldfiles, 'Search old files')
         nmap('<leader>sm', builtin.man_pages, 'Search man pages')
