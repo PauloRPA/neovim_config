@@ -215,6 +215,9 @@ M.config = function()
                 enabled = true,
             },
             completion = {
+                chain = {
+                    enabled = true,
+                },
                 favoriteStaticMembers = {
                     'org.hamcrest.MatcherAssert.assertThat',
                     'org.hamcrest.Matchers.*',
