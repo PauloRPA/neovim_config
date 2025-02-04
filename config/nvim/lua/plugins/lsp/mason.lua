@@ -26,6 +26,10 @@ return {
         local dap_server = require('dap.servers.info')
         local tool_list = require('plugins.mason_tool_list').tools
 
+        local nmap = require('core.keymaps').nmap
+
+        nmap('<leader>om', '<cmd>Mason<CR>', 'Open mason')
+
         mason.setup({})
 
         masonLsp.setup({
