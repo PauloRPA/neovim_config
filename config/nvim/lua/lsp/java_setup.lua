@@ -177,9 +177,6 @@ M.config = function()
                 project = {
                     referencedLibraries = vim.split(os.getenv('CLASSPATH') or '', ':'),
                 },
-                eclipse = {
-                    downloadSources = true,
-                },
                 configuration = {
                     updateBuildConfiguration = 'interactive',
                     runtimes = config_keys.runtimes,
@@ -198,6 +195,9 @@ M.config = function()
                 telemetry = {
                     enabled = false,
                 },
+                eclipse = {
+                    downloadSources = true,
+                },
                 maven = {
                     downloadSources = true,
                 },
@@ -210,32 +210,32 @@ M.config = function()
                 format = {
                     enabled = true,
                 },
-            },
-            signatureHelp = {
-                enabled = true,
-            },
-            completion = {
-                chain = {
+                signatureHelp = {
+                    description = {
+                        enabled = false,
+                    },
                     enabled = true,
                 },
-                favoriteStaticMembers = {
-                    'org.hamcrest.MatcherAssert.assertThat',
-                    'org.hamcrest.Matchers.*',
-                    'org.hamcrest.CoreMatchers.*',
-                    'org.junit.jupiter.api.Assertions.*',
-                    'java.util.Objects.requireNonNull',
-                    'java.util.Objects.requireNonNullElse',
-                    'org.mockito.Mockito.*',
-                    'MockMvcBuilders.*',
-                    'MockMvcRequestBuilders.*',
-                    'MockMvcResultMatchers.*',
-                    'MockMvcResultHandlers.*',
-                    'MockRestRequestMatchers.*',
-                    'MockRestResponseCreators.*',
+                completion = {
+                    favoriteStaticMembers = {
+                        'org.hamcrest.MatcherAssert.assertThat',
+                        'org.hamcrest.Matchers.*',
+                        'org.hamcrest.CoreMatchers.*',
+                        'org.junit.jupiter.api.Assertions.*',
+                        'java.util.Objects.requireNonNull',
+                        'java.util.Objects.requireNonNullElse',
+                        'org.mockito.Mockito.*',
+                        'MockMvcBuilders.*',
+                        'MockMvcRequestBuilders.*',
+                        'MockMvcResultMatchers.*',
+                        'MockMvcResultHandlers.*',
+                        'MockRestRequestMatchers.*',
+                        'MockRestResponseCreators.*',
+                    },
                 },
-            },
-            contentProvider = {
-                preferred = 'fernflower',
+                contentProvider = {
+                    preferred = 'fernflower',
+                },
             },
             extendedClientCapabilities = jdtls.extendedClientCapabilities,
             sources = {
