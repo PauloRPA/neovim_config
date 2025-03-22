@@ -26,16 +26,16 @@ return {
         }
 
         local conform_group = vim.api.nvim_create_augroup('nvim-conform-custom', { clear = true })
-        vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
-            callback = function(args)
-                conform.format({ bufnr = args.buf, async = true }, function(_, did_edit)
-                    if did_edit then
-                        vim.cmd.wa()
-                    end
-                end)
-            end,
-            group = conform_group,
-        })
+        -- vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+        --     callback = function(args)
+        --         conform.format({ bufnr = args.buf, async = true }, function(_, did_edit)
+        --             if did_edit then
+        --                 vim.cmd.wa()
+        --             end
+        --         end)
+        --     end,
+        --     group = conform_group,
+        -- })
 
         local mtool = require('plugins.mason_tool_list')
         for _, formatter in pairs(formatters) do

@@ -397,6 +397,10 @@ M.attachLspKeymapsToBuf = function()
         func.insert_at_start('final ')
     end, 'Insert final at the start of the line', opts)
 
+    imap('<A-r>', function()
+        func.insert_at_start('return ', true, 'i')
+    end, 'Insert return at the start of the line')
+
     imap('<A-o>', function()
         func.insert_at_start('final ', true, 'i')
     end, 'Insert final at the start of the line')

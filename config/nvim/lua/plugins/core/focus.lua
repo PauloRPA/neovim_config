@@ -14,6 +14,7 @@ return {
             'DiffviewFiles',
             'qf',
             'toggleterm',
+            'neotest-summary',
         }
 
         vim.api.nvim_create_autocmd('FileType', {

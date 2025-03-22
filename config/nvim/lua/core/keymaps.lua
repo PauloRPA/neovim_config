@@ -160,6 +160,7 @@ M.load = function()
 
     -- User functions
     nmap('<Space>', '<Nop>', 'Nop')
+    nmap('<leader>0', '/\\-\\-\\-\\<CR>', 'Empty search')
     imap('<A-p>', '<ESC>pa', 'Paste content and return to insert mode')
 
     nmap('<leader>dc', function()
