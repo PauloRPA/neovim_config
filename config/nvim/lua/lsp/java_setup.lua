@@ -223,8 +223,7 @@ M.config = function()
                         'org.hamcrest.CoreMatchers.*',
                         'org.mockito.ArgumentMatchers.*',
                         'org.junit.jupiter.api.Assertions.*',
-                        'java.util.Objects.requireNonNull',
-                        'java.util.Objects.requireNonNullElse',
+                        'java.util.Objects.*',
                         'org.mockito.Mockito.*',
                         'MockMvcBuilders.*',
                         'MockMvcRequestBuilders.*',
@@ -270,6 +269,7 @@ end
 
 local nmap = require('core.keymaps').nmap
 local imap = require('core.keymaps').imap
+local nimap = require('core.keymaps').multi('ni')
 local nvmap = require('core.keymaps').multi('nv')
 local opts = { noremap = true, silent = true, buffer = true }
 
@@ -327,15 +327,15 @@ local function map_wrappers()
         ['<A-u>l'] = {
             text = '() -> {}',
             modes = 'inv',
-            i = { suffix = 'F{a<Enter><End>', motion = 'cib' },
-            n = { suffix = 'F{a<Enter><Esc>$', motion = 'cib' },
+            i = { suffix = 'F{a<Enter><End>', motion = 'cia' },
+            n = { suffix = 'F{a<Enter><Esc>$', motion = 'cia' },
             v = { suffix = 'F{a<Enter><A-n>' },
         },
         ['<A-u>i'] = {
             text = '() ->  ',
             modes = 'inv',
-            n = { motion = 'cib' },
-            i = { motion = 'cib' },
+            n = { motion = 'cia' },
+            i = { motion = 'cia' },
         },
         ['<A-u>\''] = {
             text = '""',
@@ -389,7 +389,7 @@ M.attachLspKeymapsToBuf = function()
         jdtls.extract_variable()
     end, 'Extract and rename new object', opts)
 
-    imap('<A-;>', function()
+    nimap('<A-;>', function()
         func.insert_at_end(';')
     end, 'Insert ; at the end of the line', opts)
 
