@@ -12,6 +12,7 @@ local definitions = {
     'lemminx',
     'markdown_oxide',
     'pylsp',
+    'bashls',
 }
 
 M.ensure_installed_lsps = function()
