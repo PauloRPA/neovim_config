@@ -1,5 +1,6 @@
 local M = {}
 
+local nmap = require('core.keymaps').nmap
 local user_au = vim.api.nvim_create_augroup('user_au', { clear = true })
 
 -- vim.api.nvim_create_autocmd({
@@ -43,6 +44,15 @@ M.load = function()
         group = user_au,
         pattern = '*',
     })
+
+    vim.api.nvim_create_autocmd('FileType', {
+        callback = function()
+            nmap('q', '<C-w>c', 'Close notify window', { buffer = 0 })
+        end,
+        group = user_au,
+        pattern = 'notify',
+    })
+
 end
 
 return M
