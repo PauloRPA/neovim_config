@@ -52,8 +52,7 @@ end
 
 local function resolve_dap_install()
     if mason_registry.has_package('java-debug-adapter') then
-        dap_install = mason_registry.get_package('java-debug-adapter'):get_install_path()
-
+        dap_install = vim.fn.expand("$MASON/packages/java-debug-adapter")
         local java_debug_bundle = vim.split(vim.fn.glob(dap_install .. DAP_LAUNCHER_PATH), '\n')
 
         if func.is_str_not_blank(java_debug_bundle[1]) then
@@ -67,7 +66,7 @@ end
 
 local function resolve_javatest_install()
     if mason_registry.has_package('java-test') then
-        local java_test_path = mason_registry.get_package('java-test'):get_install_path()
+        local java_test_path = vim.fn.expand("$MASON/packages/java-test")
         local java_test_bundle = vim.split(vim.fn.glob(java_test_path .. JAVATEST_LAUNCHER_PATH), '\n')
 
         if func.is_str_not_blank(java_test_bundle[1]) then
@@ -90,8 +89,7 @@ end
 
 local function resolve_jdtls_install()
     if mason_registry.has_package('jdtls') then
-        jdtls_install = mason_registry.get_package('jdtls'):get_install_path()
-        lombok_path = jdtls_install .. '/lombok.jar'
+        lombok_path = vim.fn.expand("$MASON/share/jdtls/lombok.jar")
     end
 
     if info.has_tool('jdtls') then

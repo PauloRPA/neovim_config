@@ -4,7 +4,7 @@ return function(config)
         require('mason-registry').has_package('bash-debug-adapter')
         and require('mason-registry').get_package('bash-debug-adapter'):is_installed()
     then
-        BASHDB_DIR = require('mason-registry').get_package('bash-debug-adapter'):get_install_path()
+        BASHDB_DIR = vim.fn.expand("$MASON/packages/bash-debug-adapter")
             .. '/extension/bashdb_dir'
     end
 
