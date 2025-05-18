@@ -19,7 +19,7 @@ return {
             modules = {
                 bib = true,
                 buffers = true,
-                conceal = true,
+                conceal = false,
                 cursor = true,
                 folds = true,
                 links = true,
@@ -82,8 +82,8 @@ return {
                 MkdnYankFileAnchorLink = false,
                 MkdnExtendList = false,
 
-                MkdnGoBack = { 'n', '<C-o>' },
-                MkdnGoForward = { 'n', '<C-i>' },
+                MkdnGoBack = { 'n', '<leader>H' },
+                MkdnGoForward = { 'n', '<leader>L' },
                 MkdnEnter = { { 'n', 'v' }, '<CR>' },
 
                 MkdnNextHeading = { 'n', '<A-j>' },
@@ -95,10 +95,9 @@ return {
                 MkdnCreateLinkFromClipboard = { { 'n', 'v' }, '<leader>l' }, -- see MkdnEnter
                 MkdnDestroyLink = { 'n', '<A-CR>' },
 
-                MkdnToggleToDo = { { 'n', 'v', 'i' }, '<C-l>' },
-                MkdnNewListItem = { { 'n', 'i' }, '<C-n>' },
-                MkdnNewListItemBelowInsert = { 'n', 'o' },
-                MkdnNewListItemAboveInsert = { 'n', 'O' },
+                MkdnToggleToDo = { { 'n', 'v', 'i' }, '<leader>L' },
+                MkdnNewListItemBelowInsert = { { 'n', 'i' }, '<C-n>' },
+                MkdnNewListItemAboveInsert = { { 'n' }, 'O' },
                 MkdnUpdateNumbering = { 'n', '<leader>aan' },
 
                 MkdnTableNextCell = { 'i', '<Tab>' },
