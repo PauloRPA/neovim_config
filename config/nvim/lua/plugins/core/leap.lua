@@ -58,8 +58,6 @@ return {
         local nmap = require('core.keymaps').nmap
         local xmap = require('core.keymaps').xmap
 
-        nmap('<A-s>', '<Plug>(leap-forward)', 'Leap forward')
-        nmap('<A-a>', '<Plug>(leap-backward)', 'Leap backward')
         nmap('<A-d>', function()
             leap_line_start()
         end, 'Leap to line')

@@ -4,20 +4,19 @@ return {
     config = function()
         local nmap = require('core.keymaps').nmap
         local imap = require('core.keymaps').imap
-        local inmap = require('core.keymaps').multi('in')
 
         nmap('<A-y>', function()
-            local keys = vim.api.nvim_replace_termcodes('yirw', true, false, true)
+            local keys = vim.api.nvim_replace_termcodes('yir', true, false, true)
             vim.api.nvim_feedkeys(keys, 'L', true) -- Unwrap content inside a parenthesis
         end, 'Yank inner leap content')
 
         nmap('<A-Y>', function()
-            local keys = vim.api.nvim_replace_termcodes('yiRw', true, false, true)
+            local keys = vim.api.nvim_replace_termcodes('yiR', true, false, true)
             vim.api.nvim_feedkeys(keys, 'L', true) -- Unwrap content inside a parenthesis
         end, 'Yank inner leap content from another window')
 
         imap('<A-y>', function()
-            local keys = vim.api.nvim_replace_termcodes('<ESC>lyirw', true, false, true)
+            local keys = vim.api.nvim_replace_termcodes('<ESC>lyir"', true, false, true)
             vim.api.nvim_feedkeys(keys, 'L', true) -- Unwrap content inside a parenthesis
             vim.schedule(function()
                 vim.cmd('startinsert')
@@ -25,20 +24,30 @@ return {
         end, 'Yank inner leap content')
 
         imap('<A-Y>', function()
-            local keys = vim.api.nvim_replace_termcodes('<ESC>lyiRw', true, false, true)
+            local keys = vim.api.nvim_replace_termcodes('<ESC>lyiR"', true, false, true)
             vim.api.nvim_feedkeys(keys, 'L', true) -- Unwrap content inside a parenthesis
             vim.schedule(function()
                 vim.cmd('startinsert')
             end)
         end, 'Yank  inner leap content from another window')
 
-        inmap('<A-m>', function()
+        imap('<A-m>', function()
             local keys = vim.api.nvim_replace_termcodes('<ESC>cirw', true, false, true)
             vim.api.nvim_feedkeys(keys, 'L', true) -- Unwrap content inside a parenthesis
         end, 'Cut inner leap content')
 
-        inmap('<A-M>', function()
+        imap('<A-M>', function()
             local keys = vim.api.nvim_replace_termcodes('<ESC>ciRw', true, false, true)
+            vim.api.nvim_feedkeys(keys, 'L', true) -- Unwrap content inside a parenthesis
+        end, 'Cut inner leap content from another window')
+
+        nmap('<A-m>', function()
+            local keys = vim.api.nvim_replace_termcodes('<ESC>cir', true, false, true)
+            vim.api.nvim_feedkeys(keys, 'L', true) -- Unwrap content inside a parenthesis
+        end, 'Cut inner leap content')
+
+        nmap('<A-M>', function()
+            local keys = vim.api.nvim_replace_termcodes('<ESC>ciR', true, false, true)
             vim.api.nvim_feedkeys(keys, 'L', true) -- Unwrap content inside a parenthesis
         end, 'Cut inner leap content from another window')
 
