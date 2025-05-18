@@ -16,14 +16,7 @@ return {
         local cmp_autopairs = require('nvim-autopairs.completion.cmp')
         cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
-        local function length_and_detail(entry1, entry2)
-            local diff = #entry1.completion_item.label - #entry2.completion_item.label
-            if diff < 0 then
-                return true
-            elseif diff > 0 then
-                return false
-            end
-
+        local function detail_sort(entry1, entry2)
             if not entry1.completion_item.detail then
                 return nil
             end
@@ -48,10 +41,17 @@ return {
             end
         end
 
-        local function emmetls_length_sorting(entry1, entry2)
+        local function emmetls_htmlls_length_sorting(entry1, entry2)
+            local emmet_ls = 'emmet_language_server'
+            local client_name1 = clientName(entry1)
             local client_name2 = clientName(entry2)
-            if client_name2 == 'emmet_ls' then
-                return clientName(entry1) ~= client_name2
+            if client_name1 and client_name2 then
+                if client_name2 == emmet_ls then
+                    return client_name1 ~= client_name2
+                end
+                if client_name1 == emmet_ls then
+                    return false
+                end
             end
             return cmp.config.compare.length(entry1, entry2)
         end
@@ -120,20 +120,20 @@ return {
         cmp.setup.filetype('html', {
             sorting = {
                 comparators = {
-                    emmetls_length_sorting,
+                    emmetls_htmlls_length_sorting,
                     cmp.config.compare.score,
-                    cmp.config.compare.group_index,
+                    cmp.config.compare.order,
                     cmp.config.compare.recently_used,
                     cmp.config.compare.locality,
                     cmp.config.compare.exact,
                 },
             },
             sources = cmp.config.sources({
-                { name = 'luasnip', group_index = 1 },
-                { name = 'nvim_lsp_signature_help', group_index = 1 },
-                { name = 'nvim_lsp', group_index = 1 },
-                { name = 'path', group_index = 2 },
-                { name = 'buffer', group_index = 2 },
+                { name = 'nvim_lsp_signature_help', id = 1 },
+                { name = 'nvim_lsp', id = 1 },
+                { name = 'luasnip', id = 1 },
+                { name = 'path', id = 2 },
+                { name = 'buffer', id = 2 },
             }),
         })
 
@@ -161,11 +161,9 @@ return {
             sorting = {
                 comparators = {
                     cmp.config.compare.score,
-                    length_and_detail,
+                    cmp.config.compare.scopes,
+                    detail_sort,
                     cmp.config.compare.group_index,
-                    cmp.config.compare.recently_used,
-                    cmp.config.compare.locality,
-                    cmp.config.compare.exact,
                 },
             },
             sources = cmp.config.sources({
