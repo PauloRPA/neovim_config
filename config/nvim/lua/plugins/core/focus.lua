@@ -1,6 +1,5 @@
 return {
     'nvim-focus/focus.nvim',
-    enabled = true,
     version = '*',
     dependencies = {
         {

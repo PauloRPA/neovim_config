@@ -9,9 +9,6 @@ local M = {
             force_buffers = true,
             layouts = { {
                 elements = { {
-                    id = 'watches',
-                    size = 0.50
-                }, {
                     id = 'scopes',
                     size = 0.25
                 }, {
@@ -54,7 +51,12 @@ local M = {
         local nmap = require('core.keymaps').nmap
         local dapclose_map = require('core.keymaps').nevmap(function()
             dapui.close()
-        end, nil)
+            vim.o.cmdheight = 0
+        end, function()
+            vim.fn.timer_start(10, function()
+                vim.o.cmdheight = 0
+            end)
+        end)
 
         local layouts = { {
             name = 'ui',

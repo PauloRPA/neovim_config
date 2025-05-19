@@ -55,6 +55,8 @@ return {
             ntApi.config.mappings.default_on_attach(bufnr)
 
             -- Custom mappings
+            nmap('o', ntApi.node.open.no_window_picker, nil, opts('Open: No Window Picker'))
+            nmap('O', ntApi.node.open.edit, nil, opts('Open'))
             nmap('<C-w>', function()
                 local node = ntApi.tree.get_node_under_cursor()
                 if node then

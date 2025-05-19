@@ -50,7 +50,7 @@ M.load = function()
             nmap('q', '<C-w>c', 'Close window', { buffer = 0 })
         end,
         group = user_au,
-        pattern = {'notify', 'neotest-output'},
+        pattern = {'notify', 'neotest-output', 'neotest-output-panel'},
     })
 
 
