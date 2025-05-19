@@ -47,11 +47,12 @@ M.load = function()
 
     vim.api.nvim_create_autocmd('FileType', {
         callback = function()
-            nmap('q', '<C-w>c', 'Close notify window', { buffer = 0 })
+            nmap('q', '<C-w>c', 'Close window', { buffer = 0 })
         end,
         group = user_au,
-        pattern = 'notify',
+        pattern = {'notify', 'neotest-output'},
     })
+
 
 end
 
