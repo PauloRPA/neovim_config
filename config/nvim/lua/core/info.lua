@@ -34,4 +34,9 @@ M.has_tool = function(tool)
     return require('core.functions').is_str_not_blank(vim.fn.glob(M.path_tooling .. '/*' .. tool .. '*'))
 end
 
+--- Returns project dir
+M.get_project_dir = function()
+    return vim.fn.stdpath('state') .. '/project/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+end
+
 return M
