@@ -161,7 +161,7 @@ M.load = function()
     -- User functions
     nmap('<Space>', '<Nop>', 'Nop')
     nmap('<leader>0', '/\\-\\-\\-\\<CR>', 'Empty search')
-    nmap('<leader>?', '/<C-r>0<CR>', 'Empty search')
+    nmap('<leader>?', '/<C-r>0<CR>', 'Search for clipboard content')
     imap('<A-p>', '<ESC>pa', 'Paste content and return to insert mode')
 
     nmap('<leader>dc', function()
