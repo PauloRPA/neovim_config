@@ -3,14 +3,18 @@ return {
     dependencies = {
         'nvim-lua/plenary.nvim',
         { 'nvim-telescope/telescope-frecency.nvim', version = '*' },
+        { 'nvim-telescope/telescope-live-grep-args.nvim', version = '^1.0.0' },
     },
     config = function()
         local keymaps = require('core.keymaps')
         local nmap = keymaps.nmap
+        local xmap = keymaps.xmap
+        local telescope = require('telescope')
 
         local builtin = require('telescope.builtin')
         local actions = require('telescope.actions')
         local action_state = require('telescope.actions.state')
+        local lga_actions = require('telescope-live-grep-args.actions')
 
         local function open_multiple(prompt_bufnr)
             local picker = action_state.get_current_picker(prompt_bufnr)
@@ -36,10 +40,11 @@ return {
         nmap('<leader>sh', builtin.help_tags, 'Search help tags')
         nmap('<leader>so', builtin.oldfiles, 'Search old files')
         nmap('<leader>sm', builtin.man_pages, 'Search man pages')
-        nmap('<leader>ss', builtin.live_grep, 'Live grep on cwd (respects .gitignore)')
+        nmap('<leader>ss', telescope.extensions.live_grep_args.live_grep_args, 'Live grep on cwd (respects .gitignore)')
         nmap('<A-S>', builtin.live_grep, 'Live grep on cwd (respects .gitignore)')
-        nmap('<leader>sw', builtin.grep_string, 'Grep word under the cursor')
         nmap('<leader>sc', builtin.commands, 'Lists available plugin/user commands')
+        xmap('<leader>s', require("telescope-live-grep-args.shortcuts").grep_visual_selection, 'Grep visual selection')
+        xmap('<A-f>', require("telescope-live-grep-args.shortcuts").grep_visual_selection, 'Grep visual selection')
 
         nmap(
             '<leader>sgc',
@@ -49,7 +54,7 @@ return {
         nmap('<leader>sgs', builtin.git_stash, 'List git stash [<CR> pop]')
         nmap('<leader>sgb', builtin.git_branches, 'List git branches [<CR> Checkout]')
 
-        require('telescope').setup({
+        telescope.setup({
             defaults = {
                 mappings = {
                     i = {
@@ -75,22 +80,34 @@ return {
                 },
                 history = {
                     limit = 500,
-                },
+                }
             },
+            extensions = {
+                live_grep_args = {
+                    auto_quoting = false,
+                    mappings = {
+                        i = {
+                            ['<A-l>'] = lga_actions.quote_prompt(),
+                            ['<A-i>'] = lga_actions.quote_prompt({ postfix = ' --iglob ' }),
+                        },
+                    },
+                }
+            }
         })
 
         nmap('<Leader>sp', function()
-            require('telescope').extensions.frecency.frecency({
+            telescope.extensions.frecency.frecency({
                 workspace = 'CWD',
             })
         end, 'Search history based on frecency')
 
         nmap('<A-P>', function()
-            require('telescope').extensions.frecency.frecency({
+            telescope.extensions.frecency.frecency({
                 workspace = 'CWD',
             })
         end, 'Search history based on frecency')
 
-        require('telescope').load_extension('frecency')
+        telescope.load_extension('frecency')
+        telescope.load_extension('live_grep_args')
     end,
 }
