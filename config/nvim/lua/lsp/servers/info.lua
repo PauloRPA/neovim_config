@@ -13,6 +13,7 @@ local definitions = {
     'markdown_oxide',
     'pylsp',
     'bashls',
+    'yamlls',
 }
 
 M.ensure_installed_lsps = function()
