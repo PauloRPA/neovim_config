@@ -4,6 +4,11 @@ return {
     init = function()
         vim.opt.laststatus = 3
         vim.opt.splitkeep = 'screen'
+        vim.api.nvim_create_autocmd({ 'BufDelete' }, {
+            pattern = { '*' },
+            command = 'set cmdheight=0',
+            desc = 'set cmdheight=0',
+        })
     end,
     opts = {
         exit_when_last = true,
@@ -54,13 +59,19 @@ return {
                 title = 'nvim-tree',
                 ft = 'NvimTree',
                 filter = function(buf)
-                    return vim.bo[buf].buftype == 'NvimTree'
+                    return vim.bo[buf].buftype == 'nofile'
                 end,
                 collapsed = false,
-                size = { width = 0.3 },
+                size = { width = 0.1 },
             },
         },
         right = {
+            {
+                title = 'Database',
+                ft = 'dbui',
+                collapsed = false,
+                size = { width = 0.1 },
+            },
             {
                 title = 'neotest summary',
                 ft = 'neotest-summary',

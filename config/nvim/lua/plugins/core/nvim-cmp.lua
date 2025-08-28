@@ -8,6 +8,7 @@ return {
         'hrsh7th/cmp-cmdline',
         'rcarriga/cmp-dap',
         'L3MON4D3/LuaSnip',
+        { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true }, -- Optional
     },
     config = function()
         local cmp = require('cmp')
@@ -152,6 +153,25 @@ return {
                 { name = 'luasnip', group_index = 1 },
                 { name = 'nvim_lsp_signature_help', group_index = 1 },
                 { name = 'nvim_lsp', group_index = 1 },
+                { name = 'path', group_index = 2 },
+                { name = 'buffer', group_index = 2 },
+            }),
+        })
+
+        cmp.setup.filetype('sql', {
+            sorting = {
+                comparators = {
+                    cmp.config.compare.score,
+                    cmp.config.compare.scopes,
+                    cmp.config.compare.length,
+                    cmp.config.compare.group_index,
+                },
+            },
+            sources = cmp.config.sources({
+                { name = 'nvim_lsp_signature_help', group_index = 1 },
+                { name = 'nvim_lsp', group_index = 1 },
+                { name = 'vim-dadbod-completion', group_index = 1 },
+                { name = 'luasnip', group_index = 1 },
                 { name = 'path', group_index = 2 },
                 { name = 'buffer', group_index = 2 },
             }),

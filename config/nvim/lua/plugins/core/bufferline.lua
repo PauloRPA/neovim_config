@@ -100,10 +100,18 @@ return {
                         bufferGroups.builtin.pinned:with({ icon = '' }),
                         {
                             name = CURRENT_GROUP_NAME,
-                            auto_close = false,
+                            auto_close = true,
                             icon = '',
                             matcher = function(buf)
                                 return buf.path:match('%' .. vim.fn.getcwd() .. '.*')
+                            end,
+                        },
+                        {
+                            name = "DB",
+                            auto_close = true,
+                            icon = ' ',
+                            matcher = function(buf)
+                                return vim.bo[buf.id].filetype == 'sql'
                             end,
                         },
                     },
