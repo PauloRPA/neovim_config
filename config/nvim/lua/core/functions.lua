@@ -114,4 +114,9 @@ M.insert_at_end = function(ch, after)
     vim.api.nvim_feedkeys(cmd .. after, 'm', false)
 end
 
+M.find_mason_package = function(packageName, pathToAppend)
+    pathToAppend = pathToAppend or ''
+    return vim.fn.expand('$MASON/packages/' .. packageName .. pathToAppend)
+end
+
 return M
