@@ -44,7 +44,7 @@ cp_config () {
 link_stage_config () {
     mkdir -p "$SOURCES_PATH"
     cp -r "sources/." "$SOURCES_PATH"
-    ln -sf config/nvim "$CONFIG_DIR/$NVIM_STAGE_NAME"
+    ln -sf "$(pwd)/config/nvim" "$CONFIG_DIR/$NVIM_STAGE_NAME"
 }
 
 unlink_stage_config () {
