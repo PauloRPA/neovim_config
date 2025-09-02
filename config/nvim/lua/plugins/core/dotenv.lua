@@ -7,7 +7,7 @@ return {
         vim.api.nvim_create_autocmd('User', {
             pattern = { 'RooterChDir' },
             callback = function()
-                vim.fn.mkdir(project_dir, 'p')
+                require('core.functions').touch_env_if_not_exists(project_dir)
                 vim.cmd('Dotenv ' .. project_dir)
             end,
             desc = 'Rooter .env load',
@@ -18,6 +18,7 @@ return {
             pattern = { '.env' },
             callback = function()
                 vim.schedule(function()
+                    require('core.functions').touch_env_if_not_exists(project_dir)
                     vim.cmd('verbose Dotenv ' .. project_dir)
                 end)
             end,
@@ -27,8 +28,8 @@ return {
     end,
     config = function()
         local project_dir = require('core.info').get_project_dir()
-        vim.fn.mkdir(project_dir, 'p')
-        vim.schedule(function ()
+        require('core.functions').touch_env_if_not_exists(project_dir)
+        vim.schedule(function()
             vim.cmd('Dotenv ' .. project_dir)
         end)
         local nmap = require('core.keymaps').nmap

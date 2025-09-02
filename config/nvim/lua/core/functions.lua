@@ -119,4 +119,14 @@ M.find_mason_package = function(packageName, pathToAppend)
     return vim.fn.expand('$MASON/packages/' .. packageName .. pathToAppend)
 end
 
+M.touch_env_if_not_exists = function(project_dir)
+    vim.fn.mkdir(project_dir, 'p')
+    if vim.fn.filewritable(project_dir .. '/.env') == 0 then
+        local file = io.open(project_dir .. '/.env', 'a')
+        if file then
+            file:close()
+        end
+    end
+end
+
 return M
